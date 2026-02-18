@@ -5,7 +5,7 @@ import logo from "../assets/consortium.png";
 import survey from "../data/survey.json";
 import { theme } from "../config/theme.js";
 
-const { background, text, accent, border, bandBackground } = theme.colors;
+const { background, text, accent, border, bandBackground, glowColor } = theme.colors;
 ---
 
 <SiteLayout title="Questionnaire TI – EÉSAD">
@@ -26,7 +26,7 @@ const { background, text, accent, border, bandBackground } = theme.colors;
     </style>
 <!-- HEADER (same structure as other pages, text from original survey) -->
   <div slot="header" class="relative mx-auto flex flex-col items-center gap-3 z-10">
-    <img src={logo.src} alt="EÉSAD" class="h-32 w-auto" />
+    <img src={logo.src} alt="EÉSAD" class="h-36 w-auto" />
     <h1 class="text-sm tracking-[0.25em] text-[color-mix(in_srgb,var(--text)_55%,transparent)] uppercase">
       Questionnaire TI
     </h1>
@@ -38,7 +38,7 @@ const { background, text, accent, border, bandBackground } = theme.colors;
     <div
       class="absolute left-1/2 top-10 -translate-x-1/2
              w-[70%] md:w-[60%] h-24
-             bg-blue-400/30 blur-[70px] opacity-80"
+             bg-[color:var(--accent)]/25 blur-[70px] opacity-80"
     ></div>
 
     <h2 class="text-3xl md:text-4xl font-semibold tracking-tight text-[var(--text)]">
@@ -55,9 +55,9 @@ const { background, text, accent, border, bandBackground } = theme.colors;
     href="/"
     class="fixed right-6 top-5 z-50
            inline-flex items-center px-4 py-2 rounded-lg
-           bg-slate-800/80 border border-[color-mix(in_srgb,var(--border)_65%,transparent)] 
+           card-surface border border-[color-mix(in_srgb,var(--border)_65%,transparent)] 
            text-[color-mix(in_srgb,var(--text)_90%,transparent)] text-sm font-medium
-           hover:bg-slate-700 hover:border-sky-400 hover:text-sky-100
+           hover:opacity-90 hover:border-[color:var(--accent)] hover:text-[color:var(--text)]
            shadow-lg backdrop-blur
            transition-all"
   >
@@ -65,27 +65,27 @@ const { background, text, accent, border, bandBackground } = theme.colors;
   </a>
 
   <!-- MAIN FORM SECTION WITH WAVE (same content as original, adapted to layout) -->
-  <main class="mt-5">
+  <main class="mt-1">
     <section
-      class="relative w-full overflow-hidden -mt-20"
+      class="relative w-full overflow-hidden mt-10"
       style="background: var(--band);"
     >
       <!-- LIGNE OR + FADE (comme index) -->
       <div class="h-[2px] w-full" style="background: var(--accent);"></div>
       <div class="h-14 w-full" style="background: linear-gradient(to bottom, color-mix(in srgb, var(--accent) 18%, transparent), transparent);"></div>
 
-      <!-- Lighting under the wave -->
+      <!-- Lighting under the wave 
       <div
-        class="absolute top-40 left-0 right-0 mx-auto w-[90%] h-40 blur-3xl z-0"
+        class="absolute top-24 left-0 right-0 mx-auto w-[90%] h-40 blur-3xl z-0"
         style={`background-color: ${glowColor};`}
       ></div>
-
+-->
 
       <!-- WAVE -->
       <!-- FORM TITLE -->
       <h3
         class="relative z-[3] text-center text-[color-mix(in_srgb,var(--text)_55%,transparent)]
-               text-xs uppercase tracking-[0.25em] mt-28 mb-8"
+               text-xs uppercase tracking-[0.25em] mt-10 mb-8"
       >
         Formulaire
       </h3>
@@ -94,7 +94,7 @@ const { background, text, accent, border, bandBackground } = theme.colors;
       <div class="relative z-[3] mx-auto max-w-3xl px-4 pb-20">
         <form
           id="surveyForm"
-          class="space-y-8 rounded-2xl p-8 bg-slate-800/80 border border-[color-mix(in_srgb,var(--border)_65%,transparent)] shadow-xl backdrop-blur-sm"
+          class="space-y-8 rounded-2xl p-8 card-surface border border-[color-mix(in_srgb,var(--border)_65%,transparent)] shadow-xl backdrop-blur-sm"
         >
           <!-- CLIENT INFO -->
           <section class="space-y-3 p-4 rounded-xl bg-[color-mix(in_srgb,var(--bg)_82%,black_18%)] border border-[color-mix(in_srgb,var(--border)_65%,transparent)]">
@@ -108,7 +108,7 @@ const { background, text, accent, border, bandBackground } = theme.colors;
             <input
               name="client_nom"
               required
-              class="w-full rounded-xl border border-[color-mix(in_srgb,var(--border)_65%,transparent)] bg-[color-mix(in_srgb,var(--bg)_82%,black_18%)]/80 px-3 py-2 focus:ring-2 focus:ring-sky-400"
+              class="w-full rounded-xl border border-[color-mix(in_srgb,var(--border)_65%,transparent)] bg-[color-mix(in_srgb,var(--bg)_82%,black_18%)]/80 px-3 py-2 focus-ring"
             />
 
             <label class="block text-base font-semibold">
@@ -118,7 +118,7 @@ const { background, text, accent, border, bandBackground } = theme.colors;
               type="email"
               name="client_email"
               required
-              class="w-full rounded-xl border border-[color-mix(in_srgb,var(--border)_65%,transparent)] bg-[color-mix(in_srgb,var(--bg)_82%,black_18%)]/80 px-3 py-2 focus:ring-2 focus:ring-sky-400"
+              class="w-full rounded-xl border border-[color-mix(in_srgb,var(--border)_65%,transparent)] bg-[color-mix(in_srgb,var(--bg)_82%,black_18%)]/80 px-3 py-2 focus-ring"
             />
 
             <label class="block text-base font-semibold">
@@ -127,7 +127,7 @@ const { background, text, accent, border, bandBackground } = theme.colors;
             <input
               name="client_org"
               required
-              class="w-full rounded-xl border border-[color-mix(in_srgb,var(--border)_65%,transparent)] bg-[color-mix(in_srgb,var(--bg)_82%,black_18%)]/80 px-3 py-2 focus:ring-2 focus:ring-sky-400"
+              class="w-full rounded-xl border border-[color-mix(in_srgb,var(--border)_65%,transparent)] bg-[color-mix(in_srgb,var(--bg)_82%,black_18%)]/80 px-3 py-2 focus-ring"
             />
 
             <label class="block text-base font-semibold">
@@ -135,7 +135,7 @@ const { background, text, accent, border, bandBackground } = theme.colors;
             </label>
             <input
               name="client_phone"
-              class="w-full rounded-xl border border-[color-mix(in_srgb,var(--border)_65%,transparent)] bg-[color-mix(in_srgb,var(--bg)_82%,black_18%)]/80 px-3 py-2 focus:ring-2 focus:ring-sky-400"
+              class="w-full rounded-xl border border-[color-mix(in_srgb,var(--border)_65%,transparent)] bg-[color-mix(in_srgb,var(--bg)_82%,black_18%)]/80 px-3 py-2 focus-ring"
             />
           </section>
 
@@ -150,7 +150,7 @@ const { background, text, accent, border, bandBackground } = theme.colors;
               <div
                 id={q.id + "_label"}
                 class="inline-flex items-center px-2 py-1 mb-1 text-xs rounded-full
-                       bg-slate-800 text-[var(--accent)] border border-slate-600"
+                       bg-[rgba(0,0,0,0.25)] text-[var(--accent)] border border-[color-mix(in_srgb,var(--border)_65%,transparent)]"
               >
                 Partiellement
               </div>
@@ -172,16 +172,16 @@ const { background, text, accent, border, bandBackground } = theme.colors;
 
                 <!-- CUSTOM TRACK -->
                 <div class="relative -mt-2">
-                  <div class="h-2 bg-slate-700 rounded-full"></div>
+                  <div class="h-2 bg-[rgba(255,255,255,0.08)] rounded-full"></div>
 
                   <!-- TICKS -->
                   <div
                     class="absolute top-1/2 left-0 w-full flex justify-between -translate-y-1/2"
                   >
-                    <span class="w-2 h-2 rounded-full bg-slate-500"></span>
-                    <span class="w-2 h-2 rounded-full bg-slate-500"></span>
-                    <span class="w-2 h-2 rounded-full bg-slate-500"></span>
-                    <span class="w-2 h-2 rounded-full bg-slate-500"></span>
+                    <span class="w-2 h-2 rounded-full bg-[rgba(255,255,255,0.22)]"></span>
+                    <span class="w-2 h-2 rounded-full bg-[rgba(255,255,255,0.22)]"></span>
+                    <span class="w-2 h-2 rounded-full bg-[rgba(255,255,255,0.22)]"></span>
+                    <span class="w-2 h-2 rounded-full bg-[rgba(255,255,255,0.22)]"></span>
                   </div>
                 </div>
 
@@ -200,7 +200,7 @@ const { background, text, accent, border, bandBackground } = theme.colors;
           <div class="flex items-center gap-3 pt-4">
             <button
               type="submit"
-              class="rounded-xl bg-sky-400/90 text-slate-900 px-4 py-2 font-semibold hover:bg-sky-300 transition"
+              class="rounded-xl px-4 py-2 font-semibold transition focus-ring" style="background: var(--accent); color: #111;"
             >
               Envoyer
             </button>
@@ -211,7 +211,7 @@ const { background, text, accent, border, bandBackground } = theme.colors;
         <!-- RESULTS BOX (unchanged) -->
         <div
           id="resultsBox"
-          class="hidden mt-6 p-6 rounded-2xl bg-slate-800/60 border border-slate-600 shadow-xl"
+          class="hidden mt-6 p-6 rounded-2xl card-surface shadow-xl"
         >
           <h3 class="text-lg font-semibold text-[var(--text)] mb-2">Résultats</h3>
           <p class="text-[color-mix(in_srgb,var(--text)_78%,transparent)] text-sm">
