@@ -1,0 +1,202 @@
+---
+import SiteLayout from "../../layouts/SiteLayout.astro";
+import { t } from "../../i18n/utils";
+import { tenant } from "../../config/tenant";
+
+export const prerender = true;
+export function getStaticPaths() {
+  return [{ params: { lang: "fr" } }, { params: { lang: "en" } }];
+}
+
+const { lang } = Astro.params as { lang: string };
+const tr = t(lang);
+const g = tr.guide;
+const common = tr.common;
+const homeLink = `/${lang}`;
+const currentPath = `/${lang}/guide-employe`;
+---
+
+<SiteLayout title={g.title} lang={lang} currentPath={currentPath}>
+  <style>
+    .section-card {
+      background: rgb(18,18,18);
+      border: 1px solid rgba(255,255,255,0.06);
+      box-shadow: 0 14px 40px rgba(0,0,0,0.22);
+      border-radius: 1rem;
+      padding: 1.5rem 2rem;
+      display: flex;
+      gap: 1rem;
+    }
+    .section-card-glow {
+      background: rgb(18,18,18);
+      border: 1px solid rgba(255,255,255,0.06);
+      box-shadow: 0 14px 40px rgba(0,0,0,0.22);
+      border-radius: 1rem;
+      padding: 1.5rem 2rem;
+      display: flex;
+      gap: 1rem;
+      position: relative;
+      overflow: hidden;
+    }
+    .section-card-glow::before {
+      content: "";
+      position: absolute;
+      inset: -2px;
+      background: radial-gradient(circle at 18% 18%, color-mix(in srgb, var(--accent) 24%, transparent), transparent 55%);
+      opacity: 0.65;
+      pointer-events: none;
+    }
+    .section-card-glow > * { position: relative; z-index: 1; }
+    .section-icon {
+      height: 3rem; width: 3rem; flex-shrink: 0;
+      display: flex; align-items: center; justify-content: center;
+      border-radius: 1rem;
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.10);
+    }
+    .section-icon-large {
+      height: 3.5rem; width: 3.5rem; flex-shrink: 0;
+      display: flex; align-items: center; justify-content: center;
+      border-radius: 1rem;
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.10);
+    }
+    .section-title { font-size: 1.25rem; font-weight: 600; color: #f8fafc; }
+    .section-text { color: color-mix(in srgb, var(--text) 78%, transparent); }
+    .tip-box {
+      border-radius: 0.75rem; padding: 1rem;
+      border: 1px solid color-mix(in srgb, var(--border) 65%, transparent);
+      background: rgba(18,18,18,0.55);
+    }
+    .tip-title { font-weight: 600; color: var(--text); margin-bottom: 0.25rem; }
+    .tip-text { color: color-mix(in srgb, var(--text) 78%, transparent); line-height: 1.6; }
+    .pill {
+      display: inline-flex; align-items: center;
+      border-radius: 999px; padding: 0.25rem 0.75rem;
+      font-size: 0.75rem; font-weight: 500;
+      border: 1px solid color-mix(in srgb, var(--border) 65%, transparent);
+      background: rgba(18,18,18,0.55);
+      color: color-mix(in srgb, var(--text) 88%, transparent);
+    }
+    .warning-box {
+      margin-top: 0.5rem; border-radius: 0.75rem; padding: 0.75rem 1rem;
+      display: flex; align-items: flex-start; gap: 0.5rem; font-size: 0.9rem;
+      border: 1px solid color-mix(in srgb, red 40%, transparent);
+      background: color-mix(in srgb, red 12%, transparent);
+    }
+    .warning-box svg { color: color-mix(in srgb, red 72%, white); flex-shrink: 0; }
+    .good-box {
+      margin-top: 0.5rem; border-radius: 0.75rem; padding: 0.75rem 1rem;
+      display: flex; align-items: flex-start; gap: 0.5rem; font-size: 0.9rem;
+      border: 1px solid color-mix(in srgb, rgb(16 185 129) 40%, transparent);
+      background: color-mix(in srgb, rgb(16 185 129) 12%, transparent);
+    }
+    .good-box svg { color: color-mix(in srgb, rgb(16 185 129) 75%, white); flex-shrink: 0; }
+  </style>
+
+  <!-- HEADER -->
+  <div slot="header" class="flex flex-col items-center">
+    <img src={tenant.logoSrc} alt={tenant.name} class="h-28 md:h-36 w-auto drop-shadow-lg" />
+    <p class="mt-3 text-xs tracking-[0.35em] uppercase"
+       style="color: color-mix(in srgb, var(--text) 55%, transparent);">{g.headerSubtitle}</p>
+  </div>
+
+  <!-- HERO -->
+  <div slot="hero" class="max-w-4xl mx-auto px-4 text-center relative z-10">
+    <div class="pointer-events-none absolute left-1/2 top-10 -translate-x-1/2 w-[65%] h-24 blur-[80px] opacity-80"
+         style="background: linear-gradient(90deg, color-mix(in srgb, var(--accent) 20%, transparent), color-mix(in srgb, var(--accent) 12%, transparent));"></div>
+    <h1 class="text-4xl md:text-5xl font-bold tracking-tight animate-fade-up" style="color: var(--text);">
+      {g.heroTitle}
+    </h1>
+    <p class="mt-6 text-lg leading-relaxed animate-fade-up animate-fade-up-delay-1"
+       style="color: color-mix(in srgb, var(--text) 78%, transparent);">{g.heroDesc}</p>
+    <div class="mt-6 flex flex-wrap items-center justify-center gap-2 animate-fade-up animate-fade-up-delay-2">
+      {g.pills.map((p) => <span class="pill">{p}</span>)}
+    </div>
+  </div>
+
+  <!-- BACK -->
+
+  <!-- BAND -->
+  <main class="relative w-full overflow-hidden mt-8 pt-14 pb-20" style="background: var(--band);">
+    <div class="absolute inset-x-0 top-0 h-[3px]" style="background: var(--accent);"></div>
+    <div class="pointer-events-none absolute left-1/2 top-14 -translate-x-1/2 w-[900px] h-[280px] blur-[90px] opacity-30"
+         style="background: radial-gradient(circle at 50% 20%, color-mix(in srgb, var(--accent) 22%, transparent), transparent 60%);"></div>
+
+    <div class="relative z-20 mx-auto max-w-5xl px-4 space-y-16">
+      {g.sections.map((sec, idx) => (
+        idx < 3 ? (
+          <section class="section-card reveal">
+            <div class="section-icon" style="color: var(--accent);">
+              {idx === 0 && (
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-7 w-7" fill="none" viewBox="0 0 24 24" stroke-width="1.7" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75m-9-3.27l6-2.48 6 2.48a2.25 2.25 0 011.35 2.10v4.64a8.96 8.96 0 01-4.89 7.97l-2.46 1.23-2.46-1.23A8.96 8.96 0 013.9 13.22V8.58a2.25 2.25 0 011.35-2.10z" />
+                </svg>
+              )}
+              {idx === 1 && (
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-7 w-7" fill="none" viewBox="0 0 24 24" stroke-width="1.7" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M3 7l8.48 5.26a2.25 2.25 0 002.5 0L22 7" />
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M21.75 7.5v9a2.25 2.25 0 01-2.25 2.25h-15A2.25 2.25 0 012.25 16.5v-9A2.25 2.25 0 014.5 5.25h15A2.25 2.25 0 0121.75 7.5z" />
+                </svg>
+              )}
+              {idx === 2 && (
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-7 w-7" fill="none" viewBox="0 0 24 24" stroke-width="1.7" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6A2.25 2.25 0 016 3.75h12A2.25 2.25 0 0119.5 6v8.25H3.75V6z" />
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 18h19.5A1.5 1.5 0 0123 19.5v.75H1.5v-.75A1.5 1.5 0 012.25 18z" />
+                </svg>
+              )}
+            </div>
+            <div class="flex-1 space-y-4">
+              <h2 class="section-title">{sec.title}</h2>
+              <p class="section-text">{sec.intro}</p>
+              {sec.tips && (
+                <div class={`grid gap-4 ${sec.tips.length >= 3 ? "md:grid-cols-3" : "md:grid-cols-2"} text-sm md:text-base`}>
+                  {sec.tips.map((tip) => (
+                    <div class="tip-box">
+                      <p class="tip-title">{tip.title}</p>
+                      <p class="tip-text">{tip.text}</p>
+                    </div>
+                  ))}
+                </div>
+              )}
+              {sec.warning && (
+                <div class="warning-box">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke-width="1.8" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m0 3.75h.007m9.243-3.75a9.75 9.75 0 11-19.5 0 9.75 9.75 0 0119.5 0z" />
+                  </svg>
+                  <p><span class="font-semibold text-slate-50">{sec.warning.label}</span> {sec.warning.text}</p>
+                </div>
+              )}
+              {sec.good && (
+                <div class="good-box">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke-width="1.8" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75m6 2.25a9.75 9.75 0 11-19.5 0A9.75 9.75 0 0121 12z" />
+                  </svg>
+                  <p><span class="font-semibold text-slate-50">{sec.good.label}</span> {sec.good.text}</p>
+                </div>
+              )}
+            </div>
+          </section>
+        ) : (
+          <section class="section-card-glow reveal">
+            <div class="section-icon-large" style="color: var(--accent);">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M16.24 7.76a6 6 0 11-8.48 0m8.48 8.48a6 6 0 01-8.48-8.48m8.48 0L15 9m-6 6l-1.24 1.24M9 9L7.76 7.76m8.48 8.48L15 15" />
+              </svg>
+            </div>
+            <div class="flex-1 space-y-3">
+              <h2 class="text-xl md:text-2xl font-semibold text-slate-50">{sec.title}</h2>
+              <p style="color: color-mix(in srgb, var(--text) 90%, transparent);">{sec.intro}</p>
+              {sec.items && (
+                <div class="space-y-1 text-sm md:text-base" style="color: var(--text);">
+                  {sec.items.map((item) => <p>{item}</p>)}
+                </div>
+              )}
+            </div>
+          </section>
+        )
+      ))}
+    </div>
+  </main>
+
+</SiteLayout>

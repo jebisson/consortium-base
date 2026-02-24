@@ -1,0 +1,355 @@
+---
+import SiteLayout from "../../layouts/SiteLayout.astro";
+import { t } from "../../i18n/utils";
+import { tenant } from "../../config/tenant";
+
+export const prerender = true;
+export function getStaticPaths() {
+  return [{ params: { lang: "fr" } }, { params: { lang: "en" } }];
+}
+
+const { lang } = Astro.params as { lang: string };
+const tr = t(lang);
+const c = tr.conseil;
+const common = tr.common;
+const homeLink = `/${lang}`;
+const currentPath = `/${lang}/service-conseil`;
+---
+
+<SiteLayout title={c.title} lang={lang} currentPath={currentPath}>
+  <style>
+    .card-dark {
+      background: rgb(18,18,18);
+      border: 1px solid rgba(255,255,255,0.06);
+      box-shadow: 0 14px 40px rgba(0,0,0,0.22);
+      border-radius: 1rem;
+    }
+    .hover-tint {
+      background: radial-gradient(circle at 18% 18%, color-mix(in srgb, var(--accent) 16%, transparent), transparent 62%);
+      position: absolute; inset: 0; pointer-events: none; opacity: 0.70;
+      transition: opacity 0.3s;
+    }
+    .soft  { color: color-mix(in srgb, white 82%, transparent); }
+    .muted { color: color-mix(in srgb, white 68%, transparent); }
+    .band-title { color: rgba(17,17,17,0.92); }
+    .band-soft  { color: rgba(17,17,17,0.75); }
+    .band-muted { color: rgba(17,17,17,0.62); }
+    .icon-accent { color: var(--accent); }
+    .card-icon {
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.10);
+    }
+    .focus-ring:focus { outline: none; box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 30%, transparent); }
+  </style>
+
+  <!-- HEADER (via hero slot — service-conseil has logo inside hero in original) -->
+  <div slot="header" class="flex flex-col items-center">
+    <img src={tenant.logoSrc} alt={tenant.name} class="h-28 md:h-36 w-auto drop-shadow-lg" />
+    <p class="mt-3 text-xs tracking-[0.35em] uppercase"
+       style="color: color-mix(in srgb, var(--text) 55%, transparent);">Service conseil</p>
+  </div>
+
+  <!-- HERO -->
+  <section slot="hero" class="relative max-w-4xl mx-auto px-4 text-center z-20 pt-2 pb-10">
+    <div class="pointer-events-none absolute left-1/2 top-8 -translate-x-1/2 w-[65%] h-24 blur-[80px] opacity-60"
+         style="background: color-mix(in srgb, var(--accent) 20%, transparent);"></div>
+    <p class="mt-4 text-lg soft animate-fade-up">{c.heroDesc}</p>
+    <p class="mt-3 muted animate-fade-up animate-fade-up-delay-1">
+      <span class="font-semibold">
+        {c.heroTags.join(" • ")}
+      </span>
+    </p>
+    <div class="mt-6 flex flex-col sm:flex-row gap-3 justify-center animate-fade-up animate-fade-up-delay-2">
+      <a href="#demande"
+         class="inline-flex items-center justify-center px-6 py-3 rounded-xl font-semibold transition hover:brightness-110"
+         style="background: var(--accent); color: #111;">{c.ctaCall}</a>
+      <a href="#inclus"
+         class="inline-flex items-center justify-center px-6 py-3 rounded-xl font-semibold transition hover:brightness-110"
+         style="background: color-mix(in srgb, var(--accent) 16%, transparent); color: var(--text); border: 1px solid color-mix(in srgb, var(--accent) 28%, transparent);">
+        {c.ctaInclus}
+      </a>
+    </div>
+    <div class="mt-6 flex flex-wrap gap-2 justify-center animate-fade-up animate-fade-up-delay-3">
+      {c.heroTags.map((tag) => (
+        <span class="px-3 py-1 rounded-full text-sm card-icon muted">{tag}</span>
+      ))}
+    </div>
+  </section>
+
+  <!-- BACK -->
+
+  <!-- BAND -->
+  <section class="relative w-full overflow-hidden" style="background: var(--band);">
+    <div class="h-[2px] w-full" style="background: var(--accent);"></div>
+    <div class="h-12 w-full"
+         style="background: linear-gradient(to bottom, color-mix(in srgb, var(--accent) 16%, transparent), transparent);"></div>
+
+    <div class="relative z-10">
+      <main class="mx-auto max-w-6xl px-4 pb-20 pt-10 space-y-14">
+
+        <!-- WHY -->
+        <section id="pourquoi">
+          <div class="mx-auto max-w-6xl px-4">
+            <div class="rounded-3xl bg-white p-8 md:p-10 shadow-xl border border-black/10 reveal">
+              <h3 class="text-3xl font-semibold band-title">{c.whyTitle}</h3>
+              <p class="mt-3 text-lg band-soft max-w-3xl">{c.whyDesc}</p>
+              <div class="mt-8 grid gap-4 md:grid-cols-3">
+                {c.whyCards.map((wc, i) => (
+                  <div class="rounded-2xl p-6 border border-black/10 reveal">
+                    <div class="flex items-start gap-3">
+                      <div class="h-11 w-11 rounded-xl card-icon flex items-center justify-center shrink-0">
+                        {i === 0 && (
+                          <svg class="h-6 w-6 icon-accent" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M12 20V10" /><path d="M18 20V4" /><path d="M6 20v-6" />
+                          </svg>
+                        )}
+                        {i === 1 && (
+                          <svg class="h-6 w-6 icon-accent" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+                          </svg>
+                        )}
+                        {i === 2 && (
+                          <svg class="h-6 w-6 icon-accent" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M3 11l19-9-9 19-2-8-8-2z" />
+                          </svg>
+                        )}
+                      </div>
+                      <div>
+                        <h4 class="text-lg font-semibold band-title">{wc.title}</h4>
+                        <p class="mt-1 band-muted">{wc.desc}</p>
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- INCLUDED -->
+        <section id="inclus" class="mt-14">
+          <div class="mx-auto max-w-6xl px-4">
+            <div class="flex items-end justify-between gap-4 flex-wrap reveal">
+              <div>
+                <h3 class="text-3xl font-semibold" style="color: black;">{c.inclusTitle}</h3>
+                <p class="mt-2 max-w-3xl" style="color: rgba(17,17,17,0.70);">{c.inclusDesc}</p>
+              </div>
+              <span class="px-3 py-1 rounded-full text-sm card-icon muted" style="color: black;">{c.inclusTag}</span>
+            </div>
+            <div class="mt-7 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+              {c.inclus.map((item) => (
+                <div class="relative rounded-2xl p-6 card-dark overflow-hidden reveal">
+                  <div class="hover-tint"></div>
+                  <div class="relative">
+                    <div class="flex items-start gap-3">
+                      <div class="h-11 w-11 rounded-xl card-icon flex items-center justify-center shrink-0">
+                        <svg class="h-6 w-6 icon-accent" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                          <path d="M20 6L9 17l-5-5" />
+                        </svg>
+                      </div>
+                      <div>
+                        <h4 class="text-lg font-semibold soft">{item.title}</h4>
+                        <p class="mt-2 muted">{item.desc}</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        <!-- NOT INCLUDED -->
+        <section class="mt-10">
+          <div class="mx-auto max-w-6xl px-4">
+            <div class="rounded-3xl p-8 md:p-10 card-dark overflow-hidden relative reveal">
+              <div class="hover-tint"></div>
+              <div class="relative">
+                <h3 class="text-2xl font-semibold soft">{c.nonInclusTitle}</h3>
+                <p class="mt-2 muted max-w-3xl">{c.nonInclusDesc}</p>
+                <ul class="mt-6 grid gap-3 md:grid-cols-2">
+                  {c.nonInclus.map((x) => (
+                    <li class="flex items-start gap-3">
+                      <span class="mt-1 h-5 w-5 rounded-full card-icon flex items-center justify-center shrink-0">
+                        <svg class="h-4 w-4 icon-accent" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                          <path d="M18 6L6 18" /><path d="M6 6l12 12" />
+                        </svg>
+                      </span>
+                      <span class="muted">{x}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- HOW IT WORKS -->
+        <section class="mt-14">
+          <div class="mx-auto max-w-6xl px-4">
+            <h3 class="text-3xl font-semibold reveal" style="color: black;">{c.howTitle}</h3>
+            <p class="mt-2 max-w-3xl reveal" style="color: rgba(17,17,17,0.70);">{c.howDesc}</p>
+            <div class="mt-7 grid gap-4 md:grid-cols-3">
+              {c.steps.map((step) => (
+                <div class="rounded-2xl p-6 card-dark overflow-hidden relative reveal">
+                  <div class="hover-tint"></div>
+                  <div class="relative">
+                    <div class="flex items-start gap-3">
+                      <div class="h-11 w-11 rounded-xl flex items-center justify-center font-bold"
+                           style="background: color-mix(in srgb, var(--accent) 22%, transparent); color: var(--text); border: 1px solid color-mix(in srgb, var(--accent) 28%, transparent);">
+                        {step.n}
+                      </div>
+                      <div>
+                        <h4 class="text-lg font-semibold soft">{step.t}</h4>
+                        <p class="mt-2 muted">{step.d}</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        <!-- LAW 25 -->
+        <section class="mt-14">
+          <div class="mx-auto max-w-6xl px-4">
+            <div class="rounded-3xl bg-white p-8 md:p-10 shadow-xl border border-black/10 reveal">
+              <div class="flex items-start gap-4">
+                <div class="h-12 w-12 rounded-2xl flex items-center justify-center"
+                     style="background: color-mix(in srgb, var(--accent) 18%, transparent); border: 1px solid color-mix(in srgb, var(--accent) 22%, transparent);">
+                  <svg class="h-6 w-6" style="color: rgba(17,17,17,0.92);" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M4 19.5A2.5 2.5 0 0 0 6.5 22H20" />
+                    <path d="M20 2H6.5A2.5 2.5 0 0 0 4 4.5v15" />
+                    <path d="M8 6h9" /><path d="M8 10h9" /><path d="M8 14h9" />
+                  </svg>
+                </div>
+                <div>
+                  <h3 class="text-2xl font-semibold band-title">{c.law25Title}</h3>
+                  <p class="mt-2 band-soft max-w-3xl">{c.law25Desc}</p>
+                  <p class="mt-3 band-muted max-w-3xl">{c.law25Note}</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- CONSULTATION REQUEST -->
+        <section id="demande" class="mt-14 pb-16">
+          <div class="mx-auto max-w-6xl px-4">
+            <div class="rounded-3xl p-8 md:p-10 card-dark overflow-hidden relative reveal">
+              <div class="hover-tint" style="opacity: 0.60;"></div>
+              <div class="relative flex flex-col md:flex-row md:items-start md:justify-between gap-8">
+                <div class="md:max-w-xl">
+                  <h3 class="text-3xl font-semibold soft">{c.demandeTitle}</h3>
+                  <p class="mt-2 muted">{c.demandeDesc}</p>
+                  <div class="mt-6 flex flex-col sm:flex-row gap-3">
+                    <button id="openFormBtn"
+                            class="inline-flex items-center justify-center px-6 py-3 rounded-xl font-semibold transition hover:brightness-110 focus-ring"
+                            style="background: var(--accent); color: #111;" type="button">
+                      {c.demandeOpenBtn}
+                    </button>
+                    <a href="#inclus"
+                       class="inline-flex items-center justify-center px-6 py-3 rounded-xl font-semibold transition hover:brightness-110"
+                       style="background: color-mix(in srgb, var(--accent) 16%, transparent); color: var(--text); border: 1px solid color-mix(in srgb, var(--accent) 28%, transparent);">
+                      {c.demandeReviewBtn}
+                    </a>
+                  </div>
+                  <p id="status" class="mt-4 text-sm muted"></p>
+                </div>
+
+                <div class="md:flex-1">
+                  <div id="formContainer" class="overflow-hidden max-h-0 opacity-0 transition-all duration-500">
+                    <div class="rounded-2xl p-6 md:p-7"
+                         style="background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.10);">
+                      <div class="flex items-center justify-between gap-4">
+                        <h4 class="text-xl font-semibold soft">{c.formTitle}</h4>
+                        <button id="closeFormBtn" type="button"
+                                class="px-3 py-2 rounded-lg card-icon muted hover:brightness-110 focus-ring">
+                          {c.formCloseBtn}
+                        </button>
+                      </div>
+                      <form id="consultForm" class="mt-4 space-y-4">
+                        <div>
+                          <label class="block text-sm font-medium muted">{c.formOrgLabel}</label>
+                          <input type="text" name="conseil_org" required
+                                 class="mt-1 w-full rounded-lg px-3 py-2 bg-white/10 border border-white/20 text-white focus-ring" />
+                        </div>
+                        <div>
+                          <label class="block text-sm font-medium muted">{c.formEmailLabel}</label>
+                          <input type="email" name="conseil_email" required
+                                 class="mt-1 w-full rounded-lg px-3 py-2 bg-white/10 border border-white/20 text-white focus-ring" />
+                        </div>
+                        <div class="grid md:grid-cols-2 gap-4">
+                          <div>
+                            <label class="block text-sm font-medium muted">{c.formTelLabel}</label>
+                            <input type="tel" name="conseil_tel"
+                                   class="mt-1 w-full rounded-lg px-3 py-2 bg-white/10 border border-white/20 text-white focus-ring" />
+                          </div>
+                          <div>
+                            <label class="block text-sm font-medium muted">{c.formTypeLabel}</label>
+                            <select name="conseil_type" required
+                                    class="mt-1 w-full rounded-lg px-3 py-2 bg-white/10 border border-white/20 text-white focus-ring">
+                              {c.formTypes.map((ft) => (
+                                <option value={ft.value}>{ft.label}</option>
+                              ))}
+                            </select>
+                          </div>
+                        </div>
+                        <div>
+                          <label class="block text-sm font-medium muted">{c.formMsgLabel}</label>
+                          <textarea name="conseil_msg" rows="4" required
+                                    class="mt-1 w-full rounded-lg px-3 py-2 bg-white/10 border border-white/20 text-white focus-ring"></textarea>
+                        </div>
+                        <button type="submit"
+                                class="w-full inline-flex items-center justify-center px-6 py-3 rounded-xl font-semibold transition hover:brightness-110 focus-ring"
+                                style="background: var(--accent); color: #111;">
+                          {c.formSubmitBtn}
+                        </button>
+                        <p class="text-xs muted">{c.formConsent}</p>
+                      </form>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+      </main>
+    </div>
+  </section>
+
+</SiteLayout>
+
+<script define:vars={{ msgSending: tr.common.sending, msgDone: tr.common.sent, msgError: tr.common.errorSend, msgNetwork: tr.common.errorNetwork }}>
+  const btn = document.getElementById("openFormBtn");
+  const closeBtn = document.getElementById("closeFormBtn");
+  const panel = document.getElementById("formContainer");
+  const form = document.getElementById("consultForm");
+  const status = document.getElementById("status");
+
+  if (btn && closeBtn && panel && form && status) {
+    btn.addEventListener("click", () => {
+      panel.style.maxHeight = panel.scrollHeight + "px";
+      panel.style.opacity = "1";
+      panel.scrollIntoView({ behavior: "smooth", block: "start" });
+    });
+    closeBtn.addEventListener("click", () => {
+      panel.style.maxHeight = "0";
+      panel.style.opacity = "0";
+    });
+    form.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const fd = new FormData(form);
+      const data = {};
+      for (const [k, v] of fd.entries()) data[k] = v;
+      status.textContent = msgSending;
+      try {
+        const res = await fetch("/api/submit", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(data) });
+        status.textContent = res.ok ? msgDone : msgError;
+        if (res.ok) form.reset();
+      } catch { status.textContent = msgNetwork; }
+    });
+  }
+</script>

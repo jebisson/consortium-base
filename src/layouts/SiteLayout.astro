@@ -1,21 +1,28 @@
 ---
 import "../styles/global.css";
-import { theme } from "../config/theme.js";
+import { tenant } from "../config/tenant";
+import { t, getOtherLang } from "../i18n/utils";
 
-const { title = "Services TI – Consortium" } = Astro.props;
+interface Props {
+  title?: string;
+  lang?: string;
+  currentPath?: string;
+}
 
-// Theme colors with safe fallbacks
-const bg = theme?.colors?.background ?? "#0b1220";
-const text = theme?.colors?.text ?? "#e5e7eb";
-const accent = theme?.colors?.accent ?? "#e1a209";
-const border = theme?.colors?.border ?? "rgba(225,162,9,0.30)";
+const {
+  title = "Services TI – Consortium",
+  lang = "fr",
+  currentPath = "/",
+} = Astro.props;
 
-// Sections / extras
-const band = theme?.colors?.bandBackground ?? "#0b1220";
-const glow = theme?.colors?.glowColor ?? "rgba(225,162,9,0.22)";
+const tr = t(lang);
+const otherLang = getOtherLang(lang);
+const otherPath = currentPath.replace(`/${lang}`, `/${otherLang}`);
+
+const { background, text, accent, border, bandBackground, glowColor } = tenant.colors;
 ---
 
-<html lang="fr">
+<html lang={lang}>
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -23,82 +30,345 @@ const glow = theme?.colors?.glowColor ?? "rgba(225,162,9,0.22)";
 
     <!-- Cloudflare Web Analytics -->
     <script defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token": "de4731804e7e4d87b54f22a43d2b11b4"}'></script>
-    <!-- End Cloudflare Web Analytics -->
+
+    <style>
+      /* ========= SCROLL ANIMATION ========= */
+      @keyframes fadeUp {
+        from { opacity: 0; transform: translateY(24px); }
+        to   { opacity: 1; transform: translateY(0); }
+      }
+      @keyframes glowPulse {
+        0%, 100% { opacity: 0.55; }
+        50%       { opacity: 0.80; }
+      }
+      .animate-fade-up {
+        animation: fadeUp 0.6s cubic-bezier(0.22, 1, 0.36, 1) both;
+      }
+      .animate-fade-up-delay-1 { animation-delay: 0.10s; }
+      .animate-fade-up-delay-2 { animation-delay: 0.20s; }
+      .animate-fade-up-delay-3 { animation-delay: 0.30s; }
+
+      /* ========= GLASSMORPHISM ========= */
+      .glass {
+        background: color-mix(in srgb, var(--bg) 60%, transparent);
+        backdrop-filter: blur(16px) saturate(160%);
+        -webkit-backdrop-filter: blur(16px) saturate(160%);
+        border: 1px solid color-mix(in srgb, white 10%, transparent);
+      }
+      .glass-card {
+        background: color-mix(in srgb, var(--bg) 70%, transparent);
+        backdrop-filter: blur(12px) saturate(140%);
+        -webkit-backdrop-filter: blur(12px) saturate(140%);
+        border: 1px solid color-mix(in srgb, var(--accent) 20%, transparent);
+        box-shadow:
+          0 4px 24px rgba(0,0,0,0.28),
+          inset 0 1px 0 color-mix(in srgb, white 6%, transparent);
+        transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+      }
+      .glass-card:hover {
+        transform: translateY(-3px);
+        box-shadow:
+          0 8px 32px rgba(0,0,0,0.35),
+          0 0 0 1px color-mix(in srgb, var(--accent) 35%, transparent),
+          inset 0 1px 0 color-mix(in srgb, white 8%, transparent);
+        border-color: color-mix(in srgb, var(--accent) 40%, transparent);
+      }
+
+      /* ========= NOISE TEXTURE ========= */
+      body::before {
+        content: "";
+        position: fixed;
+        inset: 0;
+        background-image: url(/noise.png);
+        background-size: 200px;
+        opacity: 0.025;
+        pointer-events: none;
+        z-index: 0;
+      }
+
+      /* ========= SCROLL REVEAL ========= */
+      .reveal {
+        opacity: 0;
+        transform: translateY(20px);
+        transition: opacity 0.55s ease, transform 0.55s ease;
+      }
+      .reveal.visible {
+        opacity: 1;
+        transform: none;
+      }
+
+      /* ========= LANG TOGGLE ========= */
+      .lang-toggle {
+        background: color-mix(in srgb, var(--bg) 75%, transparent);
+        backdrop-filter: blur(8px);
+        border: 1px solid color-mix(in srgb, var(--accent) 30%, transparent);
+        color: var(--text);
+        font-size: 0.75rem;
+        font-weight: 600;
+        letter-spacing: 0.08em;
+        padding: 0.375rem 0.875rem;
+        border-radius: 999px;
+        transition: background 0.2s, border-color 0.2s, box-shadow 0.2s;
+      }
+      .lang-toggle:hover {
+        border-color: color-mix(in srgb, var(--accent) 70%, transparent);
+        box-shadow: 0 0 12px color-mix(in srgb, var(--accent) 28%, transparent);
+      }
+
+      /* ========= MINI NAV ========= */
+      .mini-nav {
+        background: color-mix(in srgb, var(--bg) 72%, transparent);
+        backdrop-filter: blur(18px) saturate(160%);
+        -webkit-backdrop-filter: blur(18px) saturate(160%);
+        border: 1px solid color-mix(in srgb, var(--accent) 22%, transparent);
+        border-radius: 999px;
+        box-shadow: 0 4px 24px rgba(0,0,0,0.30);
+      }
+      .mini-nav-link {
+        color: color-mix(in srgb, var(--text) 70%, transparent);
+        font-size: 0.72rem;
+        font-weight: 500;
+        letter-spacing: 0.03em;
+        padding: 0.35rem 0.65rem;
+        border-radius: 999px;
+        white-space: nowrap;
+        transition: color 0.18s, background 0.18s;
+        text-decoration: none;
+      }
+      .mini-nav-link:hover,
+      .mini-nav-link.active {
+        color: var(--accent);
+        background: color-mix(in srgb, var(--accent) 10%, transparent);
+      }
+      .mini-nav-sep {
+        width: 1px;
+        height: 14px;
+        background: color-mix(in srgb, var(--accent) 25%, transparent);
+        flex-shrink: 0;
+      }
+
+      /* Hamburger (mobile) */
+      .nav-hamburger {
+        display: none;
+        align-items: center;
+        justify-content: center;
+        width: 2.1rem;
+        height: 2.1rem;
+        border-radius: 999px;
+        background: color-mix(in srgb, var(--bg) 72%, transparent);
+        backdrop-filter: blur(12px);
+        border: 1px solid color-mix(in srgb, var(--accent) 28%, transparent);
+        color: var(--text);
+        cursor: pointer;
+      }
+      .nav-dropdown {
+        display: none;
+        position: absolute;
+        top: calc(100% + 8px);
+        right: 0;
+        min-width: 180px;
+        background: color-mix(in srgb, var(--bg) 90%, transparent);
+        backdrop-filter: blur(20px) saturate(160%);
+        border: 1px solid color-mix(in srgb, var(--accent) 25%, transparent);
+        border-radius: 14px;
+        padding: 6px;
+        box-shadow: 0 12px 40px rgba(0,0,0,0.45);
+        z-index: 200;
+      }
+      .nav-dropdown.open { display: block; }
+      .nav-dropdown a {
+        display: block;
+        padding: 0.45rem 0.85rem;
+        border-radius: 8px;
+        font-size: 0.8rem;
+        font-weight: 500;
+        color: color-mix(in srgb, var(--text) 80%, transparent);
+        text-decoration: none;
+        transition: background 0.15s, color 0.15s;
+      }
+      .nav-dropdown a:hover,
+      .nav-dropdown a.active {
+        background: color-mix(in srgb, var(--accent) 12%, transparent);
+        color: var(--accent);
+      }
+      .nav-dropdown .nav-dd-sep {
+        height: 1px;
+        background: color-mix(in srgb, var(--accent) 18%, transparent);
+        margin: 4px 8px;
+      }
+
+      @media (max-width: 1023px) {
+        .mini-nav-desktop { display: none !important; }
+        .nav-hamburger { display: flex !important; }
+      }
+      @media (min-width: 1024px) {
+        .nav-hamburger { display: none !important; }
+        .mini-nav-desktop { display: flex !important; }
+      }
+
+      /* ========= FOOTER GRADIENT LINE ========= */
+      .footer-line {
+        height: 1px;
+        background: linear-gradient(to right, transparent, var(--accent), transparent);
+      }
+
+      /* ========= GLOW PULSE ========= */
+      .glow-pulse {
+        animation: glowPulse 4s ease-in-out infinite;
+      }
+    </style>
   </head>
 
   <body
-    class="min-h-screen"
+    class="min-h-screen relative"
     style={`
-      --bg: ${bg};
+      --bg: ${background};
       --text: ${text};
       --accent: ${accent};
       --border: ${border};
-      --band: ${band};
-      --glow: ${glow};
+      --band: ${bandBackground};
+      --glow: ${glowColor};
       background-color: var(--bg);
       color: var(--text);
     `}
   >
-    <div class="min-h-screen flex flex-col">
+    <!-- Mesh gradient background -->
+    <div
+      class="fixed inset-0 pointer-events-none -z-10 overflow-hidden"
+      aria-hidden="true"
+    >
+      <div
+        class="absolute -top-40 -left-40 w-[700px] h-[700px] rounded-full blur-[140px] opacity-20 glow-pulse"
+        style="background: radial-gradient(circle, var(--accent), transparent 65%);"
+      ></div>
+      <div
+        class="absolute top-1/2 -right-60 w-[600px] h-[600px] rounded-full blur-[160px] opacity-10"
+        style="background: radial-gradient(circle, var(--accent), transparent 70%);"
+      ></div>
+    </div>
 
-      <!-- HEADER -->
-      <header class="pt-12 pb-8 text-center relative">
-        <div class="relative mx-auto flex flex-col items-center gap-3 z-10">
+    <div class="min-h-screen flex flex-col relative z-10">
+
+      <!-- ===== HEADER ===== -->
+      <header class="pt-10 lg:pt-20 pb-6 text-center relative">
+
+        <!-- Mini nav — top right -->
+        <nav class="fixed top-4 right-4 z-50" aria-label="Navigation principale">
+
+          <!-- DESKTOP: pill nav -->
+          <div class="mini-nav mini-nav-desktop items-center gap-0.5 px-2 py-1.5">
+            <a href={`/${lang}/`} class={`mini-nav-link${currentPath === `/${lang}/` ? " active" : ""}`}>{tr.common.nav.home}</a>
+            <a href={`/${lang}/securite365`} class={`mini-nav-link${currentPath.includes("securite") ? " active" : ""}`}>{tr.common.nav.securite}</a>
+            <a href={`/${lang}/sauvegarde365`} class={`mini-nav-link${currentPath.includes("sauvegarde") ? " active" : ""}`}>{tr.common.nav.sauvegarde}</a>
+            <a href={`/${lang}/rmm-edr-kaseya365`} class={`mini-nav-link${currentPath.includes("rmm") ? " active" : ""}`}>{tr.common.nav.rmm}</a>
+            <a href={`/${lang}/guide-employe`} class={`mini-nav-link${currentPath.includes("guide") ? " active" : ""}`}>{tr.common.nav.guide}</a>
+            <a href={`/${lang}/formation-integration`} class={`mini-nav-link${currentPath.includes("formation") ? " active" : ""}`}>{tr.common.nav.formation}</a>
+            <a href={`/${lang}/service-conseil`} class={`mini-nav-link${currentPath.includes("service") ? " active" : ""}`}>{tr.common.nav.conseil}</a>
+            <a href={`/${lang}/survey`} class={`mini-nav-link${currentPath.includes("survey") ? " active" : ""}`}>{tr.common.nav.survey}</a>
+            <div class="mini-nav-sep mx-1"></div>
+            <a href={otherPath} class="lang-toggle" aria-label={tr.common.langLabel}>{tr.common.langToggle}</a>
+          </div>
+
+          <!-- MOBILE: hamburger + dropdown -->
+          <div class="relative nav-hamburger-wrap" style="display:none;">
+            <button class="nav-hamburger" id="nav-toggle" aria-label="Menu">
+              <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16"/>
+              </svg>
+            </button>
+            <div class="nav-dropdown" id="nav-dropdown">
+              <a href={`/${lang}/`} class={currentPath === `/${lang}/` ? "active" : ""}>{tr.common.nav.home}</a>
+              <a href={`/${lang}/securite365`} class={currentPath.includes("securite") ? "active" : ""}>{tr.common.nav.securite}</a>
+              <a href={`/${lang}/sauvegarde365`} class={currentPath.includes("sauvegarde") ? "active" : ""}>{tr.common.nav.sauvegarde}</a>
+              <a href={`/${lang}/rmm-edr-kaseya365`} class={currentPath.includes("rmm") ? "active" : ""}>{tr.common.nav.rmm}</a>
+              <a href={`/${lang}/guide-employe`} class={currentPath.includes("guide") ? "active" : ""}>{tr.common.nav.guide}</a>
+              <a href={`/${lang}/formation-integration`} class={currentPath.includes("formation") ? "active" : ""}>{tr.common.nav.formation}</a>
+              <a href={`/${lang}/service-conseil`} class={currentPath.includes("service") ? "active" : ""}>{tr.common.nav.conseil}</a>
+              <a href={`/${lang}/survey`} class={currentPath.includes("survey") ? "active" : ""}>{tr.common.nav.survey}</a>
+              <div class="nav-dd-sep"></div>
+              <a href={otherPath} aria-label={tr.common.langLabel}>{tr.common.langToggle} — {tr.common.langLabel}</a>
+            </div>
+          </div>
+
+        </nav>
+
+        <div class="relative mx-auto flex flex-col items-center gap-3 z-10 animate-fade-up">
           <slot name="header" />
         </div>
       </header>
 
-      <!-- HERO (premium glow, no box) -->
+      <!-- ===== HERO ===== -->
       <section class="mx-auto max-w-5xl px-4 text-center relative z-10">
-        <!-- primary glow -->
+        <!-- Primary glow -->
         <div
-          class="pointer-events-none absolute left-1/2 top-2 -translate-x-1/2 w-[70%] md:w-[55%] h-40 blur-[120px] opacity-60 -z-10"
-          style={`
-            background: radial-gradient(circle,
-              color-mix(in srgb, var(--accent) 35%, transparent),
-              transparent 70%
-            );
-          `}
+          class="pointer-events-none absolute left-1/2 top-2 -translate-x-1/2 w-[70%] md:w-[55%] h-40 blur-[120px] opacity-55 -z-10 glow-pulse"
+          style="background: radial-gradient(circle, color-mix(in srgb, var(--accent) 38%, transparent), transparent 70%);"
         ></div>
-
-        <!-- secondary glow -->
+        <!-- Secondary glow -->
         <div
-          class="pointer-events-none absolute left-1/2 top-16 -translate-x-1/2 w-[90%] h-56 blur-[160px] opacity-40 -z-10"
-          style={`
-            background: radial-gradient(circle,
-              color-mix(in srgb, var(--accent) 18%, transparent),
-              transparent 75%
-            );
-          `}
+          class="pointer-events-none absolute left-1/2 top-16 -translate-x-1/2 w-[90%] h-56 blur-[160px] opacity-35 -z-10"
+          style="background: radial-gradient(circle, color-mix(in srgb, var(--accent) 18%, transparent), transparent 75%);"
         ></div>
 
         <slot name="hero" />
       </section>
-      <!-- PAGE CONTENT -->
+
+      <!-- ===== PAGE CONTENT ===== -->
       <div class="flex-1">
         <slot />
       </div>
 
-      <!-- FOOTER -->
-      <footer class="mt-auto border-t relative" style="border-color: var(--border);">
+      <!-- ===== FOOTER ===== -->
+      <footer class="mt-auto relative pt-px">
+        <div class="footer-line"></div>
         <div
-          class="absolute inset-x-0 -top-px h-[2px]"
-          style={`
-            background: linear-gradient(
-              to right,
-              transparent,
-              var(--accent),
-              transparent
-            );
-          `}
-        ></div>
-
-        <div class="mx-auto max-w-6xl px-4 py-6 text-xs"
-             style="color: color-mix(in srgb, var(--text) 55%, transparent);">
-          © {new Date().getFullYear()} — Services TI · Consortium
+          class="mx-auto max-w-6xl px-4 py-6 flex items-center justify-between text-xs"
+          style="color: color-mix(in srgb, var(--text) 45%, transparent);"
+        >
+          <span>© {new Date().getFullYear()} — {tr.common.footerText}</span>
+          <a href={`/${lang}/`} class="mini-nav-link" style="opacity:0.6;">{tr.common.nav.home}</a>
         </div>
       </footer>
 
     </div>
+
+    <!-- Scroll reveal + nav scripts -->
+    <script>
+      // Scroll reveal
+      const observer = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) entry.target.classList.add("visible");
+          });
+        },
+        { threshold: 0.12, rootMargin: "0px 0px -40px 0px" }
+      );
+      document.querySelectorAll(".reveal").forEach((el) => observer.observe(el));
+
+      // Show correct nav based on screen size
+      function applyNavLayout() {
+        const wrap = document.querySelector(".nav-hamburger-wrap") as HTMLElement | null;
+        const desktop = document.querySelector(".mini-nav-desktop") as HTMLElement | null;
+        if (!wrap || !desktop) return;
+        if (window.innerWidth < 1024) {
+          wrap.style.display = "block";
+          desktop.style.display = "none";
+        } else {
+          wrap.style.display = "none";
+          desktop.style.display = "flex";
+        }
+      }
+      applyNavLayout();
+      window.addEventListener("resize", applyNavLayout);
+
+      // Hamburger toggle
+      const toggle = document.getElementById("nav-toggle");
+      const dropdown = document.getElementById("nav-dropdown");
+      toggle?.addEventListener("click", (e) => {
+        e.stopPropagation();
+        dropdown?.classList.toggle("open");
+      });
+      document.addEventListener("click", () => dropdown?.classList.remove("open"));
+    </script>
   </body>
 </html>
