@@ -1,0 +1,192 @@
+---
+import SiteLayout from "../../layouts/SiteLayout.astro";
+import { t } from "../../i18n/utils";
+import { tenant } from "../../config/tenant";
+
+export const prerender = true;
+export function getStaticPaths() {
+  return [{ params: { lang: "fr" } }, { params: { lang: "en" } }];
+}
+
+const { lang } = Astro.params as { lang: string };
+const tr = t(lang);
+const f = tr.formation;
+const common = tr.common;
+const homeLink = `/${lang}`;
+const currentPath = `/${lang}/formation-integration`;
+const surveyLink = `/${lang}/survey`;
+---
+
+<SiteLayout title={f.title} lang={lang} currentPath={currentPath}>
+  <style>
+    .card-dark {
+      background: rgb(18,18,18);
+      border: 1px solid rgba(255,255,255,0.06);
+      box-shadow: 0 14px 40px rgba(0,0,0,0.22);
+      border-radius: 1rem;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+    .card-dark:hover { transform: translateY(-4px); }
+    .hover-tint {
+      background: radial-gradient(circle at 18% 18%, color-mix(in srgb, var(--accent) 16%, transparent), transparent 62%);
+      position: absolute; inset: 0; pointer-events: none; opacity: 0.70; transition: opacity 0.3s;
+    }
+    .soft  { color: color-mix(in srgb, white 82%, transparent); }
+    .muted { color: color-mix(in srgb, white 68%, transparent); }
+    .band-h { color: rgba(17,17,17,0.92); }
+    .band-p { color: rgba(17,17,17,0.74); }
+    .icon-accent { color: var(--accent); }
+    .card-icon {
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.10);
+    }
+    .pill {
+      background: rgba(18,18,18,0.92);
+      border: 1px solid rgba(255,255,255,0.10);
+      color: rgba(255,255,255,0.90);
+    }
+    .bullet li { color: color-mix(in srgb, white 78%, transparent); }
+    .bullet li::marker { color: color-mix(in srgb, var(--accent) 75%, transparent); }
+  </style>
+
+  <!-- HEADER -->
+  <div slot="header" class="flex flex-col items-center">
+    <img src={tenant.logoSrc} alt={tenant.name} class="h-28 md:h-36 w-auto drop-shadow-lg" />
+    <p class="mt-3 text-xs tracking-[0.35em] uppercase"
+       style="color: color-mix(in srgb, var(--text) 55%, transparent);">{f.headerSubtitle}</p>
+  </div>
+
+  <!-- HERO -->
+  <div slot="hero" class="relative max-w-4xl mx-auto px-4 text-center z-20 pt-2 pb-10">
+    <div class="pointer-events-none absolute left-1/2 top-8 -translate-x-1/2 w-[65%] h-24 blur-[80px] opacity-60"
+         style="background: color-mix(in srgb, var(--accent) 20%, transparent);"></div>
+    <p class="mt-2 text-xs uppercase tracking-[0.35em]"
+       style="color: color-mix(in srgb, var(--text) 55%, transparent);">{f.heroLabel}</p>
+    <h1 class="mt-4 text-4xl md:text-5xl font-bold tracking-tight animate-fade-up" style="color: var(--text);">
+      {f.heroTitle}
+    </h1>
+    <p class="mt-4 text-base md:text-lg leading-relaxed soft animate-fade-up animate-fade-up-delay-1">
+      {f.heroDesc}
+    </p>
+    <div class="mt-6 flex flex-wrap items-center justify-center gap-2 animate-fade-up animate-fade-up-delay-2">
+      {f.heroPills.map((p) => (
+        <span class="pill inline-flex items-center rounded-full px-4 py-2 text-sm font-semibold">{p}</span>
+      ))}
+    </div>
+  </div>
+
+  <!-- BACK -->
+
+  <!-- BAND -->
+  <section class="relative w-full overflow-hidden" style="background: var(--band);">
+    <div class="h-[2px] w-full" style="background: var(--accent);"></div>
+    <div class="h-12 w-full"
+         style="background: linear-gradient(to bottom, color-mix(in srgb, var(--accent) 16%, transparent), transparent);"></div>
+
+    <div class="relative mx-auto max-w-6xl px-4 pt-0 pb-8 space-y-12">
+
+      <!-- Offers -->
+      <section>
+        <h3 class="text-3xl font-semibold band-h reveal">{f.offresTitle}</h3>
+        <p class="mt-2 text-lg band-p reveal">{f.offresDesc}</p>
+        <div class="mt-8 grid md:grid-cols-3 gap-6 items-stretch">
+          {f.offers.map((o, i) => (
+            <div class="group relative overflow-hidden rounded-2xl p-7 card-dark reveal">
+              <div class="hover-tint"></div>
+              <div class="relative">
+                <div class="h-11 w-11 rounded-xl card-icon flex items-center justify-center mb-4">
+                  {i === 0 && (
+                    <svg class="h-6 w-6 icon-accent" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/>
+                    </svg>
+                  )}
+                  {i === 1 && (
+                    <svg class="h-6 w-6 icon-accent" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87m-4-12a4 4 0 010 7.75"/>
+                    </svg>
+                  )}
+                  {i === 2 && (
+                    <svg class="h-6 w-6 icon-accent" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <circle cx="12" cy="12" r="3"/><path d="M19.07 4.93a10 10 0 010 14.14M4.93 4.93a10 10 0 000 14.14"/>
+                    </svg>
+                  )}
+                </div>
+                <h4 class="text-lg font-semibold" style="color: var(--accent);">{o.title}</h4>
+                <p class="mt-3 soft leading-relaxed">{o.desc}</p>
+                <ul class="bullet mt-5 list-disc ml-5 space-y-2 text-sm">
+                  {o.bullets.map((b) => <li>{b}</li>)}
+                </ul>
+              </div>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      <!-- Formats -->
+      <section>
+        <h3 class="text-3xl font-semibold band-h reveal">{f.formatsTitle}</h3>
+        <p class="mt-2 text-lg band-p reveal">{f.formatsDesc}</p>
+        <div class="mt-8 grid md:grid-cols-4 gap-6 items-stretch">
+          {f.formats.map((fmt, i) => (
+            <div class="group relative overflow-hidden rounded-2xl p-6 card-dark reveal">
+              <div class="hover-tint"></div>
+              <div class="relative">
+                <div class="h-11 w-11 rounded-xl card-icon flex items-center justify-center mb-4">
+                  {i === 0 && (
+                    <svg class="h-6 w-6 icon-accent" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8m-4-4v4"/>
+                    </svg>
+                  )}
+                  {i === 1 && (
+                    <svg class="h-6 w-6 icon-accent" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87m-4-12a4 4 0 010 7.75"/>
+                    </svg>
+                  )}
+                  {i === 2 && (
+                    <svg class="h-6 w-6 icon-accent" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><path d="M14 2v6h6"/><path d="M16 13H8m8 4H8m2-8H8"/>
+                    </svg>
+                  )}
+                  {i === 3 && (
+                    <svg class="h-6 w-6 icon-accent" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <polygon points="23 7 16 12 23 17 23 7"/><rect x="1" y="5" width="15" height="14" rx="2"/>
+                    </svg>
+                  )}
+                </div>
+                <h4 class="text-base font-semibold" style="color: rgba(255,255,255,0.95);">{fmt.title}</h4>
+                <p class="mt-3 text-sm soft leading-relaxed">{fmt.desc}</p>
+              </div>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      <!-- CTA -->
+      <section class="pb-10">
+        <div class="group relative overflow-hidden rounded-2xl p-7 card-dark reveal">
+          <div class="hover-tint"></div>
+          <div class="relative flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+            <div class="flex items-start gap-4">
+              <div class="h-11 w-11 rounded-xl card-icon flex items-center justify-center shrink-0">
+                <svg class="h-6 w-6 icon-accent" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M3 11l19-9-9 19-2-8-8-2z"/>
+                </svg>
+              </div>
+              <div>
+                <h4 class="text-xl font-semibold" style="color: rgba(255,255,255,0.95);">{f.ctaTitle}</h4>
+                <p class="mt-2 soft">{f.ctaDesc}</p>
+              </div>
+            </div>
+            <a href={surveyLink}
+               class="inline-flex items-center justify-center rounded-xl px-6 py-3 font-semibold transition hover:brightness-110"
+               style={`background: linear-gradient(90deg, color-mix(in srgb, var(--accent) 92%, white 8%), color-mix(in srgb, var(--accent) 72%, black 28%)); color: #111;`}>
+              {f.ctaBtn}
+            </a>
+          </div>
+        </div>
+      </section>
+
+    </div>
+  </section>
+
+</SiteLayout>

@@ -1,0 +1,257 @@
+---
+import SiteLayout from "../../layouts/SiteLayout.astro";
+import { t } from "../../i18n/utils";
+import { tenant } from "../../config/tenant";
+
+export const prerender = true;
+export function getStaticPaths() {
+  return [{ params: { lang: "fr" } }, { params: { lang: "en" } }];
+}
+
+const { lang } = Astro.params as { lang: string };
+const tr = t(lang);
+const { accent, border, background, bandBackground } = tenant.colors;
+
+const serviceLinks: Record<string, Record<string, string>> = {
+  fr: {
+    backup: "/fr/sauvegarde365",
+    security: "/fr/securite365",
+    guide: "/fr/guide-employe",
+    conseil: "/fr/service-conseil",
+    formation: "/fr/formation-integration",
+    rmm: "/fr/rmm-edr-kaseya365",
+    survey: "/fr/survey",
+  },
+  en: {
+    backup: "/en/sauvegarde365",
+    security: "/en/securite365",
+    guide: "/en/guide-employe",
+    conseil: "/en/service-conseil",
+    formation: "/en/formation-integration",
+    rmm: "/en/rmm-edr-kaseya365",
+    survey: "/en/survey",
+  },
+};
+
+const links = serviceLinks[lang] ?? serviceLinks["fr"];
+
+const cardIcons = [
+  `<path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 16.5v-9m0 9l-3-3m3 3l3-3m-.75-6.75a4.5 4.5 0 00-8.456 1.09A3.75 3.75 0 006 13.5h12a3.75 3.75 0 00.206-7.464A4.501 4.501 0 0012.75 6.75z" />`,
+  `<path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 3l7 3.5v5.5c0 4.5-3 8.5-7 9.5-4-1-7-5-7-9.5V6.5L12 3z M12 11a2 2 0 110 4 2 2 0 010-4z" />`,
+  `<path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3.75 4.5L12 8.25l8.25-3.75v12.75L12 21.75l-8.25-3.75V4.5z" />`,
+  `<path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M11.25 3.75a7.5 7.5 0 105.303 12.803l3.697 3.697M8.25 11.25h6" />`,
+  `<path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 3l9 4.5-9 4.5-9-4.5L12 3zm7.5 7.5V15c0 1.657-3.357 3-7.5 3s-7.5-1.343-7.5-3v-4.5" />`,
+];
+const securityIcon = `<path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 12.75L11.25 15 15 9.75m-3-6.042a48.42 48.42 0 00-6 2.558A2.25 2.25 0 005.25 8.91v4.819a6.75 6.75 0 003.022 5.625l3.095 2.06a.75.75 0 00.816 0l3.095-2.06a6.75 6.75 0 003.022-5.625V8.91a2.25 2.25 0 00-1.25-2.132 48.42 48.42 0 00-6-2.558z" />`;
+
+const cardLinks = [
+  links.backup,
+  links.rmm,
+  links.guide,
+  links.conseil,
+  links.formation,
+];
+
+const serviceCards = [
+  { title: tr.home.security.title, desc: tr.home.security.desc, link: links.security, icon: securityIcon },
+  ...tr.home.cards.map((c, i) => ({ title: c.title, desc: c.desc, link: cardLinks[i], icon: cardIcons[i] })),
+];
+---
+
+<SiteLayout title={tr.home.title} lang={lang} currentPath={`/${lang}`}>
+
+  <!-- HEADER SLOT -->
+  <div slot="header" class="flex flex-col items-center">
+    <img src={tenant.logoSrc} alt={tenant.name} class="h-28 md:h-36 w-auto drop-shadow-lg" />
+    <p class="mt-3 text-xs tracking-[0.35em] uppercase animate-fade-up animate-fade-up-delay-1"
+       style="color: color-mix(in srgb, var(--text) 55%, transparent);">
+      {tr.home.headerSubtitle}
+    </p>
+  </div>
+
+  <!-- HERO SLOT -->
+  <div slot="hero" class="relative max-w-5xl mx-auto text-center z-10 py-8 px-4">
+    <p class="text-xs uppercase tracking-[0.35em] animate-fade-up"
+       style="color: color-mix(in srgb, var(--accent) 85%, transparent);">
+      {tr.home.tagline}
+    </p>
+
+    <h1 class="mt-4 text-4xl md:text-6xl font-bold tracking-tight leading-tight animate-fade-up animate-fade-up-delay-1"
+        style="color: var(--text);">
+      {tr.home.heroTitle}
+    </h1>
+
+    <p class="mt-5 text-base md:text-lg leading-relaxed mx-auto max-w-3xl animate-fade-up animate-fade-up-delay-2"
+       style="color: color-mix(in srgb, var(--text) 78%, transparent);">
+      {tr.home.heroDesc}
+    </p>
+
+    <div class="mt-8 flex flex-wrap justify-center gap-3 animate-fade-up animate-fade-up-delay-3">
+      <a
+        href="#services"
+        class="inline-flex items-center rounded-xl px-6 py-3 font-semibold transition hover:brightness-110 active:scale-95"
+        style={`background: var(--accent); color: #111; box-shadow: 0 10px 28px color-mix(in srgb, var(--accent) 32%, transparent);`}
+      >
+        {tr.home.ctaExplore}
+      </a>
+    </div>
+  </div>
+
+  <!-- MAIN CONTENT -->
+  <main>
+    <!-- Gold divider -->
+    <section class="relative w-full">
+      <div class="h-[2px] w-full" style="background: var(--accent);"></div>
+      <div class="h-10 w-full"
+           style="background: linear-gradient(to bottom, color-mix(in srgb, var(--accent) 14%, transparent), transparent);"></div>
+    </section>
+
+    <!-- SERVICES SECTION -->
+    <section id="services" class="relative w-full" style="background: var(--band);">
+      <div class="mx-auto max-w-6xl px-4 py-16">
+
+        <!-- Section header -->
+        <div class="text-center reveal">
+          <h2 class="text-sm uppercase tracking-[0.35em]" style="color: rgba(17,17,17,0.55);">
+            {tr.home.sectionTitle}
+          </h2>
+          <p class="mt-2 text-base" style="color: rgba(17,17,17,0.72);">
+            {tr.home.sectionDesc}
+          </p>
+        </div>
+
+        <div class="mt-10 grid gap-6 md:grid-cols-3 items-stretch">
+
+          <!-- FEATURED CARD (Miguel) -->
+          <a
+            href={links.formation}
+            class="group relative overflow-hidden rounded-2xl md:col-span-3
+                   glass-card p-6 pb-[240px] md:p-10 md:pr-[26rem]
+                   reveal"
+            style="background: color-mix(in srgb, var(--bg) 82%, black 18%);"
+          >
+            <!-- Hover overlay -->
+            <div class="pointer-events-none absolute inset-0 opacity-0 group-hover:opacity-100 transition duration-300"
+                 style="background: radial-gradient(circle at 15% 50%, color-mix(in srgb, var(--accent) 12%, transparent), transparent 60%);"></div>
+
+            <!-- Ambient glow -->
+            <div class="pointer-events-none absolute -top-20 -right-20 h-72 w-72 rounded-full blur-3xl opacity-40"
+                 style="background: color-mix(in srgb, var(--accent) 22%, transparent);"></div>
+
+            <div class="relative z-[3] max-w-xl">
+              <p class="text-xs uppercase tracking-[0.35em]"
+                 style="color: color-mix(in srgb, var(--text) 60%, transparent);">
+                {tr.home.featuredLabel}
+              </p>
+
+              <h3 class="mt-3 text-2xl md:text-3xl font-extrabold" style="color: var(--text);">
+                {tr.home.featuredTitle}
+                <span style="color: var(--accent);">{tr.home.featuredTitleHighlight}</span>
+              </h3>
+
+              <p class="mt-3 text-sm md:text-base leading-relaxed"
+                 style="color: color-mix(in srgb, var(--text) 80%, transparent);">
+                {tr.home.featuredDesc}
+              </p>
+
+              <div class="mt-5 flex flex-wrap items-center gap-2">
+                {tr.home.featuredTags.map((tag) => (
+                  <span class="inline-flex items-center rounded-full px-3 py-1 text-xs"
+                        style="background: color-mix(in srgb, white 8%, transparent); border: 1px solid color-mix(in srgb, white 12%, transparent); color: var(--text);">
+                    {tag}
+                  </span>
+                ))}
+              </div>
+
+              <div class="mt-6">
+                <span class="inline-flex items-center justify-center rounded-xl px-6 py-3 font-semibold transition group-hover:brightness-110"
+                      style={`background: linear-gradient(90deg, color-mix(in srgb, var(--accent) 92%, white 8%), color-mix(in srgb, var(--accent) 72%, black 28%)); color: #111;`}>
+                  {tr.home.featuredCta}
+                </span>
+              </div>
+            </div>
+
+            <!-- Miguel photo -->
+            <div class="pointer-events-none absolute bottom-0 right-6 md:right-10 z-[2]">
+              <div class="absolute -inset-10 rounded-full blur-3xl opacity-60"
+                   style="background: color-mix(in srgb, var(--accent) 14%, transparent);"></div>
+              <img
+                src="/images/miguel.png"
+                alt="Miguel"
+                loading="lazy"
+                class="relative h-[200px] sm:h-[220px] md:h-[320px] w-auto object-contain
+                       drop-shadow-[0_25px_40px_rgba(0,0,0,0.45)]
+                       [mask-image:linear-gradient(to_top,black_85%,transparent_100%)]"
+              />
+            </div>
+          </a>
+
+          <!-- SERVICE CARDS GRID -->
+          {serviceCards.map((s, i) => (
+            <a
+              href={s.link}
+              class="group relative overflow-hidden rounded-2xl glass-card p-6 reveal"
+              style={`animation-delay: ${i * 0.05}s; background: color-mix(in srgb, var(--bg) 84%, black 16%);`}
+            >
+              <!-- Hover tint -->
+              <div class="pointer-events-none absolute inset-0 opacity-0 group-hover:opacity-100 transition duration-300"
+                   style="background: radial-gradient(circle at 20% 20%, color-mix(in srgb, var(--accent) 16%, transparent), transparent 55%);"></div>
+
+              <div class="relative flex min-h-[180px] flex-col justify-between">
+                <div class="flex items-start gap-3">
+                  <!-- Icon box -->
+                  <div class="mt-1 flex h-11 w-11 shrink-0 items-center justify-center rounded-xl"
+                       style="background: color-mix(in srgb, var(--accent) 12%, transparent); border: 1px solid color-mix(in srgb, var(--accent) 22%, transparent);">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" style="color: var(--accent);"
+                         fill="none" viewBox="0 0 24 24" stroke="currentColor" set:html={s.icon}></svg>
+                  </div>
+                  <div>
+                    <h3 class="text-lg font-semibold" style="color: var(--text);">{s.title}</h3>
+                    <p class="mt-2 text-sm leading-relaxed"
+                       style="color: color-mix(in srgb, var(--text) 75%, transparent);">{s.desc}</p>
+                  </div>
+                </div>
+                <span class="mt-4 inline-flex items-center text-sm font-semibold transition group-hover:translate-x-1 duration-200"
+                      style="color: var(--accent);">
+                  {tr.common.seeMore}
+                </span>
+              </div>
+            </a>
+          ))}
+
+          <!-- SURVEY BANNER -->
+          <a
+            href={links.survey}
+            class="group relative overflow-hidden rounded-2xl md:col-span-3
+                   px-6 py-5 reveal"
+            style={`border: 1px solid color-mix(in srgb, var(--accent) 45%, transparent); background: linear-gradient(90deg, color-mix(in srgb, var(--accent) 28%, black 72%), color-mix(in srgb, var(--bg) 65%, black 35%)); transition: transform 0.25s ease, box-shadow 0.25s ease;`}
+          >
+            <div class="pointer-events-none absolute inset-0 opacity-0 group-hover:opacity-100 transition duration-300"
+                 style="background: linear-gradient(90deg, color-mix(in srgb, white 8%, transparent), transparent 60%);"></div>
+
+            <div class="relative flex flex-col md:flex-row md:items-center md:justify-between gap-3">
+              <div>
+                <p class="text-xs uppercase tracking-[0.35em]"
+                   style="color: color-mix(in srgb, var(--text) 65%, transparent);">
+                  {tr.home.surveyLabel}
+                </p>
+                <h3 class="mt-1 text-lg font-semibold" style="color: var(--text);">
+                  {tr.home.surveyTitle}
+                </h3>
+                <p class="mt-1 text-sm" style="color: color-mix(in srgb, var(--text) 80%, transparent);">
+                  {tr.home.surveyDesc}
+                </p>
+              </div>
+              <span class="shrink-0 inline-flex items-center text-sm font-semibold transition group-hover:translate-x-1 duration-200"
+                    style="color: var(--text);">
+                {tr.home.surveyCta}
+              </span>
+            </div>
+          </a>
+
+        </div>
+      </div>
+    </section>
+  </main>
+
+</SiteLayout>
