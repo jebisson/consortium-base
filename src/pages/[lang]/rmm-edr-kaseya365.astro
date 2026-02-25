@@ -20,7 +20,7 @@ const { accent } = tenant.colors;
 <SiteLayout title={r.title} lang={lang} currentPath={currentPath}>
   <style>
     .card-dark {
-      background: rgb(18,18,18);
+      background: var(--card);
       border: 1px solid rgba(255,255,255,0.06);
       box-shadow: 0 14px 40px rgba(0,0,0,0.22);
       border-radius: 1rem;
@@ -221,7 +221,7 @@ const { accent } = tenant.colors;
             </div>
           ))}
         </div>
-        <p class="band-muted text-xs reveal">{r.priceNote}</p>
+
       </section>
 
       <!-- Comparison table -->
