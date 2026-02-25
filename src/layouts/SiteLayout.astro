@@ -326,7 +326,7 @@ const { background, text, accent, border, bandBackground, glowColor, cardBackgro
           class="mx-auto max-w-6xl px-4 py-6 flex items-center justify-between text-xs"
           style="color: color-mix(in srgb, var(--text) 45%, transparent);"
         >
-          <span>© {new Date().getFullYear()} — {tr.common.footerText}</span>
+          <span>© {new Date().getFullYear()} — {tr.common.footerText.replace("Consortium", tenant.name)}</span>
           <a href={`/${lang}/`} class="mini-nav-link" style="opacity:0.6;">{tr.common.nav.home}</a>
         </div>
       </footer>

@@ -511,7 +511,7 @@ const fr: Translations = {
   conseil: {
     title: "Service conseil TI – Le Consortium",
     heroDesc:
-      "Une offre de services‑conseils exclusive aux membres du Consortium — De la validation de soumissions à l'accompagnement stratégique, tout est spécifiquement pensé pour répondre aux enjeux technologiques des entreprises d'économie sociale.",
+      "Une offre de services‑conseils exclusive aux membres — De la validation de soumissions à l'accompagnement stratégique, tout est spécifiquement pensé pour répondre aux enjeux technologiques des entreprises d'économie sociale.",
     heroTags: ["Décisions éclairées", "Risques & impacts", "Recommandations concrètes"],
     ctaCall: "Demander un appel",
     ctaInclus: "Voir ce qui est inclus",
