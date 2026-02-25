@@ -511,7 +511,7 @@ const en: Translations = {
   conseil: {
     title: "IT Advisory Service – Consortium",
     heroDesc:
-      "An advisory service exclusively for Consortium members — From quote verification to strategic guidance, everything is specifically designed to address the technological challenges of social economy organizations.",
+      "An advisory service exclusively for members — From quote verification to strategic guidance, everything is specifically designed to address the technological challenges of social economy organizations.",
     heroTags: ["Informed decisions", "Risks & impacts", "Concrete recommendations"],
     ctaCall: "Request a call",
     ctaInclus: "See what's included",
