@@ -66,7 +66,7 @@ const en: Translations = {
       { title: "Microsoft 365 Backup", desc: "Complete protection for emails, files and Teams." },
       { title: "Proactive IT Management", desc: "24/7 monitoring, advanced protection and fast support to ensure stability, security and reduce costs." },
       { title: "Employee Practical Guide", desc: "Digital best practices: simple, clear, ready to share." },
-      { title: "IT Advisory Service", desc: "Quote verification, consulting and recommendations (no direct interventions)." },
+      { title: "IT Advisory Service", desc: "Quote verification, consulting and recommendations." },
       { title: "Training & Onboarding", desc: "New employee onboarding + Microsoft 365 & cybersecurity training." },
     ],
     security: {
