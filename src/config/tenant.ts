@@ -15,6 +15,7 @@ export interface TenantConfig {
     border: string;
     bandBackground: string;
     glowColor: string;
+    cardBackground: string;
   };
 }
 
@@ -30,6 +31,7 @@ const tenants: Record<string, TenantConfig> = {
       border: "rgba(225,162,9,0.30)",
       bandBackground: "rgb(245, 245, 245)",
       glowColor: "rgba(225,162,9,0.22)",
+      cardBackground: "rgb(18, 18, 18)",
     },
   },
   eesad: {
@@ -41,8 +43,9 @@ const tenants: Record<string, TenantConfig> = {
       text: "#e5e7eb",
       accent: "#38bdf8",
       border: "rgba(56,189,248,0.30)",
-      bandBackground: "#183055",
+      bandBackground: "#cce0f5",
       glowColor: "rgba(96, 165, 250, 0.40)",
+      cardBackground: "rgb(23, 45, 90)",
     },
   },
 };

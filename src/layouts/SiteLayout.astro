@@ -19,7 +19,7 @@ const tr = t(lang);
 const otherLang = getOtherLang(lang);
 const otherPath = currentPath.replace(`/${lang}`, `/${otherLang}`);
 
-const { background, text, accent, border, bandBackground, glowColor } = tenant.colors;
+const { background, text, accent, border, bandBackground, glowColor, cardBackground } = tenant.colors;
 ---
 
 <html lang={lang}>
@@ -228,6 +228,7 @@ const { background, text, accent, border, bandBackground, glowColor } = tenant.c
       --border: ${border};
       --band: ${bandBackground};
       --glow: ${glowColor};
+      --card: ${cardBackground};
       background-color: var(--bg);
       color: var(--text);
     `}

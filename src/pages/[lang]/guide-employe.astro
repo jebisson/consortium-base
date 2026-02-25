@@ -19,7 +19,7 @@ const currentPath = `/${lang}/guide-employe`;
 <SiteLayout title={g.title} lang={lang} currentPath={currentPath}>
   <style>
     .section-card {
-      background: rgb(18,18,18);
+      background: var(--card);
       border: 1px solid rgba(255,255,255,0.06);
       box-shadow: 0 14px 40px rgba(0,0,0,0.22);
       border-radius: 1rem;
@@ -28,7 +28,7 @@ const currentPath = `/${lang}/guide-employe`;
       gap: 1rem;
     }
     .section-card-glow {
-      background: rgb(18,18,18);
+      background: var(--card);
       border: 1px solid rgba(255,255,255,0.06);
       box-shadow: 0 14px 40px rgba(0,0,0,0.22);
       border-radius: 1rem;
@@ -66,7 +66,7 @@ const currentPath = `/${lang}/guide-employe`;
     .tip-box {
       border-radius: 0.75rem; padding: 1rem;
       border: 1px solid color-mix(in srgb, var(--border) 65%, transparent);
-      background: rgba(18,18,18,0.55);
+      background: var(--card);
     }
     .tip-title { font-weight: 600; color: var(--text); margin-bottom: 0.25rem; }
     .tip-text { color: color-mix(in srgb, var(--text) 78%, transparent); line-height: 1.6; }
@@ -75,7 +75,7 @@ const currentPath = `/${lang}/guide-employe`;
       border-radius: 999px; padding: 0.25rem 0.75rem;
       font-size: 0.75rem; font-weight: 500;
       border: 1px solid color-mix(in srgb, var(--border) 65%, transparent);
-      background: rgba(18,18,18,0.55);
+      background: var(--card);
       color: color-mix(in srgb, var(--text) 88%, transparent);
     }
     .warning-box {
