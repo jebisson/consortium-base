@@ -286,9 +286,10 @@ const currentPath = `/${lang}/service-conseil`;
                           <div>
                             <label class="block text-sm font-medium muted">{c.formTypeLabel}</label>
                             <select name="conseil_type" required
-                                    class="mt-1 w-full rounded-lg px-3 py-2 bg-white/10 border border-white/20 text-white focus-ring">
+                                    class="mt-1 w-full rounded-lg px-3 py-2 bg-white/10 border border-white/20 text-white focus-ring"
+                                    style="background-color: var(--bg); color: var(--text);">
                               {c.formTypes.map((ft) => (
-                                <option value={ft.value}>{ft.label}</option>
+                                <option value={ft.value} style="background-color: var(--bg); color: var(--text);">{ft.label}</option>
                               ))}
                             </select>
                           </div>
