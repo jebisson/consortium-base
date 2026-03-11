@@ -5,12 +5,14 @@ import { t, getOtherLang } from "../i18n/utils";
 
 interface Props {
   title?: string;
+  description?: string;
   lang?: string;
   currentPath?: string;
 }
 
 const {
   title = "Services TI – Consortium",
+  description,
   lang = "fr",
   currentPath = "/",
 } = Astro.props;
@@ -27,6 +29,28 @@ const { background, text, accent, border, bandBackground, glowColor, cardBackgro
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>{title}</title>
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+
+    <!-- SEO -->
+    {description && <meta name="description" content={description} />}
+    <link rel="canonical" href={`${tenant.siteUrl}${currentPath}`} />
+    <link rel="alternate" hreflang="fr" href={`${tenant.siteUrl}${lang === "fr" ? currentPath : otherPath}`} />
+    <link rel="alternate" hreflang="en" href={`${tenant.siteUrl}${lang === "en" ? currentPath : otherPath}`} />
+    <link rel="alternate" hreflang="x-default" href={`${tenant.siteUrl}${lang === "fr" ? currentPath : otherPath}`} />
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content={title} />
+    {description && <meta property="og:description" content={description} />}
+    <meta property="og:url" content={`${tenant.siteUrl}${currentPath}`} />
+    <meta property="og:locale" content={lang === "fr" ? "fr_CA" : "en_CA"} />
+    <meta property="og:site_name" content={tenant.name} />
+    <meta property="og:image" content={`${tenant.siteUrl}${tenant.logoSrc}`} />
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content={title} />
+    {description && <meta name="twitter:description" content={description} />}
 
     <!-- Cloudflare Web Analytics -->
     <script defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token": "de4731804e7e4d87b54f22a43d2b11b4"}'></script>
