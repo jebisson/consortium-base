@@ -236,7 +236,7 @@ export interface SurveyTranslations {
   resultDesc: string;
   maxScore: number;
   scoreLabels: { min: number; max: number; label: string; color: string }[];
-  sliderLabels: { text: string; score: number }[];
+  sliderLabels: { text: string; score: number }[];\n  questions: string[];
 }
 
 export interface Translations {

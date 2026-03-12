@@ -2,7 +2,7 @@
 import SiteLayout from "../../layouts/SiteLayout.astro";
 import { t } from "../../i18n/utils";
 import { tenant } from "../../config/tenant";
-import surveyData from "../../data/survey.json";
+
 
 export const prerender = true;
 export function getStaticPaths() {
@@ -177,28 +177,30 @@ const defaultIdx = 0;           // slider starts at position 1 (index 0 = "Oui/Y
           </div>
 
           <!-- Questions with sliders -->
-          {surveyData.map((q, idx) => (
-            <div class="card-dark p-5 reveal" data-question={q.id}>
+          {sv.questions.map((question, idx) => {
+            const id = `q${idx + 1}`;
+            return (
+            <div class="card-dark p-5 reveal" data-question={id}>
               <div class="mb-4">
                 <p class="text-sm md:text-base font-medium leading-snug"
                    style="color: color-mix(in srgb, var(--text) 92%, transparent);">
                   <span class="font-bold mr-1.5" style="color: var(--accent);">{idx + 1}.</span>
-                  {q.question}
+                  {question}
                 </p>
               </div>
 
               <div class="slider-wrap mt-2">
                 <div class="slider-track-bg"></div>
-                <div class="slider-fill" id={`${q.id}_fill`} style="width: 0%;"></div>
+                <div class="slider-fill" id={`${id}_fill`} style="width: 0%;"></div>
                 <input
                   type="range"
-                  name={q.id}
+                  name={id}
                   min="1"
                   max={labels.length}
                   step="1"
                   value="1"
-                  required={q.required}
-                  data-qid={q.id}
+                  required
+                  data-qid={id}
                   class="w-full"
                 />
                 <!-- Step labels -->
@@ -208,7 +210,8 @@ const defaultIdx = 0;           // slider starts at position 1 (index 0 = "Oui/Y
                 </div>
               </div>
             </div>
-          ))}
+            );
+          })}
 
           <!-- Submit -->
           <div class="pt-2">
