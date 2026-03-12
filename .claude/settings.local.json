@@ -1,0 +1,32 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(python3:*)",
+      "Bash(python:*)",
+      "Bash(\"/c/web/consortium2/.claude/worktrees/great-mclaren/src/pages/[lang]/securite365.astro\")",
+      "Bash(powershell.exe -Command \"Write-Output ''PowerShell works''\")",
+      "Bash(/c/Users/jebisson/AppData/Local/Temp/write_sec365.ps1:*)",
+      "Bash(printf:*)",
+      "Bash(echo:*)",
+      "Bash(npm run build:*)",
+      "Bash(ls:*)",
+      "Bash(cd:*)",
+      "Bash(for:*)",
+      "Bash(do sed -i 's/export function getStaticPaths/export const prerender = true;\\\\nexport function getStaticPaths/' \"$f\")",
+      "Bash(done)",
+      "Bash(grep:*)",
+      "mcp__Claude_Preview__preview_start",
+      "Bash(node:*)",
+      "Bash(curl:*)",
+      "Bash(pkill:*)",
+      "WebFetch(domain:www.medisolution.com)",
+      "Bash(powershell.exe:*)",
+      "Bash(head:*)",
+      "Bash(echo PID $pid::*)",
+      "Bash(echo === PID $pid cwd ===:*)",
+      "Bash(powershell:*)",
+      "WebFetch(domain:eesad.vercel.app)",
+      "WebFetch(domain:consortium-base.vercel.app)"
+    ]
+  }
+}

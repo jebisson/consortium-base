@@ -14,7 +14,7 @@ const fr: Translations = {
     email: "Courriel",
     phone: "Téléphone",
     users: "Nombre d'utilisateurs",
-    usersOpt: "Nb d'utilisateurs (optionnel)",
+    usersOpt: "Nombre d'utilisateurs (optionnel)",
     message: "Message",
     subject: "Sujet",
     seeMore: "Voir la page →",
@@ -55,7 +55,7 @@ const fr: Translations = {
     featuredTitleHighlight: " animées par Miguel",
     featuredDesc:
       "Intégration des nouveaux employés, bonnes pratiques M365, prévention des incidents et accompagnement concret adapté à votre réalité.",
-    featuredTags: ["Onboarding", "Microsoft 365", "Cybersécurité", "Approche pratique"],
+    featuredTags: ["Intégration", "Microsoft 365", "Cybersécurité", "Approche pratique"],
     featuredCta: "Découvrir les formations →",
     surveyLabel: "Ressource",
     surveyTitle: "Questionnaire TI",
@@ -173,7 +173,7 @@ const fr: Translations = {
   security: {
     title: "Sécurité Microsoft 365 – Consortium",
     heroTitle: "Faites de la cybersécurité un réflexe quotidien.",
-    heroSubtitle: "Sécurité et résilience numérique — Bonnes pratiques et modernisation avec Microsoft 365.",
+    heroSubtitle: "Sécurité et résilience numérique. Bonnes pratiques et modernisation avec Microsoft 365.",
     hoverHint: "Survolez chaque point pour voir le détail.",
     auditLabel: "Infrastructure et sécurité",
     auditTitle: "Audit de sécurité Microsoft 365",
@@ -347,7 +347,7 @@ const fr: Translations = {
     headerSubtitle: "Supervision & Cybersécurité",
     heroTitle: "Datto RMM, Datto EDR & Kaseya 365",
     heroDesc:
-      "Une approche proactive : surveiller, corriger, détecter et répondre — pour réduire les pannes et bloquer les menaces modernes.",
+      "Une approche proactive : surveiller, corriger, détecter et répondre pour réduire les pannes et bloquer les menaces modernes.",
     ctaPlans: "Voir les forfaits",
     ctaQuote: "Demande de soumission",
     pills: [
@@ -398,7 +398,7 @@ const fr: Translations = {
       ],
     },
     plansTitle: "Forfaits mensuels",
-    plansSubtitle: "Choisis un niveau de couverture — simple, clair, sans surprise.",
+    plansSubtitle: "Choisisssez un niveau de couverture — simple, clair, sans surprise.",
     plans: [
       {
         title: "RMM + EDR",
@@ -419,7 +419,8 @@ const fr: Translations = {
         bullets: ["Datto RMM + Datto EDR", "Kaseya 365", "Support prioritaire", "Revue sécurité & roadmap"],
       },
     ],
-    priceNote: "* Prix par utilisateur/mois. Certaines conditions peuvent s'appliquer selon l'environnement.",
+    priceNote: "* Prix par usager/mois. Certaines conditions peuvent s'appliquer selon l'environnement.",
+    pricingUnit: "/ usager / mois",
     compTitle: "Tableau comparatif",
     compHeaders: ["Fonction", "RMM + EDR (6$)", "Kaseya 365 (8$)", "Combiné (13$)"],
     compRows: [
@@ -499,7 +500,7 @@ const fr: Translations = {
     formats: [
       { title: "Session express", desc: "30 à 60 minutes (ciblée sur un outil ou un besoin)" },
       { title: "Atelier équipe", desc: "60 à 90 minutes (avec questions et cas réels)" },
-      { title: "Parcours onboarding", desc: "Séquence sur 1–2 semaines pour nouveaux employés" },
+      { title: "Parcours d'intégration", desc: "Séquence sur 1–2 semaines pour nouveaux employés" },
       { title: "Capsules / guides", desc: "Mini guides PDF + procédures adaptées à votre contexte" },
     ],
     ctaTitle: "Besoin d'un parcours d'intégration \"clé en main\" ?",
@@ -510,8 +511,9 @@ const fr: Translations = {
 
   conseil: {
     title: "Service conseil TI – Le Consortium",
+    heroTitle: "Une offre de services‑conseils exclusive aux membres.",
     heroDesc:
-      "Une offre de services‑conseils exclusive aux membres — De la validation de soumissions à l'accompagnement stratégique, tout est spécifiquement pensé pour répondre aux enjeux technologiques des entreprises d'économie sociale.",
+      "De la validation de soumissions à l'accompagnement stratégique, tout est spécifiquement pensé pour répondre aux enjeux technologiques des entreprises d'économie sociale.",
     heroTags: ["Décisions éclairées", "Risques & impacts", "Recommandations concrètes"],
     ctaCall: "Demander un appel",
     ctaInclus: "Voir ce qui est inclus",
@@ -525,7 +527,7 @@ const fr: Translations = {
     ],
     inclusTitle: "Ce qui est inclus",
     inclusDesc:
-      "Un service conseil, c'est de l'analyse, des recommandations et de l'accompagnement décisionnel — pas des opérations TI quotidiennes.",
+      "Un service conseil, c'est de l'analyse, des recommandations et de l'accompagnement décisionnel, pas des opérations TI quotidiennes.",
     inclusTag: "Avis neutre • orienté décision",
     inclus: [
       { title: "Vérification de soumissions", desc: "Analyse comparative (prix, portée, exclusions, garanties) et recommandations pour choisir la meilleure option." },

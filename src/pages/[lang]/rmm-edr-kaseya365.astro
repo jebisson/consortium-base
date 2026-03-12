@@ -207,7 +207,7 @@ const { accent } = tenant.colors;
                 <p class="mt-2 muted">{plan.subtitle}</p>
                 <p class="mt-5">
                   <span class="font-extrabold text-5xl" style="color: white;">{plan.price}</span>
-                  <span class="muted"> / user / mo</span>
+                  <span class="muted"> {tr.rmm.pricingUnit}</span>
                 </p>
                 <ul class="mt-6 list-disc ml-6 space-y-2 soft text-sm">
                   {plan.bullets.map((b) => <li>{b}</li>)}

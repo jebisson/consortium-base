@@ -420,6 +420,7 @@ const en: Translations = {
       },
     ],
     priceNote: "* Price per user/month. Conditions may apply depending on the environment.",
+    pricingUnit: "/ user / month",
     compTitle: "Comparison table",
     compHeaders: ["Feature", "RMM + EDR ($6)", "Kaseya 365 ($8)", "Combined ($13)"],
     compRows: [
@@ -510,8 +511,9 @@ const en: Translations = {
 
   conseil: {
     title: "IT Advisory Service – Consortium",
+    heroTitle: "An advisory service exclusively for members.",
     heroDesc:
-      "An advisory service exclusively for members — From quote verification to strategic guidance, everything is specifically designed to address the technological challenges of social economy organizations.",
+      "From quote verification to strategic guidance, everything is specifically designed to address the technological challenges of social economy organizations.",
     heroTags: ["Informed decisions", "Risks & impacts", "Concrete recommendations"],
     ctaCall: "Request a call",
     ctaInclus: "See what's included",

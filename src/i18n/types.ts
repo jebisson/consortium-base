@@ -156,6 +156,7 @@ export interface RmmTranslations {
   plansSubtitle: string;
   plans: { title: string; price: string; subtitle: string; bullets: string[] }[];
   priceNote: string;
+  pricingUnit: string;
   compTitle: string;
   compHeaders: string[];
   compRows: [string, string, string, string][];
@@ -191,6 +192,7 @@ export interface FormationTranslations {
 
 export interface ConseilTranslations {
   title: string;
+  heroTitle: string;
   heroDesc: string;
   heroTags: string[];
   ctaCall: string;

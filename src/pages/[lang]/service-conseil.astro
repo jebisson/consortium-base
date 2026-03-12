@@ -40,6 +40,11 @@ const currentPath = `/${lang}/service-conseil`;
       border: 1px solid rgba(255,255,255,0.10);
     }
     .focus-ring:focus { outline: none; box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 30%, transparent); }
+    .pill {
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.10);
+      color: rgba(255,255,255,0.92);
+    }
   </style>
 
   <!-- HEADER (via hero slot — service-conseil has logo inside hero in original) -->
@@ -50,28 +55,19 @@ const currentPath = `/${lang}/service-conseil`;
   </div>
 
   <!-- HERO -->
-  <section slot="hero" class="relative max-w-4xl mx-auto px-4 text-center z-20 pt-2 pb-10">
+  <div slot="hero" class="relative max-w-4xl mx-auto px-4 text-center z-20 pt-2 pb-10">
     <div class="pointer-events-none absolute left-1/2 top-8 -translate-x-1/2 w-[65%] h-24 blur-[80px] opacity-60"
          style="background: color-mix(in srgb, var(--accent) 20%, transparent);"></div>
-    <p class="mt-4 text-lg soft animate-fade-up">{c.heroDesc}</p>
-    <p class="mt-3 muted animate-fade-up animate-fade-up-delay-1">
-      <span class="font-semibold">
-        {c.heroTags.join(" • ")}
-      </span>
-    </p>
-    <div class="mt-6 flex flex-col sm:flex-row gap-3 justify-center animate-fade-up animate-fade-up-delay-2">
-      <a href="#inclus"
-         class="inline-flex items-center justify-center px-6 py-3 rounded-xl font-semibold transition hover:brightness-110"
-         style="background: color-mix(in srgb, var(--accent) 16%, transparent); color: var(--text); border: 1px solid color-mix(in srgb, var(--accent) 28%, transparent);">
-        {c.ctaInclus}
-      </a>
-    </div>
-    <div class="mt-6 flex flex-wrap gap-2 justify-center animate-fade-up animate-fade-up-delay-3">
+    <h1 class="mt-4 text-4xl md:text-5xl font-bold tracking-tight animate-fade-up" style="color: var(--text);">
+      {c.heroTitle}
+    </h1>
+    <p class="mt-4 text-lg soft animate-fade-up animate-fade-up-delay-1">{c.heroDesc}</p>
+    <div class="mt-6 flex flex-wrap gap-2 justify-center animate-fade-up animate-fade-up-delay-2">
       {c.heroTags.map((tag) => (
-        <span class="px-3 py-1 rounded-full text-sm card-icon muted">{tag}</span>
+        <span class="pill px-4 py-2 rounded-full text-sm">{tag}</span>
       ))}
     </div>
-  </section>
+  </div>
 
   <!-- BACK -->
 
