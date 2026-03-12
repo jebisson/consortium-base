@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
+  <rect width="32" height="32" rx="6" fill="#111111"/>
+  <!-- Upper arc: left-upper → top → upper-right (200° to 330° clockwise) -->
+  <path d="M 6.13 12.41 A 10.5 10.5 0 0 1 25.09 10.75"
+        fill="none" stroke="rgb(225,162,9)" stroke-width="5.5" stroke-linecap="round"/>
+  <!-- Lower arc: lower-right → bottom → left-lower (30° to 160° clockwise) -->
+  <path d="M 25.09 21.25 A 10.5 10.5 0 0 1 6.13 19.59"
+        fill="none" stroke="rgb(225,162,9)" stroke-width="5.5" stroke-linecap="round"/>
+</svg>

@@ -8,6 +8,7 @@ export interface TenantConfig {
   id: string;
   name: string;
   logoSrc: string;
+  faviconSrc: string;
   siteUrl: string;
   colors: {
     background: string;
@@ -25,6 +26,7 @@ const tenants: Record<string, TenantConfig> = {
     id: "consortium",
     name: "Consortium",
     logoSrc: "/logo_consortium.png",
+    faviconSrc: "/favicon-consortium.svg",
     siteUrl: "https://consortium-base.vercel.app",
     colors: {
       background: "rgb(18, 18, 18)",
@@ -40,6 +42,7 @@ const tenants: Record<string, TenantConfig> = {
     id: "eesad",
     name: "EÉSAD",
     logoSrc: "/eesad-logo.png",
+    faviconSrc: "/favicon-eesad.svg",
     siteUrl: "https://eesad.vercel.app",
     colors: {
       background: "rgb(12, 22, 65)",
