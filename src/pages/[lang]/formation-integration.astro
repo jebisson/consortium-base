@@ -14,7 +14,6 @@ const f = tr.formation;
 const common = tr.common;
 const homeLink = `/${lang}`;
 const currentPath = `/${lang}/formation-integration`;
-const surveyLink = `/${lang}/survey`;
 ---
 
 <SiteLayout title={f.title} description={f.heroDesc} lang={lang} currentPath={currentPath}>
@@ -161,9 +160,9 @@ const surveyLink = `/${lang}/survey`;
         </div>
       </section>
 
-      <!-- CTA -->
+      <!-- CTA + inline form -->
       <section class="pb-10">
-        <div class="group relative overflow-hidden rounded-2xl p-7 card-dark reveal">
+        <div class="relative overflow-hidden rounded-2xl p-7 card-dark reveal">
           <div class="hover-tint"></div>
           <div class="relative flex flex-col md:flex-row md:items-center md:justify-between gap-4">
             <div class="flex items-start gap-4">
@@ -177,11 +176,61 @@ const surveyLink = `/${lang}/survey`;
                 <p class="mt-2 soft">{f.ctaDesc}</p>
               </div>
             </div>
-            <a href={surveyLink}
-               class="inline-flex items-center justify-center rounded-xl px-6 py-3 font-semibold transition hover:brightness-110"
-               style={`background: linear-gradient(90deg, color-mix(in srgb, var(--accent) 92%, white 8%), color-mix(in srgb, var(--accent) 72%, black 28%)); color: #111;`}>
+            <button id="formToggle"
+               class="shrink-0 inline-flex items-center justify-center rounded-xl px-6 py-3 font-semibold transition hover:brightness-110"
+               style="background: linear-gradient(90deg, color-mix(in srgb, var(--accent) 92%, white 8%), color-mix(in srgb, var(--accent) 72%, black 28%)); color: #111;">
               {f.ctaBtn}
-            </a>
+            </button>
+          </div>
+
+          <!-- Inline form (hidden by default) -->
+          <div id="formationForm" class="hidden mt-6 pt-6 border-t" style="border-color: rgba(255,255,255,0.08);">
+            <form id="formationContact" class="space-y-4">
+              <input type="hidden" name="form_type" value="contact" />
+              <input type="hidden" name="contact_subject" value={lang === "fr" ? "Formation & intégration" : "Training & integration"} />
+              <div class="grid sm:grid-cols-2 gap-4">
+                <div>
+                  <label class="block text-sm font-medium mb-1.5 soft">
+                    {lang === "fr" ? "Nom" : "Name"} <span class="text-rose-400">*</span>
+                  </label>
+                  <input name="contact_nom" required
+                         class="focus-ring w-full rounded-lg px-3 py-2.5 text-sm"
+                         style="background: rgba(0,0,0,0.30); border: 1px solid rgba(255,255,255,0.10); color: var(--text);" />
+                </div>
+                <div>
+                  <label class="block text-sm font-medium mb-1.5 soft">
+                    {common.email} <span class="text-rose-400">*</span>
+                  </label>
+                  <input type="email" name="contact_email" required
+                         class="focus-ring w-full rounded-lg px-3 py-2.5 text-sm"
+                         style="background: rgba(0,0,0,0.30); border: 1px solid rgba(255,255,255,0.10); color: var(--text);" />
+                </div>
+              </div>
+              <div>
+                <label class="block text-sm font-medium mb-1.5 soft">
+                  {common.orgName} {common.optional}
+                </label>
+                <input name="contact_org"
+                       class="focus-ring w-full rounded-lg px-3 py-2.5 text-sm"
+                       style="background: rgba(0,0,0,0.30); border: 1px solid rgba(255,255,255,0.10); color: var(--text);" />
+              </div>
+              <div>
+                <label class="block text-sm font-medium mb-1.5 soft">
+                  {common.notes}
+                </label>
+                <textarea name="contact_message" rows="3"
+                          class="focus-ring w-full rounded-lg px-3 py-2.5 text-sm resize-none"
+                          style="background: rgba(0,0,0,0.30); border: 1px solid rgba(255,255,255,0.10); color: var(--text);"></textarea>
+              </div>
+              <div class="flex items-center gap-4">
+                <button type="submit"
+                        class="inline-flex items-center justify-center px-6 py-3 rounded-xl font-semibold transition hover:brightness-110"
+                        style="background: var(--accent); color: #111;">
+                  {common.sendRequest}
+                </button>
+                <p id="formationStatus" class="text-sm muted"></p>
+              </div>
+            </form>
           </div>
         </div>
       </section>
@@ -190,3 +239,34 @@ const surveyLink = `/${lang}/survey`;
   </section>
 
 </SiteLayout>
+
+<script define:vars={{ msgSending: tr.common.sending, msgDone: tr.common.sent, msgError: tr.common.errorSend, msgNetwork: tr.common.errorNetwork }}>
+  document.getElementById("formToggle")?.addEventListener("click", () => {
+    const panel = document.getElementById("formationForm");
+    panel?.classList.toggle("hidden");
+  });
+
+  const form   = document.getElementById("formationContact");
+  const status = document.getElementById("formationStatus");
+
+  form?.addEventListener("submit", async (e) => {
+    e.preventDefault();
+    if (status) status.textContent = msgSending;
+
+    const fd   = new FormData(form);
+    const data = {};
+    for (const [k, v] of fd.entries()) data[k] = v;
+
+    try {
+      const res = await fetch("/api/submit", {
+        method:  "POST",
+        headers: { "Content-Type": "application/json" },
+        body:    JSON.stringify(data),
+      });
+      if (status) status.textContent = res.ok ? msgDone : msgError;
+      if (res.ok) form.reset();
+    } catch {
+      if (status) status.textContent = msgNetwork;
+    }
+  });
+</script>
