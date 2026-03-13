@@ -346,22 +346,34 @@ const { background, text, accent, border, bandBackground, glowColor, cardBackgro
       <!-- ===== FOOTER ===== -->
       <footer class="mt-auto relative pt-px">
         <div class="footer-line"></div>
+
+        {tenant.id === "consortium" && (
+          <div class="mx-auto max-w-6xl px-4 py-10 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-6">
+            <div>
+              <p class="text-xl md:text-2xl font-bold" style="color: var(--text);">
+                {lang === "fr" ? "Votre organisation n'est pas encore membre ?" : "Your organization is not yet a member?"}
+              </p>
+              <p class="mt-2 text-base" style="color: color-mix(in srgb, var(--text) 65%, transparent);">
+                {lang === "fr"
+                  ? "Rejoignez le Consortium et accédez à des services TI exclusifs conçus pour l'économie sociale."
+                  : "Join the Consortium and access exclusive IT services designed for the social economy."}
+              </p>
+            </div>
+            <a href="https://leconsortium.coop/devenir-membre/" target="_blank" rel="noopener"
+               class="shrink-0 inline-flex items-center justify-center px-7 py-3.5 rounded-xl text-base font-semibold transition hover:brightness-110 active:scale-95"
+               style="background: var(--accent); color: #111; box-shadow: 0 8px 28px color-mix(in srgb, var(--accent) 32%, transparent);">
+              {lang === "fr" ? "Devenir membre →" : "Become a member →"}
+            </a>
+          </div>
+        )}
+
         <div
-          class="mx-auto max-w-6xl px-4 py-6 flex items-center justify-between text-xs"
-          style="color: color-mix(in srgb, var(--text) 45%, transparent);"
+          class="mx-auto max-w-6xl px-4 py-4 flex items-center justify-between text-xs border-t"
+          style="color: color-mix(in srgb, var(--text) 45%, transparent); border-color: color-mix(in srgb, var(--text) 10%, transparent);"
         >
           <span>© {new Date().getFullYear()} — {tr.common.footerText.replace("Consortium", tenant.name)}</span>
           <a href={`/${lang}/`} class="mini-nav-link" style="opacity:0.6;">{tr.common.nav.home}</a>
         </div>
-        {tenant.id === "consortium" && (
-          <div class="mx-auto max-w-6xl px-4 pb-5 text-xs"
-               style="color: color-mix(in srgb, var(--text) 40%, transparent);">
-            {lang === "fr"
-              ? <>Vous n'êtes pas membre ? Pour bénéficier des services du Consortium, votre organisation doit en être membre. <a href="https://leconsortium.coop/devenir-membre/" target="_blank" rel="noopener" class="underline hover:opacity-80" style="color: var(--accent);">Pour plus d'information</a></>
-              : <>Not a member? To access Consortium services, your organization must be a member. <a href="https://leconsortium.coop/devenir-membre/" target="_blank" rel="noopener" class="underline hover:opacity-80" style="color: var(--accent);">Learn more</a></>
-            }
-          </div>
-        )}
       </footer>
 
     </div>
