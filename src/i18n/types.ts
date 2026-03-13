@@ -155,7 +155,7 @@ export interface RmmTranslations {
   k365: { title: string; subtitle: string; cards: { title: string; desc: string }[] };
   plansTitle: string;
   plansSubtitle: string;
-  plans: { title: string; price: string; subtitle: string; bullets: string[] }[];
+  plans: { title: string; price: string; subtitle: string; bullets: string[]; recommended?: boolean }[];
   priceNote: string;
   pricingUnit: string;
   compTitle: string;

@@ -200,7 +200,14 @@ const { accent } = tenant.colors;
         </div>
         <div class="grid md:grid-cols-3 gap-8">
           {r.plans.map((plan) => (
-            <div class="group relative overflow-hidden rounded-2xl p-8 card-dark reveal">
+            <div class={`group relative overflow-hidden rounded-2xl p-8 card-dark reveal${plan.recommended ? " ring-2" : ""}`}
+                 style={plan.recommended ? "ring-color: var(--accent);" : ""}>
+              {plan.recommended && (
+                <div class="absolute top-0 right-0 px-4 py-1.5 rounded-bl-xl text-xs font-bold tracking-wide"
+                     style="background: var(--accent); color: #111;">
+                  {lang === "fr" ? "✦ Recommandé" : "✦ Recommended"}
+                </div>
+              )}
               <div class="hover-tint"></div>
               <div class="relative">
                 <h4 class="text-xl font-semibold" style="color: white;">{plan.title}</h4>
