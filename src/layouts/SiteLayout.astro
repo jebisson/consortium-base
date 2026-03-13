@@ -353,6 +353,15 @@ const { background, text, accent, border, bandBackground, glowColor, cardBackgro
           <span>© {new Date().getFullYear()} — {tr.common.footerText.replace("Consortium", tenant.name)}</span>
           <a href={`/${lang}/`} class="mini-nav-link" style="opacity:0.6;">{tr.common.nav.home}</a>
         </div>
+        {tenant.id === "consortium" && (
+          <div class="mx-auto max-w-6xl px-4 pb-5 text-xs"
+               style="color: color-mix(in srgb, var(--text) 40%, transparent);">
+            {lang === "fr"
+              ? <>Vous n'êtes pas membre ? Pour bénéficier des services du Consortium, votre organisation doit en être membre. <a href="https://leconsortium.coop/devenir-membre/" target="_blank" rel="noopener" class="underline hover:opacity-80" style="color: var(--accent);">Pour plus d'information</a></>
+              : <>Not a member? To access Consortium services, your organization must be a member. <a href="https://leconsortium.coop/devenir-membre/" target="_blank" rel="noopener" class="underline hover:opacity-80" style="color: var(--accent);">Learn more</a></>
+            }
+          </div>
+        )}
       </footer>
 
     </div>
