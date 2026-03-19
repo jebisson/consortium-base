@@ -447,6 +447,7 @@ const fr: Translations = {
       ["Détection comportementale (EDR)", "✅", "✅", "✅"],
       ["Isolation / réponse incident", "✅", "✅", "✅"],
       ["Suite centralisée / gouvernance", "—", "✅", "✅"],
+      ["Réponse automatisée aux incidents", "—", "✅", "✅"],
       ["Filtrage courriel", "—", "✅", "✅"],
       ["Protection Dark Web", "—", "✅", "✅"],
       ["Formation hameçonnage", "—", "✅", "✅"],

@@ -447,6 +447,7 @@ const en: Translations = {
       ["Behavioral detection (EDR)", "✅", "✅", "✅"],
       ["Incident isolation / response", "✅", "✅", "✅"],
       ["Centralized suite / governance", "—", "✅", "✅"],
+      ["Automated incident response", "—", "✅", "✅"],
       ["Email filtering", "—", "✅", "✅"],
       ["Dark Web monitoring", "—", "✅", "✅"],
       ["Phishing simulation training", "—", "✅", "✅"],
