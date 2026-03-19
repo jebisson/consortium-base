@@ -445,7 +445,7 @@ const en: Translations = {
       ["Automation (scripts / remediation)", "✅", "—", "✅"],
       ["Fleet inventory / visibility", "✅", "—", "✅"],
       ["Behavioral detection (EDR)", "✅", "✅", "✅"],
-      ["Incident isolation / response", "✅", "✅", "✅"],
+      ["Incident isolation", "✅", "✅", "✅"],
       ["Centralized suite / governance", "—", "✅", "✅"],
       ["Automated incident response", "—", "✅", "✅"],
       ["Email filtering", "—", "✅", "✅"],
