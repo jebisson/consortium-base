@@ -2,6 +2,11 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Theme-adaptive text utilities */
+.soft   { color: color-mix(in srgb, var(--text) 82%, transparent); }
+.muted  { color: color-mix(in srgb, var(--text) 68%, transparent); }
+.bullet li { color: color-mix(in srgb, var(--text) 78%, transparent); }
+
 /* Ensure form inputs inside dark cards adapt to both light and dark themes */
 .card-dark input,
 .card-dark select,
