@@ -75,7 +75,7 @@ const tenants: Record<string, TenantConfig> = {
     },
     colors: {
       background: "#f0e8f9",
-      text: "#1f2937",
+      text: "#3d3580",
       accent: "#6B3FA0",
       border: "rgba(107, 63, 160, 0.30)",
       bandBackground: "#ffffff",
