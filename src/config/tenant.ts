@@ -74,13 +74,13 @@ const tenants: Record<string, TenantConfig> = {
       en: "I agree, after clicking the \"Send\" button, that FQCS may use the information provided above to contact me by email or by phone regarding this request and occasionally regarding FQCS's services. You may unsubscribe from FQCS communications at any time by writing to communications@ressources.coop.",
     },
     colors: {
-      background: "#ffffff",
+      background: "#f0e8f9",
       text: "#1f2937",
       accent: "#6B3FA0",
       border: "rgba(107, 63, 160, 0.30)",
-      bandBackground: "#f3edf9",
+      bandBackground: "#ffffff",
       glowColor: "rgba(107, 63, 160, 0.22)",
-      cardBackground: "#faf7fc",
+      cardBackground: "#f0e8f9",
     },
   },
 };
