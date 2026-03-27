@@ -85,7 +85,6 @@ export const POST: APIRoute = async ({ request }) => {
     rows += fieldRow("Entité", body["company_name"] || "—");
 
     // ── Qualification ──────────────────────────────────────────────────────
-    rows += sectionRow("Qualification de l'organisation");
     if (body["is_member"])
       rows += fieldRow("Votre entreprise est-elle déjà membre ou cliente du Consortium?", normalize(body["is_member"]));
     if (body["is_federation"])
@@ -94,22 +93,18 @@ export const POST: APIRoute = async ({ request }) => {
       rows += fieldRow("Type d'entreprise", normalize(body["company_type"]));
 
     // ── Adresse ─────────────────────────────────────────────────────────────
-    rows += sectionRow("Coordonnées de l'organisation");
     if (body["street_address"]) rows += fieldRow("Adresse postale", body["street_address"]);
     const cityProv = [body["city"], body["province"]].filter(Boolean).join(", ");
     if (cityProv) rows += fieldRow("Ville / Province", cityProv);
     if (body["postal_code"]) rows += fieldRow("Code postal", body["postal_code"]);
 
     // ── Personne contact ────────────────────────────────────────────────────
-    rows += sectionRow("Personne contact");
     if (body["contact_person"]) rows += fieldRow("Personne contact", body["contact_person"]);
     if (body["contact_title"]) rows += fieldRow("Titre au sein de l'organisation", body["contact_title"]);
     if (email) rows += fieldRow("Courriel", `<a href="mailto:${email}">${email}</a>`);
     if (phone) rows += fieldRow("Téléphone", phone);
 
     // ── Précision de la demande ─────────────────────────────────────────────
-    rows += sectionRow("Précision de la demande");
-
     if (body["contact_subject"]) rows += fieldRow("Sujet", body["contact_subject"]);
     if (body["conseil_type"])    rows += fieldRow("Type de consultation", body["conseil_type"]);
     if (body["support_plan"])    rows += fieldRow("Plan de support", body["support_plan"]);
