@@ -146,9 +146,9 @@ const benefitIcons = [
           <div class="pointer-events-none absolute -bottom-20 -right-20 h-52 w-52 rounded-full blur-3xl opacity-15"
                style="background: var(--accent);"></div>
 
-          <div class="relative flex flex-col md:flex-row md:items-start md:justify-between gap-8">
-            <!-- Left: title + open button -->
-            <div class="md:max-w-xl">
+          <div class="relative flex flex-col gap-8">
+            <!-- Title + open button -->
+            <div>
               <p class="text-xs uppercase tracking-[0.35em] mb-3"
                  style="color: color-mix(in srgb, var(--accent) 85%, transparent);">
                 {lang === "fr" ? "Passez à l'action" : "Take action"}
@@ -165,8 +165,8 @@ const benefitIcons = [
               <p id="migrationStatus" class="mt-4 text-sm muted"></p>
             </div>
 
-            <!-- Right: expandable form -->
-            <div class="md:flex-1">
+            <!-- Expandable form -->
+            <div>
               <div id="formContainer" class="overflow-hidden max-h-0 opacity-0 transition-all duration-500">
                 <div class="rounded-2xl p-6 md:p-7"
                      style="background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.10);">
