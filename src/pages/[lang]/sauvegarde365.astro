@@ -347,37 +347,145 @@ const currentPath = lang === "fr" ? "/fr/sauvegarde365" : "/en/backup365";
 
           <!-- HIDDEN FORM -->
           <div id="activationFormContainer" class="overflow-hidden max-h-0 opacity-0 transition-all duration-500 mt-6">
-            <form id="activationForm" class="space-y-4 bg-white/10 backdrop-blur p-6 rounded-xl border border-white/20">
-              <h5 class="text-xl font-semibold mb-2" style="color: var(--text);">{b.formTitle}</h5>
+            <form id="activationForm" class="space-y-4" style="background: rgba(255,255,255,0.05); border-radius: 0.75rem; padding: 1.5rem; border: 1px solid rgba(255,255,255,0.08);">
+              <h5 class="text-xl font-semibold mb-2 soft">{b.formTitle}</h5>
+              <input type="hidden" name="contact_source" value="sauvegarde365" />
 
-              <label class="block text-sm font-medium" style="color: color-mix(in srgb, var(--text) 92%, transparent);">{common.orgName}</label>
-              <input type="text" name="activation_org" required
-                     class="w-full rounded-lg px-3 py-2 bg-white/20 border border-white/30 text-white focus:ring-2 focus:ring-white" />
+              {tenant.id !== 'eesad' && <>
+              <!-- Questions préliminaires -->
+              <div>
+                <p class="text-sm font-semibold mb-2 soft">{common.memberQuestion} <span class="text-rose-400">*</span></p>
+                <div class="flex flex-wrap gap-6 text-sm soft">
+                  <label class="flex items-center gap-2"><input type="radio" name="is_member" value="oui" required style="accent-color: var(--accent);" /> {common.yes}</label>
+                  <label class="flex items-center gap-2"><input type="radio" name="is_member" value="non" style="accent-color: var(--accent);" /> {common.no}</label>
+                  <label class="flex items-center gap-2"><input type="radio" name="is_member" value="ne_sais_pas" style="accent-color: var(--accent);" /> {common.dontKnow}</label>
+                </div>
+              </div>
+              <div>
+                <p class="text-sm font-semibold mb-2 soft">{common.federationQuestion} <span class="text-rose-400">*</span></p>
+                <div class="flex flex-wrap gap-6 text-sm soft">
+                  <label class="flex items-center gap-2"><input type="radio" name="is_federation" value="oui" required style="accent-color: var(--accent);" /> {common.yes}</label>
+                  <label class="flex items-center gap-2"><input type="radio" name="is_federation" value="non" style="accent-color: var(--accent);" /> {common.no}</label>
+                  <label class="flex items-center gap-2"><input type="radio" name="is_federation" value="ne_sais_pas" style="accent-color: var(--accent);" /> {common.dontKnow}</label>
+                </div>
+              </div>
+              <div>
+                <p class="text-sm font-semibold mb-2 soft">{common.companyTypeQuestion} <span class="text-rose-400">*</span></p>
+                <div class="flex flex-wrap gap-6 text-sm soft">
+                  <label class="flex items-center gap-2"><input type="radio" name="company_type" value="cooperative" required style="accent-color: var(--accent);" /> {common.cooperative}</label>
+                  <label class="flex items-center gap-2"><input type="radio" name="company_type" value="mutuelle" style="accent-color: var(--accent);" /> {common.mutuelle}</label>
+                  <label class="flex items-center gap-2"><input type="radio" name="company_type" value="obnl" style="accent-color: var(--accent);" /> {common.obnl}</label>
+                  <label class="flex items-center gap-2"><input type="radio" name="company_type" value="autre" style="accent-color: var(--accent);" /> {common.other}</label>
+                </div>
+              </div>
+              </>}
 
-              <label class="block text-sm font-medium" style="color: color-mix(in srgb, var(--text) 92%, transparent);">{common.email}</label>
-              <input type="email" name="activation_email" required
-                     class="w-full rounded-lg px-3 py-2 bg-white/20 border border-white/30 text-white focus:ring-2 focus:ring-white" />
+              <!-- Nom de l'entreprise -->
+              <div>
+                <label class="block text-sm font-semibold mb-1 soft">{common.companyName} <span class="text-rose-400">*</span></label>
+                <input type="text" name="company_name" required
+                       class="focus-ring w-full rounded-lg px-3 py-2.5 text-sm"
+                       style="background: rgba(0,0,0,0.28); border: 1px solid rgba(255,255,255,0.12); color: var(--text);" />
+              </div>
 
-              <label class="block text-sm font-medium" style="color: color-mix(in srgb, var(--text) 92%, transparent);">{b.formUsers}</label>
-              <input type="number" name="activation_users" required
-                     class="w-full rounded-lg px-3 py-2 bg-white/20 border border-white/30 text-white focus:ring-2 focus:ring-white" />
+              <!-- Adresse -->
+              <div>
+                <label class="block text-sm font-semibold mb-1 soft">{common.address} <span class="text-rose-400">*</span></label>
+                <input type="text" name="street_address" required placeholder={common.streetAddress}
+                       class="focus-ring w-full rounded-lg px-3 py-2.5 text-sm mb-1"
+                       style="background: rgba(0,0,0,0.28); border: 1px solid rgba(255,255,255,0.12); color: var(--text);" />
+                <p class="text-xs mb-2 muted">{common.streetAddress}</p>
+                <div class="grid grid-cols-2 gap-3 mb-1">
+                  <div>
+                    <input type="text" name="city" required
+                           class="focus-ring w-full rounded-lg px-3 py-2.5 text-sm"
+                           style="background: rgba(0,0,0,0.28); border: 1px solid rgba(255,255,255,0.12); color: var(--text);" />
+                    <p class="text-xs mt-1 muted">{common.city}</p>
+                  </div>
+                  <div>
+                    <select name="province" required
+                            class="focus-ring w-full rounded-lg px-3 py-2.5 text-sm"
+                            style="background: rgba(0,0,0,0.28); border: 1px solid rgba(255,255,255,0.12); color: var(--text);">
+                      <option value="QC" selected>Québec</option>
+                      <option value="ON">Ontario</option>
+                      <option value="BC">Colombie-Britannique</option>
+                      <option value="AB">Alberta</option>
+                      <option value="MB">Manitoba</option>
+                      <option value="SK">Saskatchewan</option>
+                      <option value="NS">Nouvelle-Écosse</option>
+                      <option value="NB">Nouveau-Brunswick</option>
+                      <option value="NL">Terre-Neuve</option>
+                      <option value="PE">Île-du-Prince-Édouard</option>
+                    </select>
+                    <p class="text-xs mt-1 muted">{common.province}</p>
+                  </div>
+                </div>
+                <div style="max-width: 50%; display: block;">
+                  <input type="text" name="postal_code" required
+                         class="focus-ring w-full rounded-lg px-3 py-2.5 text-sm"
+                         style="background: rgba(0,0,0,0.28); border: 1px solid rgba(255,255,255,0.12); color: var(--text);" />
+                  <p class="text-xs mt-1 muted">{common.postalCode}</p>
+                </div>
+              </div>
+
+              <!-- Personne contact + Titre -->
+              <div class="grid grid-cols-2 gap-3">
+                <div>
+                  <label class="block text-sm font-semibold mb-1 soft">{common.contactPerson} <span class="text-rose-400">*</span></label>
+                  <input type="text" name="contact_person" required
+                         class="focus-ring w-full rounded-lg px-3 py-2.5 text-sm"
+                         style="background: rgba(0,0,0,0.28); border: 1px solid rgba(255,255,255,0.12); color: var(--text);" />
+                </div>
+                <div>
+                  <label class="block text-sm font-semibold mb-1 soft">{common.contactTitle}</label>
+                  <input type="text" name="contact_title"
+                         class="focus-ring w-full rounded-lg px-3 py-2.5 text-sm"
+                         style="background: rgba(0,0,0,0.28); border: 1px solid rgba(255,255,255,0.12); color: var(--text);" />
+                </div>
+              </div>
+
+              <!-- Courriel + Téléphone -->
+              <div class="grid grid-cols-2 gap-3">
+                <div>
+                  <label class="block text-sm font-semibold mb-1 soft">{common.email} <span class="text-rose-400">*</span></label>
+                  <input type="email" name="contact_email" required
+                         class="focus-ring w-full rounded-lg px-3 py-2.5 text-sm"
+                         style="background: rgba(0,0,0,0.28); border: 1px solid rgba(255,255,255,0.12); color: var(--text);" />
+                </div>
+                <div>
+                  <label class="block text-sm font-semibold mb-1 soft">{common.phone}</label>
+                  <input type="tel" name="contact_phone"
+                         class="focus-ring w-full rounded-lg px-3 py-2.5 text-sm"
+                         style="background: rgba(0,0,0,0.28); border: 1px solid rgba(255,255,255,0.12); color: var(--text);" />
+                </div>
+              </div>
+
+              <!-- Nombre d'utilisateurs -->
+              <div>
+                <label class="block text-sm font-semibold mb-1 soft">{b.formUsers} <span class="text-rose-400">*</span></label>
+                <input type="number" name="activation_users" required
+                       class="focus-ring w-full rounded-lg px-3 py-2.5 text-sm"
+                       style="background: rgba(0,0,0,0.28); border: 1px solid rgba(255,255,255,0.12); color: var(--text);" />
+              </div>
 
               <button type="submit"
-                      class="mt-4 w-full px-4 py-2 bg-white text-black rounded-lg font-semibold hover:bg-slate-100 transition">
+                      class="mt-4 w-full px-4 py-2 rounded-xl font-semibold transition hover:brightness-110"
+                      style="background: var(--accent); color: #111;">
                 {b.formSendBtn}
               </button>
               <label class="flex items-start gap-2.5 cursor-pointer">
                 <input type="checkbox" required name="consent"
-                       class="mt-0.5 h-4 w-4 shrink-0 rounded"
+                       class="mt-0.5 h-4 w-4 shrink-0 rounded focus-ring"
                        style="accent-color: var(--accent);" />
                 <span class="text-xs muted">{tenant.consent[lang as 'fr' | 'en']}</span>
               </label>
               <button type="button" id="closeFormBtn"
-                      class="mt-2 w-full px-4 py-2 bg-white/10 text-white rounded-lg font-medium border border-white/20 hover:bg-white/20 transition">
+                      class="mt-2 w-full px-4 py-2 rounded-xl font-medium border transition hover:brightness-110"
+                      style="background: rgba(255,255,255,0.06); border-color: rgba(255,255,255,0.12); color: var(--text);">
                 {common.close}
               </button>
 
-              <p id="activationStatus" class="text-sm mt-2" style="color: color-mix(in srgb, var(--text) 80%, transparent);"></p>
+              <p id="activationStatus" class="text-sm mt-2 soft"></p>
             </form>
           </div>
         </div>

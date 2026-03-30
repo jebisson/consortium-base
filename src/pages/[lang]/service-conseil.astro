@@ -261,6 +261,7 @@ const currentPath = `/${lang}/service-conseil`;
                         </button>
                       </div>
                       <form id="consultForm" class="mt-4 space-y-4" style="background: rgba(255,255,255,0.05); border-radius: 0.75rem; padding: 1.5rem; border: 1px solid rgba(255,255,255,0.08);">
+                        {tenant.id !== 'eesad' && <>
                         <!-- Questions préliminaires -->
                         <div>
                           <p class="text-sm font-semibold mb-2 soft">{common.memberQuestion} <span class="text-rose-400">*</span></p>
@@ -287,6 +288,7 @@ const currentPath = `/${lang}/service-conseil`;
                             <label class="flex items-center gap-2"><input type="radio" name="company_type" value="autre" style="accent-color: var(--accent);" /> {common.other}</label>
                           </div>
                         </div>
+                        </>}
                         <!-- Nom de l'entreprise -->
                         <div>
                           <label class="block text-sm font-semibold mb-1 soft">{tr.common.companyName} <span class="text-rose-400">*</span></label>

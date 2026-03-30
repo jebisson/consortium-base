@@ -276,6 +276,7 @@ const { accent } = tenant.colors;
             <div id="quoteFormContainer" class="overflow-hidden max-h-0 opacity-0 transition-all duration-500 mt-6">
               <form id="quoteForm" class="space-y-4" style="background: rgba(255,255,255,0.05); border-radius: 0.75rem; padding: 1.5rem; border: 1px solid rgba(255,255,255,0.08);">
                 <h5 class="text-xl font-semibold mb-2 soft">{r.formTitle}</h5>
+                {tenant.id !== 'eesad' && <>
                 <!-- Questions préliminaires -->
                 <div>
                   <p class="text-sm font-semibold mb-2 soft">{common.memberQuestion} <span class="text-rose-400">*</span></p>
@@ -302,6 +303,7 @@ const { accent } = tenant.colors;
                     <label class="flex items-center gap-2"><input type="radio" name="company_type" value="autre" style="accent-color: var(--accent);" /> {common.other}</label>
                   </div>
                 </div>
+                </>}
                 <!-- Nom de l'entreprise -->
                 <div>
                   <label class="block text-sm font-semibold mb-1 soft">{common.companyName} <span class="text-rose-400">*</span></label>
