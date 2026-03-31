@@ -46,7 +46,7 @@ const tenantDisplayNames: Record<string, string> = {
 
 // Fields that are handled explicitly (skip in leftover loop)
 const KNOWN_FIELDS = new Set([
-  "company_name", "is_member", "is_federation", "company_type", "heard_about",
+  "company_name", "is_member", "is_federation", "company_type", "heard_about", "service_type",
   "street_address", "city", "province", "postal_code",
   "contact_person", "contact_title", "consent", "form_type", "contact_source", "contact_subject",
   "conseil_type", "support_plan",
@@ -103,6 +103,8 @@ export const POST: APIRoute = async ({ request }) => {
 
     // ── Service rendu à ────────────────────────────────────────────────────
     rows += sectionRow("Service rendu à :");
+    if (body["service_type"])
+      rows += fieldRow("Services requis", body["service_type"]);
 
     // ── Qualification ──────────────────────────────────────────────────────
     if (body["is_member"])

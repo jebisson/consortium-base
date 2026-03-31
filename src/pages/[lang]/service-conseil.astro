@@ -261,6 +261,7 @@ const currentPath = `/${lang}/service-conseil`;
                         </button>
                       </div>
                       <form id="consultForm" class="mt-4 space-y-4" style="background: rgba(255,255,255,0.05); border-radius: 0.75rem; padding: 1.5rem; border: 1px solid rgba(255,255,255,0.08);">
+                        <input type="hidden" name="service_type" value="Service-conseil" />
                         {tenant.id !== 'eesad' && <>
                         <!-- Questions préliminaires -->
                         <div>
@@ -270,12 +271,6 @@ const currentPath = `/${lang}/service-conseil`;
                             <label class="flex items-center gap-2"><input type="radio" name="is_member" value="non" style="accent-color: var(--accent);" /> {common.no}</label>
                             <label class="flex items-center gap-2"><input type="radio" name="is_member" value="ne_sais_pas" style="accent-color: var(--accent);" /> {common.dontKnow}</label>
                           </div>
-                        </div>
-                        <div>
-                          <label class="block text-sm font-semibold mb-1 soft">{common.heardAbout}</label>
-                          <input type="text" name="heard_about"
-                                 class="focus-ring w-full rounded-lg px-3 py-2.5 text-sm"
-                                 style="background: rgba(0,0,0,0.28); border: 1px solid rgba(255,255,255,0.12); color: var(--text);" />
                         </div>
                         <div>
                           <p class="text-sm font-semibold mb-2 soft">{common.federationQuestion} <span class="text-rose-400">*</span></p>
