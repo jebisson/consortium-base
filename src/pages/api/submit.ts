@@ -37,13 +37,20 @@ function normalize(val: string): string {
   return map[val] ?? val;
 }
 
+// Tenant display names
+const tenantDisplayNames: Record<string, string> = {
+  consortium: "Consortium",
+  eesad: "Réseau des EESAD",
+  fqcs: "FQCS",
+};
+
 // Fields that are handled explicitly (skip in leftover loop)
 const KNOWN_FIELDS = new Set([
-  "company_name", "is_member", "is_federation", "company_type",
+  "company_name", "is_member", "is_federation", "company_type", "heard_about",
   "street_address", "city", "province", "postal_code",
   "contact_person", "contact_title", "consent", "form_type", "contact_source", "contact_subject",
   "conseil_type", "support_plan",
-  "migration_users", "contact_users", "quote_users",
+  "migration_users", "contact_users", "quote_users", "activation_users",
   "contact_email", "dell_email", "migration_email", "automate_email",
   "quote_email", "conseil_email", "support_email",
   "contact_tel", "contact_phone", "dell_tel", "migration_phone",
@@ -63,6 +70,8 @@ export const POST: APIRoute = async ({ request }) => {
     const isContact = body["form_type"] === "contact";
     const formSource = body["contact_source"] || "";
 
+    const tenantName = tenantDisplayNames[process.env.TENANT || "consortium"] || "Consortium";
+
     // Resolve shared fields that have different names per form
     const email =
       body["contact_email"] || body["dell_email"] || body["migration_email"] ||
@@ -77,26 +86,47 @@ export const POST: APIRoute = async ({ request }) => {
       body["contact_message"] || body["dell_msg"] || body["migration_msg"] ||
       body["automate_msg"] || body["quote_notes"] || body["conseil_msg"] || body["support_msg"] || "";
 
-    const users = body["migration_users"] || body["contact_users"] || body["quote_users"] || "";
+    const users = body["migration_users"] || body["contact_users"] || body["quote_users"] || body["activation_users"] || "";
+
+    const companyName = body["company_name"] || "";
+    const companyType = body["company_type"] ? normalize(body["company_type"]) : "";
+
+    // Preamble
+    const preamble = companyName
+      ? `<p style="font-family: sans-serif; font-size: 14px; margin: 0 0 8px 0;">Nous venons de recevoir une nouvelle demande de service de <strong>${companyName}${companyType ? ` (${companyType})` : ""}</strong>.</p><p style="font-family: sans-serif; font-size: 14px; margin: 0 0 16px 0;">Voici les détails relatifs à cette demande.</p>`
+      : "";
 
     let rows = "";
 
     // ── Entité ─────────────────────────────────────────────────────────────
-    rows += fieldRow("Entité", body["company_name"] || "—");
+    rows += fieldRow("Entité", tenantName);
+
+    // ── Service rendu à ────────────────────────────────────────────────────
+    rows += sectionRow("Service rendu à :");
 
     // ── Qualification ──────────────────────────────────────────────────────
     if (body["is_member"])
       rows += fieldRow("Votre entreprise est-elle déjà membre ou cliente du Consortium?", normalize(body["is_member"]));
+    if (body["heard_about"])
+      rows += fieldRow("Où avez-vous entendu parler de nous?", body["heard_about"]);
     if (body["is_federation"])
-      rows += fieldRow("Membre d'une fédération, d'un regroupement ou d'un réseau?", normalize(body["is_federation"]));
-    if (body["company_type"])
-      rows += fieldRow("Type d'entreprise", normalize(body["company_type"]));
+      rows += fieldRow("Votre entreprise est-elle membre d'une fédération, d'un regroupement ou d'un réseau?", normalize(body["is_federation"]));
+    if (companyType)
+      rows += fieldRow("Type d'entreprise", companyType);
+
+    // ── Nom de l'entreprise ────────────────────────────────────────────────
+    if (companyName)
+      rows += fieldRow("Nom de l'entreprise", companyName);
 
     // ── Adresse ─────────────────────────────────────────────────────────────
-    if (body["street_address"]) rows += fieldRow("Adresse postale", body["street_address"]);
-    const cityProv = [body["city"], body["province"]].filter(Boolean).join(", ");
-    if (cityProv) rows += fieldRow("Ville / Province", cityProv);
-    if (body["postal_code"]) rows += fieldRow("Code postal", body["postal_code"]);
+    if (body["street_address"]) {
+      const cityLine = [body["city"], body["province"], body["postal_code"]].filter(Boolean).join(", ");
+      const addressParts = [body["street_address"], cityLine, "Canada"].filter(Boolean);
+      const addressForMap = addressParts.join(" ");
+      const mapUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(addressForMap)}`;
+      const addressHtml = addressParts.join("<br>") + `<br><a href="${mapUrl}">Map It</a>`;
+      rows += fieldRow("Adresse", addressHtml);
+    }
 
     // ── Personne contact ────────────────────────────────────────────────────
     if (body["contact_person"]) rows += fieldRow("Personne contact", body["contact_person"]);
@@ -105,6 +135,8 @@ export const POST: APIRoute = async ({ request }) => {
     if (phone) rows += fieldRow("Téléphone", phone);
 
     // ── Précision de la demande ─────────────────────────────────────────────
+    rows += sectionRow("Précision de la demande");
+
     if (body["contact_subject"]) rows += fieldRow("Sujet", body["contact_subject"]);
     if (body["conseil_type"])    rows += fieldRow("Type de consultation", body["conseil_type"]);
     if (body["support_plan"])    rows += fieldRow("Plan de support", body["support_plan"]);
@@ -116,23 +148,14 @@ export const POST: APIRoute = async ({ request }) => {
       .map(([k]) => k);
     if (checkedServices.length) {
       rows += fieldRow(
-        "Services sélectionnés",
+        "Service(s) requis",
         `<ul>${checkedServices.map((s) => `<li>${s}</li>`).join("")}</ul>`,
       );
     }
 
-    if (message) rows += fieldRow("Message / Notes", message.replace(/\n/g, "<br>"));
+    if (message) rows += fieldRow("Description du mandat", message.replace(/\n/g, "<br>"));
 
-    // Activation-specific fields
-    if (isActivation) {
-      Object.entries(body)
-        .filter(([k]) => k.startsWith("activation_"))
-        .forEach(([k, v]) => {
-          rows += fieldRow(k.replace("activation_", ""), String(v));
-        });
-    }
-
-    const html = `
+    const html = `${preamble}
 <table width="99%" border="0" cellpadding="1" cellspacing="0" bgcolor="#EAEAEA"><tr><td>
 <table width="100%" border="0" cellpadding="5" cellspacing="0" bgcolor="#FFFFFF">
 ${rows}
@@ -163,7 +186,7 @@ ${rows}
       ? `Contact — ${body["contact_subject"] || "Nouveau message"}`
       : formSource
       ? `Demande — ${formSource}`
-      : `Demande — ${body["company_name"] || "Nouveau formulaire"}`;
+      : `Demande — ${companyName || "Nouveau formulaire"}`;
 
     await transporter.sendMail({
       from: `"Services TI" <${process.env.SMTP_USER}>`,

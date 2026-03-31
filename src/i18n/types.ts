@@ -53,6 +53,7 @@ export interface CommonTranslations {
   yes: string;
   no: string;
   dontKnow: string;
+  heardAbout: string;
   cooperative: string;
   mutuelle: string;
   obnl: string;

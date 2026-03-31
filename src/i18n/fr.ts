@@ -56,6 +56,7 @@ const fr: Translations = {
     yes: "Oui",
     no: "Non",
     dontKnow: "Ne sais pas",
+    heardAbout: "Où avez-vous entendu parler de nous?",
     cooperative: "Coopérative",
     mutuelle: "Mutuelle",
     obnl: "OBNL",

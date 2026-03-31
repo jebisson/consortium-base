@@ -287,6 +287,12 @@ const { accent } = tenant.colors;
                   </div>
                 </div>
                 <div>
+                  <label class="block text-sm font-semibold mb-1 soft">{common.heardAbout}</label>
+                  <input type="text" name="heard_about"
+                         class="focus-ring w-full rounded-lg px-3 py-2.5 text-sm"
+                         style="background: rgba(0,0,0,0.28); border: 1px solid rgba(255,255,255,0.12); color: var(--text);" />
+                </div>
+                <div>
                   <p class="text-sm font-semibold mb-2 soft">{common.federationQuestion} <span class="text-rose-400">*</span></p>
                   <div class="flex flex-wrap gap-6 text-sm soft">
                     <label class="flex items-center gap-2"><input type="radio" name="is_federation" value="oui" required style="accent-color: var(--accent);" /> {common.yes}</label>
