@@ -46,7 +46,7 @@ const tenantDisplayNames: Record<string, string> = {
 
 // Fields that are handled explicitly (skip in leftover loop)
 const KNOWN_FIELDS = new Set([
-  "company_name", "is_member", "is_federation", "company_type", "heard_about", "service_type",
+  "company_name", "is_member", "is_federation", "company_type", "heard_about", "service_type", "service_name",
   "street_address", "city", "province", "postal_code",
   "contact_person", "contact_title", "consent", "form_type", "contact_source", "contact_subject",
   "conseil_type", "support_plan",
@@ -182,13 +182,10 @@ ${rows}
       tls: { ciphers: "TLSv1.2" },
     });
 
-    const emailSubject = isActivation
-      ? "Demande d'activation — Sauvegarde Microsoft 365"
-      : isContact
+    const serviceName = body["service_name"] || formSource || companyName || "Nouveau formulaire";
+    const emailSubject = isContact
       ? `Contact — ${body["contact_subject"] || "Nouveau message"}`
-      : formSource
-      ? `Demande — ${formSource}`
-      : `Demande — ${companyName || "Nouveau formulaire"}`;
+      : `Demande de service TI — ${serviceName}`;
 
     await transporter.sendMail({
       from: `"Services TI" <${process.env.SMTP_USER}>`,
