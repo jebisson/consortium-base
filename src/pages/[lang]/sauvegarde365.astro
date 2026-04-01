@@ -324,7 +324,7 @@ const currentPath = lang === "fr" ? "/fr/sauvegarde365" : "/en/backup365";
       <!-- PRICING + FORM -->
       <div id="activer"></div>
       <div class="rounded-2xl p-10 card-dark relative overflow-hidden reveal"
-           style={`background: linear-gradient(135deg, color-mix(in srgb, var(--accent) 58%, rgb(18,18,18)), rgb(18,18,18)); border: 1px solid rgba(255,255,255,0.10);`}>
+           style={`background: linear-gradient(135deg, color-mix(in srgb, var(--accent) 58%, var(--card)), var(--card)); border: 1px solid var(--border);`}>
         <div class="pointer-events-none absolute inset-0"
              style="background: radial-gradient(circle at 18% 18%, color-mix(in srgb, var(--accent) 14%, transparent), transparent 62%);"></div>
 
@@ -334,7 +334,7 @@ const currentPath = lang === "fr" ? "/fr/sauvegarde365" : "/en/backup365";
 
           <p class="text-xl mb-6">
             <span class="font-extrabold text-5xl" style="color: var(--text);">{b.pricingAmount}</span>
-            <span style="color: rgba(255,255,255,0.85);"> {b.pricingUnit}</span>
+            <span style="color: color-mix(in srgb, var(--text) 75%, transparent);"> {b.pricingUnit}</span>
           </p>
 
           <ul class="list-disc ml-6 space-y-2 text-lg mb-8" style="color: color-mix(in srgb, var(--text) 90%, transparent);">
