@@ -10,12 +10,14 @@ interface Props {
   currentPath?: string;
 }
 
+const tenantLabel = tenant.id === "consortium" ? "Consortium" : tenant.id === "eesad" ? "EÉSAD" : tenant.id.toUpperCase();
 const {
-  title = "Services TI – Consortium",
+  title: rawTitle = `Services TI – ${tenantLabel}`,
   description,
   lang = "fr",
   currentPath = "/",
 } = Astro.props;
+const title = rawTitle.replace(/Le Consortium|Consortium/g, tenantLabel);
 
 const tr = t(lang);
 const otherLang = getOtherLang(lang);
