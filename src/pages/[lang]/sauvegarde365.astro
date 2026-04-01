@@ -15,10 +15,7 @@ export function getStaticPaths() {
 const { lang } = Astro.params as { lang: string };
 const tr = t(lang);
 const b = tr.backup;
-const common = tr.common;
-const { accent } = tenant.colors;
 
-const homeLink = `/${lang}`;
 const currentPath = lang === "fr" ? "/fr/sauvegarde365" : "/en/backup365";
 ---
 
@@ -79,11 +76,6 @@ const currentPath = lang === "fr" ? "/fr/sauvegarde365" : "/en/backup365";
          class="inline-flex items-center justify-center px-6 py-3 rounded-xl font-semibold transition hover:brightness-110"
          style="background: var(--accent); color: #111;">
         {b.ctaActivate}
-      </a>
-      <a href="#pourquoi"
-         class="inline-flex items-center justify-center px-6 py-3 rounded-xl font-semibold transition hover:brightness-110"
-         style="background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.12); color: color-mix(in srgb, var(--text) 92%, transparent);">
-        {b.ctaWhy}
       </a>
     </div>
 
