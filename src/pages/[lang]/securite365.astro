@@ -2,6 +2,7 @@
 import SiteLayout from "../../layouts/SiteLayout.astro";
 import { t } from "../../i18n/utils";
 import { tenant } from "../../config/tenant";
+import ServiceForm from "../../components/ServiceForm.astro";
 
 export const prerender = true;
 export function getStaticPaths() {
@@ -13,7 +14,6 @@ const tr = t(lang);
 const s = tr.security;
 const common = tr.common;
 
-const homeLink = `/${lang}`;
 const currentPath = `/${lang}/securite365`;
 ---
 
@@ -113,139 +113,31 @@ const currentPath = `/${lang}/securite365`;
               {s.contactBtn}
             </button>
 
-            <div id="contactFormContainer" class="overflow-hidden max-h-0 opacity-0 transition-all duration-500 mt-6">
-              <form id="contactForm" class="space-y-4" style="background: rgba(255,255,255,0.05); border-radius: 0.75rem; padding: 1.5rem; border: 1px solid rgba(255,255,255,0.08);">
-                <h4 class="text-xl font-semibold mb-2 soft">{s.formTitle}</h4>
-                <input type="hidden" name="contact_source" value="securite365" />
-                <input type="hidden" name="service_type" value="TI" />
-                <input type="hidden" name="service_name" value="Sécurité Microsoft 365" />
-                {tenant.id !== 'eesad' && <>
-                <!-- Questions préliminaires -->
-                <div>
-                  <p class="text-sm font-semibold mb-2 soft">{common.memberQuestion} <span class="text-rose-400">*</span></p>
-                  <div class="flex flex-wrap gap-6 text-sm soft">
-                    <label class="flex items-center gap-2"><input type="radio" name="is_member" value="oui" required style="accent-color: var(--accent);" /> {common.yes}</label>
-                    <label class="flex items-center gap-2"><input type="radio" name="is_member" value="non" style="accent-color: var(--accent);" /> {common.no}</label>
-                    <label class="flex items-center gap-2"><input type="radio" name="is_member" value="ne_sais_pas" style="accent-color: var(--accent);" /> {common.dontKnow}</label>
-                  </div>
-                </div>
-                <div>
-                  <p class="text-sm font-semibold mb-2 soft">{common.federationQuestion} <span class="text-rose-400">*</span></p>
-                  <div class="flex flex-wrap gap-6 text-sm soft">
-                    <label class="flex items-center gap-2"><input type="radio" name="is_federation" value="oui" required style="accent-color: var(--accent);" /> {common.yes}</label>
-                    <label class="flex items-center gap-2"><input type="radio" name="is_federation" value="non" style="accent-color: var(--accent);" /> {common.no}</label>
-                    <label class="flex items-center gap-2"><input type="radio" name="is_federation" value="ne_sais_pas" style="accent-color: var(--accent);" /> {common.dontKnow}</label>
-                  </div>
-                </div>
-                <div>
-                  <p class="text-sm font-semibold mb-2 soft">{common.companyTypeQuestion} <span class="text-rose-400">*</span></p>
-                  <div class="flex flex-wrap gap-6 text-sm soft">
-                    <label class="flex items-center gap-2"><input type="radio" name="company_type" value="cooperative" required style="accent-color: var(--accent);" /> {common.cooperative}</label>
-                    <label class="flex items-center gap-2"><input type="radio" name="company_type" value="mutuelle" style="accent-color: var(--accent);" /> {common.mutuelle}</label>
-                    <label class="flex items-center gap-2"><input type="radio" name="company_type" value="obnl" style="accent-color: var(--accent);" /> {common.obnl}</label>
-                    <label class="flex items-center gap-2"><input type="radio" name="company_type" value="autre" style="accent-color: var(--accent);" /> {common.other}</label>
-                  </div>
-                </div>
-                </>}
-                <!-- Nom de l'entreprise -->
-                <div>
-                  <label class="block text-sm font-semibold mb-1 soft">{common.companyName} <span class="text-rose-400">*</span></label>
-                  <input type="text" name="company_name" required class="focus-ring w-full rounded-lg px-3 py-2.5 text-sm"
-                         style="background: rgba(0,0,0,0.28); border: 1px solid rgba(255,255,255,0.12); color: var(--text);" />
-                </div>
-                <!-- Adresse -->
-                <div>
-                  <label class="block text-sm font-semibold mb-1 soft">{common.address} <span class="text-rose-400">*</span></label>
-                  <input type="text" name="street_address" required
-                         class="focus-ring w-full rounded-lg px-3 py-2.5 text-sm mb-1"
-                         style="background: rgba(0,0,0,0.28); border: 1px solid rgba(255,255,255,0.12); color: var(--text);" />
-                  <p class="text-xs mb-2 muted">{common.streetAddress}</p>
-                  <div class="grid grid-cols-2 gap-3 mb-1">
-                    <div>
-                      <input type="text" name="city" required
-                             class="focus-ring w-full rounded-lg px-3 py-2.5 text-sm"
-                             style="background: rgba(0,0,0,0.28); border: 1px solid rgba(255,255,255,0.12); color: var(--text);" />
-                      <p class="text-xs mt-1 muted">{common.city}</p>
-                    </div>
-                    <div>
-                      <select name="province" required
-                              class="focus-ring w-full rounded-lg px-3 py-2.5 text-sm"
-                              style="background: #1e2535; border: 1px solid rgba(255,255,255,0.12); color: var(--text);">
-                        <option style="background:#1e2535;color:#e5e7eb;">Québec</option><option style="background:#1e2535;color:#e5e7eb;">Ontario</option><option style="background:#1e2535;color:#e5e7eb;">Colombie-Britannique</option>
-                        <option style="background:#1e2535;color:#e5e7eb;">Alberta</option><option style="background:#1e2535;color:#e5e7eb;">Manitoba</option><option style="background:#1e2535;color:#e5e7eb;">Saskatchewan</option>
-                        <option style="background:#1e2535;color:#e5e7eb;">Nouvelle-Écosse</option><option style="background:#1e2535;color:#e5e7eb;">Nouveau-Brunswick</option>
-                        <option style="background:#1e2535;color:#e5e7eb;">Terre-Neuve-et-Labrador</option><option style="background:#1e2535;color:#e5e7eb;">Île-du-Prince-Édouard</option>
-                      </select>
-                      <p class="text-xs mt-1 muted">{common.province}</p>
-                    </div>
-                  </div>
-                  <input type="text" name="postal_code" required
-                         class="focus-ring w-full rounded-lg px-3 py-2.5 text-sm mt-1"
-                         style="background: rgba(0,0,0,0.28); border: 1px solid rgba(255,255,255,0.12); color: var(--text); max-width: 50%; display: block;" />
-                  <p class="text-xs mt-1 muted">{common.postalCode}</p>
-                </div>
-                <!-- Personne contact + Titre -->
-                <div class="grid md:grid-cols-2 gap-4">
-                  <div>
-                    <label class="block text-sm font-semibold mb-1 soft">{common.contactPerson} <span class="text-rose-400">*</span></label>
-                    <input type="text" name="contact_person" required class="focus-ring w-full rounded-lg px-3 py-2.5 text-sm"
-                           style="background: rgba(0,0,0,0.28); border: 1px solid rgba(255,255,255,0.12); color: var(--text);" />
-                  </div>
-                  <div>
-                    <label class="block text-sm font-semibold mb-1 soft">{common.contactTitle} <span class="text-rose-400">*</span></label>
-                    <input type="text" name="contact_title" required class="focus-ring w-full rounded-lg px-3 py-2.5 text-sm"
-                           style="background: rgba(0,0,0,0.28); border: 1px solid rgba(255,255,255,0.12); color: var(--text);" />
-                  </div>
-                </div>
-                <!-- Courriel + Téléphone -->
-                <div class="grid md:grid-cols-2 gap-4">
-                  <div>
-                    <label class="block text-sm font-semibold mb-1 soft">{common.email} <span class="text-rose-400">*</span></label>
-                    <input type="email" name="contact_email" required class="focus-ring w-full rounded-lg px-3 py-2.5 text-sm"
-                           style="background: rgba(0,0,0,0.28); border: 1px solid rgba(255,255,255,0.12); color: var(--text);" />
-                  </div>
-                  <div>
-                    <label class="block text-sm font-semibold mb-1 soft">{common.phone} <span class="text-rose-400">*</span></label>
-                    <input type="text" name="contact_phone" required class="focus-ring w-full rounded-lg px-3 py-2.5 text-sm"
-                           style="background: rgba(0,0,0,0.28); border: 1px solid rgba(255,255,255,0.12); color: var(--text);" />
-                  </div>
-                </div>
-                <!-- Nombre d'utilisateurs -->
-                <div>
-                  <label class="block text-sm font-semibold mb-1 soft">{common.usersOpt}</label>
-                  <input type="number" name="contact_users" min="1" class="focus-ring w-full rounded-lg px-3 py-2.5 text-sm"
-                         style="background: rgba(0,0,0,0.28); border: 1px solid rgba(255,255,255,0.12); color: var(--text);" />
-                </div>
-                <!-- Sujet -->
-                <div>
-                  <label class="block text-sm font-semibold mb-1 soft">{common.subject}</label>
-                  <select name="contact_subject" class="focus-ring w-full rounded-lg px-3 py-2.5 text-sm"
-                          style="background: #1e2535; border: 1px solid rgba(255,255,255,0.12); color: var(--text);">
-                    {s.subjectOptions.map((opt) => (
-                      <option value={opt.value} style="background: #1e2535; color: #e5e7eb;">{opt.label}</option>
-                    ))}
-                  </select>
-                </div>
-                <!-- Message -->
-                <div>
-                  <label class="block text-sm font-semibold mb-1 soft">{common.message} <span class="text-rose-400">*</span></label>
-                  <textarea name="contact_message" rows="4" required class="focus-ring w-full rounded-lg px-3 py-2.5 text-sm resize-none"
-                            style="background: rgba(0,0,0,0.28); border: 1px solid rgba(255,255,255,0.12); color: var(--text);"
-                            placeholder={s.msgPlaceholder}></textarea>
-                </div>
-                <label class="flex items-start gap-2.5 cursor-pointer">
-                  <input type="checkbox" required name="consent"
-                         class="mt-0.5 h-4 w-4 shrink-0 rounded"
-                         style="accent-color: var(--accent);" />
-                  <span class="text-xs muted">{tenant.consent[lang as 'fr' | 'en']}</span>
-                </label>
-                <button type="submit" class="w-full px-4 py-2 rounded-lg font-semibold transition hover:brightness-110"
-                        style="background: var(--accent); color: #111;">{common.sendRequest}</button>
-                <button type="button" id="closeContactBtn" class="w-full px-4 py-2 rounded-lg font-medium transition hover:brightness-110"
-                        style="background: rgba(255,255,255,0.06); color: var(--text); border: 1px solid rgba(255,255,255,0.10);">{common.close}</button>
-                <p id="contactStatus" class="text-sm mt-2 muted"></p>
-              </form>
-            </div>
+            <ServiceForm
+              lang={lang}
+              serviceName="Sécurité Microsoft 365"
+              formId="contactForm"
+              containerId="contactFormContainer"
+              statusId="contactStatus"
+              openBtnId="openContactBtn"
+              formTitle={s.formTitle}
+              contactSource="securite365"
+            >
+              <div>
+                <label class="block text-sm font-semibold mb-1 soft">{common.usersOpt}</label>
+                <input type="number" name="contact_users" min="1" class="focus-ring w-full rounded-lg px-3 py-2.5 text-sm"
+                       style="background: rgba(0,0,0,0.28); border: 1px solid rgba(255,255,255,0.12); color: var(--text);" />
+              </div>
+              <div>
+                <label class="block text-sm font-semibold mb-1 soft">{common.subject}</label>
+                <select name="contact_subject" class="focus-ring w-full rounded-lg px-3 py-2.5 text-sm"
+                        style="background: #1e2535; border: 1px solid rgba(255,255,255,0.12); color: var(--text);">
+                  {s.subjectOptions.map((opt) => (
+                    <option value={opt.value} style="background: #1e2535; color: #e5e7eb;">{opt.label}</option>
+                  ))}
+                </select>
+              </div>
+            </ServiceForm>
           </div>
         </section>
       </div>
@@ -279,43 +171,16 @@ const currentPath = `/${lang}/securite365`;
 
 </SiteLayout>
 
-<script define:vars={{ msgSending: tr.common.sending, msgDone: tr.common.sentShort, msgError: tr.common.errorSend, msgNetwork: tr.common.errorNetwork }}>
-  const openAuditBtn = document.getElementById("openAuditBtn");
-  const openContactBtn = document.getElementById("openContactBtn");
-  const closeContactBtn = document.getElementById("closeContactBtn");
-  const panel = document.getElementById("contactFormContainer");
-  const form = document.getElementById("contactForm");
-  const status = document.getElementById("contactStatus");
-
-  function openPanel(prefillSubject) {
-    if (!panel) return;
-    const subject = form?.querySelector('select[name="contact_subject"]');
-    if (subject && prefillSubject) subject.value = prefillSubject;
-    panel.style.maxHeight = panel.scrollHeight + "px";
-    panel.style.opacity = "1";
-    panel.scrollIntoView({ behavior: "smooth", block: "start" });
-  }
-
-  if (openAuditBtn) openAuditBtn.addEventListener("click", () => openPanel("Audit 365"));
-  if (openContactBtn) openContactBtn.addEventListener("click", () => openPanel());
-  if (closeContactBtn && panel) {
-    closeContactBtn.addEventListener("click", () => {
-      panel.style.maxHeight = "0";
-      panel.style.opacity = "0";
-    });
-  }
-  if (form && status) {
-    form.addEventListener("submit", async (e) => {
-      e.preventDefault();
-      const fd = new FormData(form);
-      const data = {};
-      for (const [k, v] of fd.entries()) data[k] = v;
-      status.textContent = msgSending;
-      try {
-        const res = await fetch("/api/submit", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(data) });
-        status.textContent = res.ok ? msgDone : msgError;
-        if (res.ok) form.reset();
-      } catch { status.textContent = msgNetwork; }
-    });
-  }
+<script>
+  // Audit button: pre-fill subject then open the same panel
+  document.getElementById("openAuditBtn")?.addEventListener("click", () => {
+    const panel = document.getElementById("contactFormContainer");
+    const subject = document.querySelector<HTMLSelectElement>('#contactForm select[name="contact_subject"]');
+    if (subject) subject.value = "Audit 365";
+    if (panel) {
+      panel.style.maxHeight = panel.scrollHeight + "px";
+      panel.style.opacity = "1";
+      panel.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+  });
 </script>
