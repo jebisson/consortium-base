@@ -126,14 +126,14 @@ const currentPath = `/${lang}/securite365`;
               <div>
                 <label class="block text-sm font-semibold mb-1 soft">{common.usersOpt}</label>
                 <input type="number" name="contact_users" min="1" class="focus-ring w-full rounded-lg px-3 py-2.5 text-sm"
-                       style="background: rgba(0,0,0,0.28); border: 1px solid rgba(255,255,255,0.12); color: var(--text);" />
+                       style="background: color-mix(in srgb, var(--text) 7%, var(--bg)); border: 1px solid var(--border); color: var(--text);" />
               </div>
               <div>
                 <label class="block text-sm font-semibold mb-1 soft">{common.subject}</label>
                 <select name="contact_subject" class="focus-ring w-full rounded-lg px-3 py-2.5 text-sm"
-                        style="background: #1e2535; border: 1px solid rgba(255,255,255,0.12); color: var(--text);">
+                        style="background: color-mix(in srgb, var(--text) 7%, var(--bg)); border: 1px solid var(--border); color: var(--text);">
                   {s.subjectOptions.map((opt) => (
-                    <option value={opt.value} style="background: #1e2535; color: #e5e7eb;">{opt.label}</option>
+                    <option value={opt.value}>{opt.label}</option>
                   ))}
                 </select>
               </div>

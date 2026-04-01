@@ -39,20 +39,71 @@ const finalSubmitLabel = submitLabel ?? common.sendRequest;
 const finalCloseLabel = closeLabel ?? common.close;
 ---
 
+<style>
+  .sf-field {
+    background: color-mix(in srgb, var(--text) 7%, var(--bg));
+    border: 1px solid var(--border);
+    color: var(--text);
+    border-radius: 0.5rem;
+    padding: 0.625rem 0.75rem;
+    font-size: 0.875rem;
+    width: 100%;
+    outline: none;
+  }
+  .sf-field:focus {
+    box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 30%, transparent);
+  }
+  .sf-select {
+    background: color-mix(in srgb, var(--text) 7%, var(--bg));
+    border: 1px solid var(--border);
+    color: var(--text);
+    border-radius: 0.5rem;
+    padding: 0.625rem 0.75rem;
+    font-size: 0.875rem;
+    width: 100%;
+    outline: none;
+  }
+  .sf-select:focus {
+    box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 30%, transparent);
+  }
+  .sf-wrap {
+    background: color-mix(in srgb, var(--text) 4%, transparent);
+    border: 1px solid var(--border);
+    border-radius: 1rem;
+    padding: 1.5rem;
+  }
+  .sf-inner {
+    background: color-mix(in srgb, var(--text) 4%, transparent);
+    border: 1px solid color-mix(in srgb, var(--border) 60%, transparent);
+    border-radius: 0.75rem;
+    padding: 1.5rem;
+  }
+  .sf-close-btn {
+    background: color-mix(in srgb, var(--text) 8%, transparent);
+    border: 1px solid var(--border);
+    color: var(--text);
+    border-radius: 0.75rem;
+    padding: 0.5rem 0.75rem;
+    font-size: 0.875rem;
+    cursor: pointer;
+    transition: filter 0.15s;
+  }
+  .sf-close-btn:hover { filter: brightness(1.1); }
+</style>
+
 <div id={containerId} class="overflow-hidden max-h-0 opacity-0 transition-all duration-500">
-  <div class="rounded-2xl p-6 md:p-7" style="background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.10);">
+  <div class="sf-wrap">
 
     {formTitle && (
       <div class="flex items-center justify-between gap-4 mb-4">
         <h3 class="text-xl font-semibold soft">{formTitle}</h3>
-        <button data-close-panel={containerId} type="button"
-                class="px-3 py-2 rounded-lg card-icon muted hover:brightness-110 focus-ring text-sm">
+        <button data-close-panel={containerId} type="button" class="sf-close-btn">
           {finalCloseLabel}
         </button>
       </div>
     )}
 
-    <form id={formId} class="space-y-4" style="background: rgba(255,255,255,0.05); border-radius: 0.75rem; padding: 1.5rem; border: 1px solid rgba(255,255,255,0.08);">
+    <form id={formId} class="sf-inner space-y-4">
       <input type="hidden" name="service_type" value={serviceType} />
       <input type="hidden" name="service_name" value={serviceName} />
       {contactSource && <input type="hidden" name="contact_source" value={contactSource} />}
@@ -90,47 +141,37 @@ const finalCloseLabel = closeLabel ?? common.close;
       <!-- Nom de l'entreprise -->
       <div>
         <label class="block text-sm font-semibold mb-1 soft">{common.companyName} <span class="text-rose-400">*</span></label>
-        <input type="text" name="company_name" required
-               class="focus-ring w-full rounded-lg px-3 py-2.5 text-sm"
-               style="background: rgba(0,0,0,0.28); border: 1px solid rgba(255,255,255,0.12); color: var(--text);" />
+        <input type="text" name="company_name" required class="sf-field" />
       </div>
 
       <!-- Adresse -->
       <div>
         <label class="block text-sm font-semibold mb-1 soft">{common.address} <span class="text-rose-400">*</span></label>
-        <input type="text" name="street_address" required placeholder={common.streetAddress}
-               class="focus-ring w-full rounded-lg px-3 py-2.5 text-sm mb-1"
-               style="background: rgba(0,0,0,0.28); border: 1px solid rgba(255,255,255,0.12); color: var(--text);" />
+        <input type="text" name="street_address" required placeholder={common.streetAddress} class="sf-field mb-1" />
         <p class="text-xs mb-2 muted">{common.streetAddress}</p>
         <div class="grid grid-cols-2 gap-3 mb-1">
           <div>
-            <input type="text" name="city" required
-                   class="focus-ring w-full rounded-lg px-3 py-2.5 text-sm"
-                   style="background: rgba(0,0,0,0.28); border: 1px solid rgba(255,255,255,0.12); color: var(--text);" />
+            <input type="text" name="city" required class="sf-field" />
             <p class="text-xs mt-1 muted">{common.city}</p>
           </div>
           <div>
-            <select name="province" required
-                    class="focus-ring w-full rounded-lg px-3 py-2.5 text-sm"
-                    style="background: #1e2535; border: 1px solid rgba(255,255,255,0.12); color: var(--text);">
-              <option style="background:#1e2535;color:#e5e7eb;" selected>Québec</option>
-              <option style="background:#1e2535;color:#e5e7eb;">Ontario</option>
-              <option style="background:#1e2535;color:#e5e7eb;">Colombie-Britannique</option>
-              <option style="background:#1e2535;color:#e5e7eb;">Alberta</option>
-              <option style="background:#1e2535;color:#e5e7eb;">Manitoba</option>
-              <option style="background:#1e2535;color:#e5e7eb;">Saskatchewan</option>
-              <option style="background:#1e2535;color:#e5e7eb;">Nouvelle-Écosse</option>
-              <option style="background:#1e2535;color:#e5e7eb;">Nouveau-Brunswick</option>
-              <option style="background:#1e2535;color:#e5e7eb;">Terre-Neuve-et-Labrador</option>
-              <option style="background:#1e2535;color:#e5e7eb;">Île-du-Prince-Édouard</option>
+            <select name="province" required class="sf-select">
+              <option>Québec</option>
+              <option>Ontario</option>
+              <option>Colombie-Britannique</option>
+              <option>Alberta</option>
+              <option>Manitoba</option>
+              <option>Saskatchewan</option>
+              <option>Nouvelle-Écosse</option>
+              <option>Nouveau-Brunswick</option>
+              <option>Terre-Neuve-et-Labrador</option>
+              <option>Île-du-Prince-Édouard</option>
             </select>
             <p class="text-xs mt-1 muted">{common.province}</p>
           </div>
         </div>
         <div style="max-width: 50%; display: block;">
-          <input type="text" name="postal_code" required
-                 class="focus-ring w-full rounded-lg px-3 py-2.5 text-sm"
-                 style="background: rgba(0,0,0,0.28); border: 1px solid rgba(255,255,255,0.12); color: var(--text);" />
+          <input type="text" name="postal_code" required class="sf-field" />
           <p class="text-xs mt-1 muted">{common.postalCode}</p>
         </div>
       </div>
@@ -139,15 +180,11 @@ const finalCloseLabel = closeLabel ?? common.close;
       <div class="grid grid-cols-2 gap-3">
         <div>
           <label class="block text-sm font-semibold mb-1 soft">{common.contactPerson} <span class="text-rose-400">*</span></label>
-          <input type="text" name="contact_person" required
-                 class="focus-ring w-full rounded-lg px-3 py-2.5 text-sm"
-                 style="background: rgba(0,0,0,0.28); border: 1px solid rgba(255,255,255,0.12); color: var(--text);" />
+          <input type="text" name="contact_person" required class="sf-field" />
         </div>
         <div>
           <label class="block text-sm font-semibold mb-1 soft">{common.contactTitle}</label>
-          <input type="text" name="contact_title"
-                 class="focus-ring w-full rounded-lg px-3 py-2.5 text-sm"
-                 style="background: rgba(0,0,0,0.28); border: 1px solid rgba(255,255,255,0.12); color: var(--text);" />
+          <input type="text" name="contact_title" class="sf-field" />
         </div>
       </div>
 
@@ -155,15 +192,11 @@ const finalCloseLabel = closeLabel ?? common.close;
       <div class="grid grid-cols-2 gap-3">
         <div>
           <label class="block text-sm font-semibold mb-1 soft">{common.email} <span class="text-rose-400">*</span></label>
-          <input type="email" name="contact_email" required
-                 class="focus-ring w-full rounded-lg px-3 py-2.5 text-sm"
-                 style="background: rgba(0,0,0,0.28); border: 1px solid rgba(255,255,255,0.12); color: var(--text);" />
+          <input type="email" name="contact_email" required class="sf-field" />
         </div>
         <div>
           <label class="block text-sm font-semibold mb-1 soft">{common.phone}</label>
-          <input type="tel" name="contact_phone"
-                 class="focus-ring w-full rounded-lg px-3 py-2.5 text-sm"
-                 style="background: rgba(0,0,0,0.28); border: 1px solid rgba(255,255,255,0.12); color: var(--text);" />
+          <input type="tel" name="contact_phone" class="sf-field" />
         </div>
       </div>
 
@@ -173,15 +206,13 @@ const finalCloseLabel = closeLabel ?? common.close;
       <!-- Message -->
       <div>
         <label class="block text-sm font-semibold mb-1 soft">{common.message}</label>
-        <textarea name="contact_message" rows="4"
-                  class="focus-ring w-full rounded-lg px-3 py-2.5 text-sm resize-none"
-                  style="background: rgba(0,0,0,0.28); border: 1px solid rgba(255,255,255,0.12); color: var(--text);"></textarea>
+        <textarea name="contact_message" rows="4" class="sf-field resize-none"></textarea>
       </div>
 
       <!-- Consentement -->
       <label class="flex items-start gap-2.5 cursor-pointer">
         <input type="checkbox" required name="consent"
-               class="mt-0.5 h-4 w-4 shrink-0 rounded focus-ring"
+               class="mt-0.5 h-4 w-4 shrink-0 rounded"
                style="accent-color: var(--accent);" />
         <span class="text-xs muted">{consentText}</span>
       </label>
@@ -192,9 +223,7 @@ const finalCloseLabel = closeLabel ?? common.close;
         {finalSubmitLabel}
       </button>
 
-      <button data-close-panel={containerId} type="button"
-              class="mt-2 w-full px-4 py-2 rounded-xl font-medium border transition hover:brightness-110"
-              style="background: rgba(255,255,255,0.06); border-color: rgba(255,255,255,0.12); color: var(--text);">
+      <button data-close-panel={containerId} type="button" class="sf-close-btn mt-2 w-full px-4 py-2 rounded-xl font-medium">
         {finalCloseLabel}
       </button>
 

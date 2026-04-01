@@ -164,9 +164,9 @@ const currentPath = `/${lang}/support-ti`;
                   <label class="block text-sm font-semibold mb-1 soft">{s.formPlanLabel} <span class="text-rose-400">*</span></label>
                   <select name="support_plan" required
                           class="focus-ring w-full rounded-lg px-3 py-2.5 text-sm"
-                          style="background: #1e2535; border: 1px solid rgba(255,255,255,0.12); color: var(--text);">
+                          style="background: color-mix(in srgb, var(--text) 7%, var(--bg)); border: 1px solid var(--border); color: var(--text);">
                     {s.formPlans.map((p) => (
-                      <option value={p.value} style="background:#1e2535;color:#e5e7eb;">{p.label}</option>
+                      <option value={p.value}>{p.label}</option>
                     ))}
                   </select>
                 </div>
