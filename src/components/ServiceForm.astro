@@ -108,7 +108,7 @@ const finalCloseLabel = closeLabel ?? common.close;
       <input type="hidden" name="service_name" value={serviceName} />
       {contactSource && <input type="hidden" name="contact_source" value={contactSource} />}
 
-      {tenant.id !== 'eesad' && (
+      {tenant.id !== 'eesad' && tenant.id !== 'fqcs' && (
         <>
           <div>
             <p class="text-sm font-semibold mb-2 soft">{common.memberQuestion} <span class="text-rose-400">*</span></p>
