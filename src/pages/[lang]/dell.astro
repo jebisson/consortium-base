@@ -2,6 +2,7 @@
 import SiteLayout from "../../layouts/SiteLayout.astro";
 import { t } from "../../i18n/utils";
 import { tenant } from "../../config/tenant";
+import ServiceForm from "../../components/ServiceForm.astro";
 
 export const prerender = true;
 export function getStaticPaths() {
@@ -146,148 +147,25 @@ const currentPath = `/${lang}/dell`;
                     {d.ctaOpenBtn}
                   </button>
                 </div>
-                <p id="dellStatus" class="mt-4 text-sm muted"></p>
               </div>
 
-              <div>
-                <div id="formContainer" class="overflow-hidden max-h-0 opacity-0 transition-all duration-500">
-                  <div class="rounded-2xl p-6 md:p-7"
-                       style="background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.10);">
-                    <div class="flex items-center justify-between gap-4 mb-4">
-                      <h3 class="text-xl font-semibold soft">{d.formTitle}</h3>
-                      <button id="closeFormBtn" type="button"
-                              class="px-3 py-2 rounded-lg card-icon muted hover:brightness-110 focus-ring text-sm">
-                        {d.formCloseBtn}
-                      </button>
-                    </div>
-                    <form id="dellForm" class="space-y-4" style="background: rgba(255,255,255,0.05); border-radius: 0.75rem; padding: 1.5rem; border: 1px solid rgba(255,255,255,0.08);">
-                      <input type="hidden" name="service_type" value="TI" />
-                      <input type="hidden" name="service_name" value="Dell Technologies" />
-                      {tenant.id !== 'eesad' && <>
-                      <!-- Questions préliminaires -->
-                      <div>
-                        <p class="text-sm font-semibold mb-2 soft">{tr.common.memberQuestion} <span class="text-rose-400">*</span></p>
-                        <div class="flex flex-wrap gap-6 text-sm soft">
-                          <label class="flex items-center gap-2"><input type="radio" name="is_member" value="oui" required style="accent-color: var(--accent);" /> {tr.common.yes}</label>
-                          <label class="flex items-center gap-2"><input type="radio" name="is_member" value="non" style="accent-color: var(--accent);" /> {tr.common.no}</label>
-                          <label class="flex items-center gap-2"><input type="radio" name="is_member" value="ne_sais_pas" style="accent-color: var(--accent);" /> {tr.common.dontKnow}</label>
-                        </div>
-                      </div>
-                      <div>
-                        <p class="text-sm font-semibold mb-2 soft">{tr.common.federationQuestion} <span class="text-rose-400">*</span></p>
-                        <div class="flex flex-wrap gap-6 text-sm soft">
-                          <label class="flex items-center gap-2"><input type="radio" name="is_federation" value="oui" required style="accent-color: var(--accent);" /> {tr.common.yes}</label>
-                          <label class="flex items-center gap-2"><input type="radio" name="is_federation" value="non" style="accent-color: var(--accent);" /> {tr.common.no}</label>
-                          <label class="flex items-center gap-2"><input type="radio" name="is_federation" value="ne_sais_pas" style="accent-color: var(--accent);" /> {tr.common.dontKnow}</label>
-                        </div>
-                      </div>
-                      <div>
-                        <p class="text-sm font-semibold mb-2 soft">{tr.common.companyTypeQuestion} <span class="text-rose-400">*</span></p>
-                        <div class="flex flex-wrap gap-6 text-sm soft">
-                          <label class="flex items-center gap-2"><input type="radio" name="company_type" value="cooperative" required style="accent-color: var(--accent);" /> {tr.common.cooperative}</label>
-                          <label class="flex items-center gap-2"><input type="radio" name="company_type" value="mutuelle" style="accent-color: var(--accent);" /> {tr.common.mutuelle}</label>
-                          <label class="flex items-center gap-2"><input type="radio" name="company_type" value="obnl" style="accent-color: var(--accent);" /> {tr.common.obnl}</label>
-                          <label class="flex items-center gap-2"><input type="radio" name="company_type" value="autre" style="accent-color: var(--accent);" /> {tr.common.other}</label>
-                        </div>
-                      </div>
-                      </>}
-                      <!-- Nom de l'entreprise -->
-                      <div>
-                        <label class="block text-sm font-semibold mb-1 soft">{tr.common.companyName} <span class="text-rose-400">*</span></label>
-                        <input type="text" name="company_name" required
-                               class="focus-ring w-full rounded-lg px-3 py-2.5 text-sm"
-                               style="background: rgba(0,0,0,0.28); border: 1px solid rgba(255,255,255,0.12); color: var(--text);" />
-                      </div>
-                      <!-- Adresse -->
-                      <div>
-                        <label class="block text-sm font-semibold mb-1 soft">{tr.common.address} <span class="text-rose-400">*</span></label>
-                        <input type="text" name="street_address" required placeholder={tr.common.streetAddress}
-                               class="focus-ring w-full rounded-lg px-3 py-2.5 text-sm mb-1"
-                               style="background: rgba(0,0,0,0.28); border: 1px solid rgba(255,255,255,0.12); color: var(--text);" />
-                        <p class="text-xs mb-2 muted">{tr.common.streetAddress}</p>
-                        <div class="grid grid-cols-2 gap-3 mb-1">
-                          <div>
-                            <input type="text" name="city" required
-                                   class="focus-ring w-full rounded-lg px-3 py-2.5 text-sm"
-                                   style="background: rgba(0,0,0,0.28); border: 1px solid rgba(255,255,255,0.12); color: var(--text);" />
-                            <p class="text-xs mt-1 muted">{tr.common.city}</p>
-                          </div>
-                          <div>
-                            <select name="province" required
-                                    class="focus-ring w-full rounded-lg px-3 py-2.5 text-sm"
-                                    style="background: rgba(0,0,0,0.28); border: 1px solid rgba(255,255,255,0.12); color: var(--text);">
-                              <option>Québec</option><option>Ontario</option><option>Colombie-Britannique</option>
-                              <option>Alberta</option><option>Manitoba</option><option>Saskatchewan</option>
-                              <option>Nouvelle-Écosse</option><option>Nouveau-Brunswick</option>
-                              <option>Terre-Neuve-et-Labrador</option><option>Île-du-Prince-Édouard</option>
-                            </select>
-                            <p class="text-xs mt-1 muted">{tr.common.province}</p>
-                          </div>
-                        </div>
-                        <input type="text" name="postal_code" required
-                               class="focus-ring w-full rounded-lg px-3 py-2.5 text-sm mt-1"
-                               style="background: rgba(0,0,0,0.28); border: 1px solid rgba(255,255,255,0.12); color: var(--text); max-width: 50%; display: block;" />
-                        <p class="text-xs mt-1 muted">{tr.common.postalCode}</p>
-                      </div>
-                      <!-- Personne contact + Titre -->
-                      <div class="grid md:grid-cols-2 gap-4">
-                        <div>
-                          <label class="block text-sm font-semibold mb-1 soft">{tr.common.contactPerson} <span class="text-rose-400">*</span></label>
-                          <input type="text" name="contact_person" required
-                                 class="focus-ring w-full rounded-lg px-3 py-2.5 text-sm"
-                                 style="background: rgba(0,0,0,0.28); border: 1px solid rgba(255,255,255,0.12); color: var(--text);" />
-                        </div>
-                        <div>
-                          <label class="block text-sm font-semibold mb-1 soft">{tr.common.contactTitle} <span class="text-rose-400">*</span></label>
-                          <input type="text" name="contact_title" required
-                                 class="focus-ring w-full rounded-lg px-3 py-2.5 text-sm"
-                                 style="background: rgba(0,0,0,0.28); border: 1px solid rgba(255,255,255,0.12); color: var(--text);" />
-                        </div>
-                      </div>
-                      <!-- Courriel + Téléphone -->
-                      <div class="grid md:grid-cols-2 gap-4">
-                        <div>
-                          <label class="block text-sm font-semibold mb-1 soft">{tr.common.email} <span class="text-rose-400">*</span></label>
-                          <input type="email" name="dell_email" required
-                                 class="focus-ring w-full rounded-lg px-3 py-2.5 text-sm"
-                                 style="background: rgba(0,0,0,0.28); border: 1px solid rgba(255,255,255,0.12); color: var(--text);" />
-                        </div>
-                        <div>
-                          <label class="block text-sm font-semibold mb-1 soft">{tr.common.phone} <span class="text-rose-400">*</span></label>
-                          <input type="tel" name="dell_tel" required
-                                 class="focus-ring w-full rounded-lg px-3 py-2.5 text-sm"
-                                 style="background: rgba(0,0,0,0.28); border: 1px solid rgba(255,255,255,0.12); color: var(--text);" />
-                        </div>
-                      </div>
-                      <!-- Besoin spécifique -->
-                      <div>
-                        <label class="block text-sm font-semibold mb-1 soft">{d.formNeedLabel}</label>
-                        <input type="text" name="dell_need"
-                               class="focus-ring w-full rounded-lg px-3 py-2.5 text-sm"
-                               style="background: rgba(0,0,0,0.28); border: 1px solid rgba(255,255,255,0.12); color: var(--text);" />
-                      </div>
-                      <!-- Message -->
-                      <div>
-                        <label class="block text-sm font-semibold mb-1 soft">{d.formMsgLabel} <span class="text-rose-400">*</span></label>
-                        <textarea name="dell_msg" rows="4" required
-                                  class="focus-ring w-full rounded-lg px-3 py-2.5 text-sm resize-none"
-                                  style="background: rgba(0,0,0,0.28); border: 1px solid rgba(255,255,255,0.12); color: var(--text);"></textarea>
-                      </div>
-                      <label class="flex items-start gap-2.5 cursor-pointer">
-                        <input type="checkbox" required name="consent"
-                               class="mt-0.5 h-4 w-4 shrink-0 rounded focus-ring"
-                               style="accent-color: var(--accent);" />
-                        <span class="text-xs muted">{tenant.consent[lang as 'fr' | 'en']}</span>
-                      </label>
-                      <button type="submit"
-                              class="w-full inline-flex items-center justify-center px-6 py-3 rounded-xl font-semibold transition hover:brightness-110 focus-ring"
-                              style="background: var(--accent); color: #111;">
-                        {d.formSubmitBtn}
-                      </button>
-                    </form>
-                  </div>
+              <ServiceForm
+                lang={lang}
+                serviceName="Dell Technologies"
+                formId="dellForm"
+                containerId="formContainer"
+                statusId="dellStatus"
+                openBtnId="openFormBtn"
+                formTitle={d.formTitle}
+                closeLabel={d.formCloseBtn}
+              >
+                <div>
+                  <label class="block text-sm font-semibold mb-1 soft">{d.formNeedLabel}</label>
+                  <input type="text" name="dell_need"
+                         class="focus-ring w-full rounded-lg px-3 py-2.5 text-sm"
+                         style="background: rgba(0,0,0,0.28); border: 1px solid rgba(255,255,255,0.12); color: var(--text);" />
                 </div>
-              </div>
+              </ServiceForm>
             </div>
           </div>
         </section>
@@ -296,30 +174,3 @@ const currentPath = `/${lang}/dell`;
     </div>
   </section>
 </SiteLayout>
-
-<script define:vars={{ msgSending: tr.common.sending, msgDone: tr.common.sent, msgError: tr.common.errorSend, msgNetwork: tr.common.errorNetwork }}>
-  const btn    = document.getElementById("openFormBtn");
-  const close  = document.getElementById("closeFormBtn");
-  const panel  = document.getElementById("formContainer");
-  const form   = document.getElementById("dellForm");
-  const status = document.getElementById("dellStatus");
-  if (btn && close && panel && form && status) {
-    btn.addEventListener("click", () => {
-      panel.style.maxHeight = panel.scrollHeight + "px";
-      panel.style.opacity = "1";
-      panel.scrollIntoView({ behavior: "smooth", block: "nearest" });
-    });
-    close.addEventListener("click", () => { panel.style.maxHeight = "0"; panel.style.opacity = "0"; });
-    form.addEventListener("submit", async (e) => {
-      e.preventDefault();
-      const data = {};
-      for (const [k, v] of new FormData(form).entries()) data[k] = v;
-      status.textContent = msgSending;
-      try {
-        const res = await fetch("/api/submit", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(data) });
-        status.textContent = res.ok ? msgDone : msgError;
-        if (res.ok) form.reset();
-      } catch { status.textContent = msgNetwork; }
-    });
-  }
-</script>

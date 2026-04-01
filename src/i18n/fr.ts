@@ -228,7 +228,7 @@ const fr: Translations = {
     contactBtn: "Ouvrir le formulaire",
     formTitle: "Formulaire de contact",
     subjectOptions: [
-      { value: "Audit 365 - 99$", label: "Audit Microsoft 365 (99$)" },
+      { value: "Audit 365", label: "Audit Microsoft 365" },
       { value: "Amelioration securite Microsoft 365", label: "Amélioration sécurité Microsoft 365" },
       { value: "Soumission services geres", label: "Soumission services gérés" },
       { value: "Autre", label: "Autre" },

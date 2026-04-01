@@ -170,11 +170,11 @@ const currentPath = `/${lang}/securite365`;
                     <div>
                       <select name="province" required
                               class="focus-ring w-full rounded-lg px-3 py-2.5 text-sm"
-                              style="background: rgba(0,0,0,0.28); border: 1px solid rgba(255,255,255,0.12); color: var(--text);">
-                        <option>Québec</option><option>Ontario</option><option>Colombie-Britannique</option>
-                        <option>Alberta</option><option>Manitoba</option><option>Saskatchewan</option>
-                        <option>Nouvelle-Écosse</option><option>Nouveau-Brunswick</option>
-                        <option>Terre-Neuve-et-Labrador</option><option>Île-du-Prince-Édouard</option>
+                              style="background: #1e2535; border: 1px solid rgba(255,255,255,0.12); color: var(--text);">
+                        <option style="background:#1e2535;color:#e5e7eb;">Québec</option><option style="background:#1e2535;color:#e5e7eb;">Ontario</option><option style="background:#1e2535;color:#e5e7eb;">Colombie-Britannique</option>
+                        <option style="background:#1e2535;color:#e5e7eb;">Alberta</option><option style="background:#1e2535;color:#e5e7eb;">Manitoba</option><option style="background:#1e2535;color:#e5e7eb;">Saskatchewan</option>
+                        <option style="background:#1e2535;color:#e5e7eb;">Nouvelle-Écosse</option><option style="background:#1e2535;color:#e5e7eb;">Nouveau-Brunswick</option>
+                        <option style="background:#1e2535;color:#e5e7eb;">Terre-Neuve-et-Labrador</option><option style="background:#1e2535;color:#e5e7eb;">Île-du-Prince-Édouard</option>
                       </select>
                       <p class="text-xs mt-1 muted">{common.province}</p>
                     </div>
@@ -220,9 +220,9 @@ const currentPath = `/${lang}/securite365`;
                 <div>
                   <label class="block text-sm font-semibold mb-1 soft">{common.subject}</label>
                   <select name="contact_subject" class="focus-ring w-full rounded-lg px-3 py-2.5 text-sm"
-                          style="background: rgba(0,0,0,0.28); border: 1px solid rgba(255,255,255,0.12); color: var(--text);">
+                          style="background: #1e2535; border: 1px solid rgba(255,255,255,0.12); color: var(--text);">
                     {s.subjectOptions.map((opt) => (
-                      <option value={opt.value}>{opt.label}</option>
+                      <option value={opt.value} style="background: #1e2535; color: #e5e7eb;">{opt.label}</option>
                     ))}
                   </select>
                 </div>
@@ -296,7 +296,7 @@ const currentPath = `/${lang}/securite365`;
     panel.scrollIntoView({ behavior: "smooth", block: "start" });
   }
 
-  if (openAuditBtn) openAuditBtn.addEventListener("click", () => openPanel("Audit 365 - 99$"));
+  if (openAuditBtn) openAuditBtn.addEventListener("click", () => openPanel("Audit 365"));
   if (openContactBtn) openContactBtn.addEventListener("click", () => openPanel());
   if (closeContactBtn && panel) {
     closeContactBtn.addEventListener("click", () => {
