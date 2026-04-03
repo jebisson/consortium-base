@@ -205,10 +205,10 @@ ${rows}
     const isSurvey = body["form_type"] === "survey";
     const serviceName = body["service_name"] || formSource || companyName || "Nouveau formulaire";
     const emailSubject = isContact
-      ? `Demande de service TI — ${body["contact_subject"] || "Nouveau message"} — Contact général`
+      ? `Demande de service TI — ${tenantName} — ${body["contact_subject"] || "Nouveau message"} — Contact général`
       : isSurvey
-        ? "Questionnaire TI"
-        : `Demande de service TI — ${serviceName}`;
+        ? `Questionnaire TI — ${tenantName}`
+        : `Demande de service TI — ${tenantName} — ${serviceName}`;
 
     await transporter.sendMail({
       from: `"Services TI" <${process.env.SMTP_USER}>`,
