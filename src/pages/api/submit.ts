@@ -57,6 +57,9 @@ const KNOWN_FIELDS = new Set([
   "automate_tel", "quote_phone", "conseil_tel", "support_tel",
   "contact_message", "dell_msg", "migration_msg", "automate_msg",
   "quote_notes", "conseil_msg", "support_msg",
+  // Survey fields
+  "client_nom", "client_email", "client_org", "client_phone",
+  "score_total", "score_percent", "score_message",
 ]);
 
 export const POST: APIRoute = async ({ request }) => {
@@ -74,11 +77,11 @@ export const POST: APIRoute = async ({ request }) => {
 
     // Resolve shared fields that have different names per form
     const email =
-      body["contact_email"] || body["dell_email"] || body["migration_email"] ||
+      body["contact_email"] || body["client_email"] || body["dell_email"] || body["migration_email"] ||
       body["automate_email"] || body["quote_email"] || body["conseil_email"] || body["support_email"] || "";
 
     const phone =
-      body["contact_tel"] || body["contact_phone"] || body["dell_tel"] ||
+      body["contact_tel"] || body["contact_phone"] || body["client_phone"] || body["dell_tel"] ||
       body["migration_phone"] || body["automate_tel"] || body["quote_phone"] ||
       body["conseil_tel"] || body["support_tel"] || "";
 
@@ -132,7 +135,9 @@ export const POST: APIRoute = async ({ request }) => {
 
     // ── Personne contact ────────────────────────────────────────────────────
     if (body["contact_person"]) rows += fieldRow("Personne contact", body["contact_person"]);
-    if (body["contact_title"]) rows += fieldRow("Titre au sein de l'organisation", body["contact_title"]);
+    if (body["client_nom"])     rows += fieldRow("Nom", body["client_nom"]);
+    if (body["contact_title"])  rows += fieldRow("Titre au sein de l'organisation", body["contact_title"]);
+    if (body["client_org"])     rows += fieldRow("Organisation", body["client_org"]);
     if (email) rows += fieldRow("Courriel", `<a href="mailto:${email}">${email}</a>`);
     if (phone) rows += fieldRow("Téléphone", phone);
 
@@ -156,6 +161,18 @@ export const POST: APIRoute = async ({ request }) => {
     }
 
     if (message) rows += fieldRow("Description du mandat", message.replace(/\n/g, "<br>"));
+
+    // ── Réponses questionnaire (sliders q1, q2, …) ─────────────────────────
+    const sliderEntries = Object.entries(body)
+      .filter(([k]) => /^q\d+$/.test(k))
+      .sort(([a], [b]) => parseInt(a.slice(1)) - parseInt(b.slice(1)));
+    if (sliderEntries.length) {
+      rows += sectionRow("Réponses au questionnaire");
+      sliderEntries.forEach(([k, v]) => rows += fieldRow(k.toUpperCase(), v));
+      if (body["score_total"])   rows += fieldRow("Score total", body["score_total"]);
+      if (body["score_percent"]) rows += fieldRow("Score (%)", body["score_percent"]);
+      if (body["score_message"]) rows += fieldRow("Niveau de maturité", body["score_message"]);
+    }
 
     const html = `${preamble}
 <table width="99%" border="0" cellpadding="1" cellspacing="0" bgcolor="#EAEAEA"><tr><td>
