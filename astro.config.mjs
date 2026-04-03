@@ -12,7 +12,7 @@ const siteUrl = tenantUrls[process.env.TENANT] ?? tenantUrls.consortium;
 
 export default defineConfig({
   site: siteUrl,
-  output: "hybrid",
+  output: "server",
   adapter: vercel(),
   integrations: [sitemap()],
 });
