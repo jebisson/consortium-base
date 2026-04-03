@@ -50,7 +50,7 @@ const fr: Translations = {
     city: "Ville",
     province: "Province",
     postalCode: "Code postal",
-    memberQuestion: "Votre entreprise est-elle déjà membre ou cliente du Consortium?",
+    memberQuestion: "Votre entreprise est-elle déjà membre du Consortium?",
     federationQuestion: "Votre entreprise est-elle membre d'une fédération, d'un regroupement ou d'un réseau?",
     companyTypeQuestion: "Type d'entreprise",
     yes: "Oui",

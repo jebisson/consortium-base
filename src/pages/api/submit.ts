@@ -108,7 +108,7 @@ export const POST: APIRoute = async ({ request }) => {
 
     // ── Qualification ──────────────────────────────────────────────────────
     if (body["is_member"])
-      rows += fieldRow("Votre entreprise est-elle déjà membre ou cliente du Consortium?", normalize(body["is_member"]));
+      rows += fieldRow("Votre entreprise est-elle déjà membre du Consortium?", normalize(body["is_member"]));
     if (body["heard_about"])
       rows += fieldRow("Où avez-vous entendu parler de nous?", body["heard_about"]);
     if (body["is_federation"])
