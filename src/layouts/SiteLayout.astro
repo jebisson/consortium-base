@@ -73,7 +73,9 @@ const serviceSchema = isServicePage && description ? {
     <meta property="og:url" content={`${tenant.siteUrl}${currentPath}`} />
     <meta property="og:locale" content={lang === "fr" ? "fr_CA" : "en_CA"} />
     <meta property="og:site_name" content={tenant.name} />
-    <meta property="og:image" content={`${tenant.siteUrl}${tenant.logoSrc}`} />
+    <meta property="og:image" content={`${tenant.siteUrl}/og.png?title=${encodeURIComponent(title)}&tenant=${tenant.id}`} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
 
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary" />
