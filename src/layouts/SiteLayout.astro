@@ -86,6 +86,15 @@ const serviceSchema = isServicePage && description ? {
     <script type="application/ld+json" is:inline set:html={JSON.stringify(organizationSchema)} />
     {serviceSchema && <script type="application/ld+json" is:inline set:html={JSON.stringify(serviceSchema)} />}
 
+    <!-- Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-W4PK2QTRCF" is:inline></script>
+    <script is:inline>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-W4PK2QTRCF');
+    </script>
+
     <!-- Cloudflare Web Analytics -->
     <script defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token": "de4731804e7e4d87b54f22a43d2b11b4"}'></script>
 
