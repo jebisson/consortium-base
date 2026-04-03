@@ -5,6 +5,7 @@ import sitemap from "@astrojs/sitemap";
 const tenantUrls = {
   consortium: "https://consortium-base.vercel.app",
   eesad: "https://eesad.vercel.app",
+  fqcs: "https://consortium-base-fqcs.vercel.app",
 };
 
 const siteUrl = tenantUrls[process.env.TENANT] ?? tenantUrls.consortium;

@@ -131,6 +131,7 @@ export interface SecurityTranslations {
   title: string;
   headerSubtitle: string;
   heroTitle: string;
+  heroDesc: string;
   heroSubtitle: string;
   hoverHint: string;
   auditLabel: string;

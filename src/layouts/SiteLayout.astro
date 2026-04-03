@@ -24,6 +24,32 @@ const otherLang = getOtherLang(lang);
 const otherPath = currentPath.replace(`/${lang}`, `/${otherLang}`);
 
 const { background, text, accent, border, bandBackground, glowColor, cardBackground } = tenant.colors;
+
+const canonicalUrl = `${tenant.siteUrl}${currentPath}`;
+const isServicePage = currentPath !== `/${lang}` && !currentPath.includes("contact") && !currentPath.includes("survey") && !currentPath.includes("guide") && !currentPath.includes("lexique");
+
+const organizationSchema = {
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  name: tenant.name,
+  url: tenant.siteUrl,
+  logo: `${tenant.siteUrl}${tenant.logoSrc}`,
+};
+
+const serviceSchema = isServicePage && description ? {
+  "@context": "https://schema.org",
+  "@type": "Service",
+  name: title,
+  description,
+  url: canonicalUrl,
+  provider: {
+    "@type": "Organization",
+    name: tenant.name,
+    url: tenant.siteUrl,
+  },
+  areaServed: { "@type": "Country", name: "Canada" },
+  inLanguage: lang === "fr" ? "fr-CA" : "en-CA",
+} : null;
 ---
 
 <html lang={lang}>
@@ -53,6 +79,10 @@ const { background, text, accent, border, bandBackground, glowColor, cardBackgro
     <meta name="twitter:card" content="summary" />
     <meta name="twitter:title" content={title} />
     {description && <meta name="twitter:description" content={description} />}
+
+    <!-- JSON-LD Structured Data -->
+    <script type="application/ld+json" is:inline set:html={JSON.stringify(organizationSchema)} />
+    {serviceSchema && <script type="application/ld+json" is:inline set:html={JSON.stringify(serviceSchema)} />}
 
     <!-- Cloudflare Web Analytics -->
     <script defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token": "de4731804e7e4d87b54f22a43d2b11b4"}'></script>
