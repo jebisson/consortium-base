@@ -108,8 +108,6 @@ export const POST: APIRoute = async ({ request }) => {
     rows += sectionRow("Service rendu à :");
     if (body["service_type"])
       rows += fieldRow("Service(s) requis", body["service_type"]);
-    else if (body["contact_subject"])
-      rows += fieldRow("Service(s) requis", body["contact_subject"]);
 
     // ── Qualification ──────────────────────────────────────────────────────
     if (body["is_member"])
