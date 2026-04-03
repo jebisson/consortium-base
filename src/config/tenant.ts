@@ -28,7 +28,7 @@ const tenants: Record<string, TenantConfig> = {
     name: "Consortium",
     logoSrc: "/logo_consortium.png",
     faviconSrc: "/favicon-consortium.svg",
-    siteUrl: "https://consortium-base.vercel.app",
+    siteUrl: "https://ti.leconsortium.coop",
     consent: {
       fr: "J'accepte, après avoir cliqué sur le bouton « Envoyer », que le Consortium utilise l'information fournie ci-dessus pour me contacter par message électronique ou par le téléphone au sujet de cette demande ainsi que ponctuellement au sujet des services du Consortium. Il est possible de se désinscrire des communications du Consortium à tout moment en écrivant à l'adresse communications@ressources.coop.",
       en: "I agree, after clicking the \"Send\" button, that the Consortium may use the information provided above to contact me by email or by phone regarding this request and occasionally regarding the Consortium's services. You may unsubscribe from Consortium communications at any time by writing to communications@ressources.coop.",
