@@ -4,7 +4,7 @@ import sitemap from "@astrojs/sitemap";
 
 const tenantUrls = {
   consortium: "https://ti.leconsortium.coop",
-  eesad: "https://eesad.vercel.app",
+  eesad: "https://ti.eesad.org",
   fqcs: "https://consortium-base-fqcs.vercel.app",
 };
 

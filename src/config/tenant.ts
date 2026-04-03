@@ -48,7 +48,7 @@ const tenants: Record<string, TenantConfig> = {
     name: "le réseau des EESAD",
     logoSrc: "/eesad-logo.png",
     faviconSrc: "/favicon-eesad.svg",
-    siteUrl: "https://eesad.vercel.app",
+    siteUrl: "https://ti.eesad.org",
     consent: {
       fr: "J'accepte, après avoir cliqué sur le bouton « Envoyer », que le réseau des EESAD utilise l'information fournie ci-dessus pour me contacter par message électronique ou par le téléphone au sujet de cette demande ainsi que ponctuellement au sujet des services du réseau des EESAD. Il est possible de se désinscrire des communications du réseau des EESAD à tout moment en écrivant à l'adresse communications@ressources.coop.",
       en: "I agree, after clicking the \"Send\" button, that the Réseau des EESAD may use the information provided above to contact me by email or by phone regarding this request and occasionally regarding the Réseau des EESAD's services. You may unsubscribe from Réseau des EESAD communications at any time by writing to communications@ressources.coop.",
