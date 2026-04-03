@@ -128,6 +128,9 @@ const defaultIdx = 0;           // slider starts at position 1 (index 0 = "Oui/Y
 
         <form id="surveyForm" class="space-y-3">
           <input type="hidden" name="form_type" value="survey" />
+          {sv.questions.map((q, i) => (
+            <input type="hidden" name={`q${i + 1}_text`} value={q} />
+          ))}
 
           <!-- Client info -->
           <div class="card-dark p-6 space-y-4 reveal">

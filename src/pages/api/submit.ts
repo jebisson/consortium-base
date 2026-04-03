@@ -170,7 +170,10 @@ export const POST: APIRoute = async ({ request }) => {
       .sort(([a], [b]) => parseInt(a.slice(1)) - parseInt(b.slice(1)));
     if (sliderEntries.length) {
       rows += sectionRow("Réponses au questionnaire");
-      sliderEntries.forEach(([k, v]) => rows += fieldRow(k.toUpperCase(), v));
+      sliderEntries.forEach(([k, v]) => {
+        const label = body[`${k}_text`] || k.toUpperCase();
+        rows += fieldRow(label, v);
+      });
       if (body["score_total"])   rows += fieldRow("Score total", body["score_total"]);
       if (body["score_percent"]) rows += fieldRow("Score (%)", body["score_percent"]);
       if (body["score_message"]) rows += fieldRow("Niveau de maturité", body["score_message"]);
@@ -201,10 +204,13 @@ ${rows}
       tls: { ciphers: "TLSv1.2" },
     });
 
+    const isSurvey = body["form_type"] === "survey";
     const serviceName = body["service_name"] || formSource || companyName || "Nouveau formulaire";
     const emailSubject = isContact
       ? `Contact — ${body["contact_subject"] || "Nouveau message"}`
-      : `Demande de service TI — ${serviceName}`;
+      : isSurvey
+        ? "Questionnaire TI"
+        : `Demande de service TI — ${serviceName}`;
 
     await transporter.sendMail({
       from: `"Services TI" <${process.env.SMTP_USER}>`,
