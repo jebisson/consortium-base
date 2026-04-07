@@ -54,7 +54,7 @@ const tenants: Record<string, TenantConfig> = {
       en: "I agree, after clicking the \"Send\" button, that the Réseau des EESAD may use the information provided above to contact me by email or by phone regarding this request and occasionally regarding the Réseau des EESAD's services. You may unsubscribe from Réseau des EESAD communications at any time by writing to communications@ressources.coop.",
     },
     colors: {
-      background: "rgb(12, 22, 65)",
+      background: "rgb(20, 38, 95)",
       text: "#e5e7eb",
       accent: "#38bdf8",
       border: "rgba(56,189,248,0.30)",
