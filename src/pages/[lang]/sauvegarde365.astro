@@ -19,7 +19,7 @@ const b = tr.backup;
 const currentPath = lang === "fr" ? "/fr/sauvegarde365" : "/en/backup365";
 ---
 
-<SiteLayout title={b.title} description={b.heroDesc} lang={lang} currentPath={currentPath}>
+<SiteLayout title={b.title} description={b.heroDesc} lang={lang} currentPath={currentPath} faqItems={b.faq.map(f => ({ question: f.q, answer: f.a }))}>
 
   <style>
     .card-dark {
@@ -361,5 +361,6 @@ const currentPath = lang === "fr" ? "/fr/sauvegarde365" : "/en/backup365";
 
     </div>
   </section>
+
 
 </SiteLayout>

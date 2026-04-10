@@ -64,7 +64,7 @@ const fr: Translations = {
   },
 
   home: {
-    title: "Services TI – Consortium",
+    title: "Services TI pour coopératives et OBNL au Québec | Microsoft 365, cybersécurité et support",
     headerSubtitle: "Services TI",
     tagline: "Sécurité • Modernisation • Support",
     heroTitle: "Un écosystème TI stable, sécurisé et simple à gérer",
@@ -109,7 +109,7 @@ const fr: Translations = {
   },
 
   backup: {
-    title: "Sauvegarde Cloud Microsoft 365 – Consortium",
+    title: "Sauvegarde Microsoft 365 pour OBNL et coopératives au Québec | Datto SaaS",
     headerSubtitle: "Sauvegarde & Continuité",
     heroTitle: "Sauvegarde Cloud Microsoft 365",
     heroDesc: "Sauvegardez Exchange, OneDrive, SharePoint et Teams dans le cloud canadien. Récupérez vos données en minutes, même après un incident ou une suppression accidentelle.",
@@ -204,7 +204,7 @@ const fr: Translations = {
   },
 
   security: {
-    title: "Sécurité Microsoft 365 – Consortium",
+    title: "Sécurité Microsoft 365 pour OBNL et coopératives | Audit, MFA, Loi 25 au Québec",
     headerSubtitle: "Sécurité Microsoft 365",
     heroTitle: "Faites de la cybersécurité un réflexe quotidien.",
     heroDesc: "Protégez Microsoft 365 avec un audit de sécurité, le MFA, la sauvegarde et les bonnes pratiques adaptées aux organisations d'économie sociale.",
@@ -328,7 +328,7 @@ const fr: Translations = {
   },
 
   guide: {
-    title: "Guide pratique – Employé | Cybersécurité",
+    title: "Guide cybersécurité pour employés d'OBNL et coopératives au Québec | Bonnes pratiques Microsoft 365",
     headerSubtitle: "Guide pratique employé",
     heroTitle: "Les bons réflexes numériques au quotidien",
     heroDesc:
@@ -378,7 +378,7 @@ const fr: Translations = {
   },
 
   rmm: {
-    title: "Datto RMM, Datto EDR & Kaseya 365 – Consortium",
+    title: "Gestion TI proactive et cybersécurité pour OBNL au Québec | Datto RMM, EDR & Kaseya 365",
     headerSubtitle: "Supervision & Cybersécurité",
     heroTitle: "Datto RMM, Datto EDR & Kaseya 365",
     heroDesc:
@@ -493,7 +493,7 @@ const fr: Translations = {
   },
 
   formation: {
-    title: "Formations & intégration – Consortium",
+    title: "Formations Microsoft 365 et intégration employés pour OBNL au Québec | Cybersécurité",
     headerSubtitle: "Formations & intégration",
     heroLabel: "Formations & intégration",
     heroTitle: "Accueillir, former et rendre autonome rapidement",
@@ -550,7 +550,7 @@ const fr: Translations = {
   },
 
   conseil: {
-    title: "Service conseil TI – Le Consortium",
+    title: "Service conseil TI pour coopératives et OBNL au Québec | Audit, recommandations Microsoft 365",
     heroTitle: "Une offre de services‑conseils exclusive aux membres.",
     heroDesc:
       "De la validation de soumissions à l'accompagnement stratégique, tout est spécifiquement pensé pour répondre aux enjeux technologiques des entreprises d'économie sociale.",
@@ -622,7 +622,7 @@ const fr: Translations = {
   },
 
   migration: {
-    title: "Migration SharePoint – Consortium",
+    title: "Migration SharePoint et Teams pour OBNL et coopératives au Québec | Gestion documentaire",
     headerSubtitle: "Collaboration & Documents",
     heroTitle: "Intégration SharePoint & Microsoft Teams",
     heroDesc:
@@ -651,7 +651,7 @@ const fr: Translations = {
   },
 
   support: {
-    title: "Support TI – Helpdesk géré | Consortium",
+    title: "Support TI et helpdesk géré pour OBNL et coopératives au Québec | Banques d'heures flexibles",
     headerSubtitle: "Support & Helpdesk",
     heroTitle: "Un helpdesk humain, réactif et flexible",
     heroDesc: "Des banques d'heures adaptées à votre réalité, support à distance et sur site, sans abonnement complexe.",
@@ -694,10 +694,10 @@ const fr: Translations = {
   },
 
   dell: {
-    title: "Revendeur Dell autorisé – Consortium",
+    title: "Revendeur Dell autorisé pour OBNL et coopératives au Québec | Portables, postes, serveurs",
     headerSubtitle: "Matériel & Équipements",
     heroTitle: "Équipements Dell, prix membres, expertise TI",
-    heroDesc: "En tant que revendeur Dell autorisé, on vous accompagne dans l'achat et la configuration de vos équipements informatiques.",
+    heroDesc: "Revendeur Dell autorisé spécialisé pour les OBNL et coopératives au Québec. Portables, postes de travail et serveurs à prix membres, avec conseils et configuration inclus.",
     heroTags: ["Revendeur autorisé", "Prix membres", "Conseil d'experts", "Configuration incluse"],
     badgeText: "Revendeur Dell autorisé",
     advantagesTitle: "Pourquoi passer par le Consortium",
@@ -730,10 +730,10 @@ const fr: Translations = {
   },
 
   automate: {
-    title: "Automatisation Power Automate – Consortium",
+    title: "Automatisation Power Automate pour OBNL et coopératives au Québec | Workflows Microsoft 365",
     headerSubtitle: "Automatisation & Workflows",
     heroTitle: "Automatisez vos processus avec Power Automate",
-    heroDesc: "Réduisez les tâches répétitives et accélérez vos workflows, approbations, notifications et intégrations sans code complexe.",
+    heroDesc: "Automatisation des approbations, notifications et workflows Microsoft 365 pour coopératives et OBNL au Québec. Réduisez les tâches répétitives avec Power Automate, sans code complexe.",
     heroTags: ["Approbations", "Notifications", "Intégrations", "Microsoft 365"],
     benefitsTitle: "Pourquoi automatiser",
     benefitsDesc: "Chaque heure économisée sur une tâche répétitive est une heure réinvestie là où vous avez vraiment de la valeur à ajouter.",
@@ -766,10 +766,10 @@ const fr: Translations = {
   },
 
   lexique: {
-    title: "Lexique TI – Consortium",
+    title: "Lexique TI pour OBNL et coopératives | Termes Microsoft 365 expliqués simplement",
     headerSubtitle: "Ressources",
     heroTitle: "Lexique TI",
-    heroDesc: "Les termes techniques du quotidien expliqués simplement, pour que toute l'équipe parle le même langage.",
+    heroDesc: "Les termes TI et Microsoft 365 expliqués simplement pour les équipes non-techniques d'OBNL, coopératives et organismes d'économie sociale au Québec.",
     searchPlaceholder: "Rechercher un terme…",
     noResults: "Aucun résultat pour cette recherche.",
     terms: [
@@ -797,10 +797,10 @@ const fr: Translations = {
   },
 
   survey: {
-    title: "Questionnaire TI – Consortium",
+    title: "Questionnaire de maturité TI pour OBNL et coopératives au Québec | Portrait numérique",
     heroTitle: "Questionnaire de maturité TI",
     heroDesc:
-      "Dressez un portrait rapide de votre environnement pour mieux cibler les recommandations.",
+      "Évaluez la maturité TI de votre organisation en quelques minutes. Portrait rapide de votre environnement Microsoft 365 pour cibler les priorités — conçu pour les OBNL et coopératives du Québec.",
     submitBtn: "Soumettre le questionnaire",
     resultTitle: "Votre résultat",
     resultDesc: "Basé sur vos réponses",

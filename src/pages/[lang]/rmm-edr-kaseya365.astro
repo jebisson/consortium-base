@@ -16,9 +16,23 @@ const common = tr.common;
 
 const currentPath = `/${lang}/rmm-edr-kaseya365`;
 const { accent } = tenant.colors;
+
+const faqItems = lang === "fr" ? [
+  { question: "Qu'est-ce que la gestion TI proactive et pourquoi c'est important pour un OBNL ?", answer: "La gestion TI proactive consiste à surveiller, corriger et sécuriser les postes et serveurs en continu, avant que les problèmes causent des interruptions. Pour un OBNL ou une coopérative, cela réduit les coûts imprévus, améliore la stabilité et renforce la posture de sécurité." },
+  { question: "Quelle est la différence entre Datto RMM et Datto EDR ?", answer: "Datto RMM surveille et maintient les postes à distance (patching, alertes, automatisation). Datto EDR est une solution de détection et réponse aux menaces avancées (ransomware, intrusions). Les deux sont complémentaires : RMM pour la stabilité, EDR pour la sécurité." },
+  { question: "Est-ce que Kaseya 365 remplace mon antivirus actuel ?", answer: "Kaseya 365 inclut des fonctionnalités de sécurité avancées qui vont bien au-delà d'un antivirus traditionnel : détection comportementale, réponse automatisée, centralisation de la gestion sécurité. Il complète ou remplace les outils existants selon votre configuration." },
+  { question: "Est-ce que ces outils conviennent à une organisation avec plusieurs sites ?", answer: "Oui. Datto RMM et Kaseya 365 sont conçus pour les environnements multisites. On peut gérer l'ensemble des postes de toutes vos succursales depuis un tableau de bord centralisé, peu importe où se trouvent vos équipes au Québec." },
+  { question: "Que se passe-t-il en cas d'incident de sécurité ?", answer: "Datto EDR détecte les comportements suspects en temps réel, isole les postes compromis et déclenche une réponse automatisée pour limiter la propagation. On est alertés immédiatement et on intervient pour remédier à l'incident." },
+] : [
+  { question: "What is proactive IT management and why does it matter for a nonprofit?", answer: "Proactive IT management means continuously monitoring, patching and securing workstations and servers before problems cause disruptions. For nonprofits and cooperatives, it reduces unexpected costs, improves stability and strengthens security posture." },
+  { question: "What is the difference between Datto RMM and Datto EDR?", answer: "Datto RMM remotely monitors and maintains workstations (patching, alerts, automation). Datto EDR is an advanced threat detection and response solution (ransomware, intrusions). Both are complementary: RMM for stability, EDR for security." },
+  { question: "Does Kaseya 365 replace my current antivirus?", answer: "Kaseya 365 includes advanced security features that go far beyond a traditional antivirus: behavioral detection, automated response, centralized security management. It complements or replaces existing tools depending on your configuration." },
+  { question: "Do these tools work for multi-site organizations?", answer: "Yes. Datto RMM and Kaseya 365 are designed for multi-site environments. All workstations across all your locations can be managed from a centralized dashboard, regardless of where your teams are in Quebec." },
+  { question: "What happens during a security incident?", answer: "Datto EDR detects suspicious behavior in real time, isolates compromised workstations and triggers an automated response to limit spread. We are immediately alerted and intervene to remediate the incident." },
+];
 ---
 
-<SiteLayout title={r.title} description={r.heroDesc} lang={lang} currentPath={currentPath}>
+<SiteLayout title={r.title} description={r.heroDesc} lang={lang} currentPath={currentPath} faqItems={faqItems}>
   <style>
     .card-dark {
       background: var(--card);
@@ -323,5 +337,6 @@ const { accent } = tenant.colors;
 
     </div>
   </section>
+
 
 </SiteLayout>

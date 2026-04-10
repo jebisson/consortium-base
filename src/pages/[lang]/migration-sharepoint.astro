@@ -14,6 +14,20 @@ const tr = t(lang);
 const m = tr.migration;
 const currentPath = `/${lang}/migration-sharepoint`;
 
+const faqItems = lang === "fr" ? [
+  { question: "Est-ce que SharePoint peut remplacer un serveur de fichiers ?", answer: "Oui. SharePoint remplace avantageusement un serveur de fichiers traditionnel en offrant accès en ligne, synchronisation, versionnage, permissions granulaires et intégration avec Teams. La migration comprend la structure des dossiers, les permissions et la formation des utilisateurs." },
+  { question: "Combien de temps prend une migration SharePoint ?", answer: "La durée dépend du volume de données et de la complexité des permissions. Un projet typique pour une organisation de 10 à 50 personnes prend de quelques semaines à quelques mois, selon les phases de planification, migration et formation." },
+  { question: "Est-ce que les employés doivent être formés après la migration ?", answer: "Oui, la formation est incluse dans notre accompagnement. On s'assure que les équipes savent naviguer dans SharePoint et Teams, retrouver leurs documents et adopter les nouvelles pratiques de collaboration." },
+  { question: "Comment sont gérées les permissions dans SharePoint ?", answer: "Les permissions SharePoint peuvent être configurées par site, bibliothèque, dossier ou fichier. On établit une structure de gouvernance adaptée à votre organisation pour éviter les accès non autorisés et simplifier la gestion au quotidien." },
+  { question: "Est-ce que Power Automate peut être utilisé avec SharePoint ?", answer: "Absolument. Power Automate s'intègre nativement avec SharePoint pour automatiser les approbations, les notifications, les workflows documentaires et bien d'autres processus. C'est une valeur ajoutée importante post-migration." },
+] : [
+  { question: "Can SharePoint replace a file server?", answer: "Yes. SharePoint effectively replaces a traditional file server by offering online access, synchronization, versioning, granular permissions and Teams integration. The migration includes folder structure, permissions and user training." },
+  { question: "How long does a SharePoint migration take?", answer: "Duration depends on data volume and permission complexity. A typical project for a 10 to 50-person organization takes a few weeks to a few months, depending on planning, migration and training phases." },
+  { question: "Do employees need training after the migration?", answer: "Yes, training is included in our onboarding support. We ensure teams know how to navigate SharePoint and Teams, find their documents and adopt new collaboration practices." },
+  { question: "How are permissions managed in SharePoint?", answer: "SharePoint permissions can be configured at the site, library, folder or file level. We establish a governance structure adapted to your organization to prevent unauthorized access and simplify day-to-day management." },
+  { question: "Can Power Automate be used with SharePoint?", answer: "Absolutely. Power Automate integrates natively with SharePoint to automate approvals, notifications, document workflows and many other processes. It is an important added value post-migration." },
+];
+
 // Heroicons outline paths — one per benefit (same stroke style as landing page)
 const benefitIcons = [
   // Folder — centralized documents
@@ -37,7 +51,7 @@ const benefitIcons = [
 ];
 ---
 
-<SiteLayout title={m.title} description={m.heroDesc} lang={lang} currentPath={currentPath}>
+<SiteLayout title={m.title} description={m.heroDesc} lang={lang} currentPath={currentPath} faqItems={faqItems}>
   <style>
     .card-dark {
       background: var(--card);
@@ -188,5 +202,6 @@ const benefitIcons = [
 
     </div>
   </section>
+
 
 </SiteLayout>

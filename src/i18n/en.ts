@@ -64,7 +64,7 @@ const en: Translations = {
   },
 
   home: {
-    title: "IT Services – Consortium",
+    title: "IT Services for Cooperatives and Nonprofits in Quebec | Microsoft 365, Cybersecurity & Support",
     headerSubtitle: "IT Services",
     tagline: "Security • Modernization • Support",
     heroTitle: "A stable, secure and easy-to-manage IT ecosystem",
@@ -109,10 +109,10 @@ const en: Translations = {
   },
 
   backup: {
-    title: "Microsoft 365 Cloud Backup – Consortium",
+    title: "Microsoft 365 Backup for Nonprofits and Cooperatives in Quebec | Datto SaaS",
     headerSubtitle: "Backup & Continuity",
     heroTitle: "Microsoft 365 Cloud Backup",
-    heroDesc: "Back up Exchange, OneDrive, SharePoint and Teams in Canadian cloud. Recover your data in minutes, even after an incident or accidental deletion.",
+    heroDesc: "Automatic backup of Exchange, OneDrive, SharePoint and Teams in Canadian cloud. Fast recovery for nonprofits and cooperatives in Quebec, even after ransomware or accidental deletion.",
     heroDescLine2: "Recover your data in minutes, even after an incident.",
     ctaActivate: "Enable backup",
     ctaWhy: "Why it's essential",
@@ -204,10 +204,10 @@ const en: Translations = {
   },
 
   security: {
-    title: "Microsoft 365 Security – Consortium",
+    title: "Microsoft 365 Security for Nonprofits and Cooperatives | Audit, MFA & Compliance in Quebec",
     headerSubtitle: "Microsoft 365 Security",
     heroTitle: "Make cybersecurity a daily habit.",
-    heroDesc: "Protect Microsoft 365 with a security audit, MFA, backup, and best practices tailored to social economy organizations.",
+    heroDesc: "Microsoft 365 security audit, MFA activation, backup and compliance for cooperatives and nonprofits in Quebec. Best practices adapted to the social economy sector.",
     heroSubtitle: "Security and digital resilience, Best practices and modernization with Microsoft 365.",
     hoverHint: "Hover over each point to see the details.",
     auditLabel: "Infrastructure and security",
@@ -328,11 +328,11 @@ const en: Translations = {
   },
 
   guide: {
-    title: "Employee Practical Guide | Cybersecurity",
+    title: "Cybersecurity Guide for Nonprofit and Cooperative Employees in Quebec | Microsoft 365 Best Practices",
     headerSubtitle: "Employee guide",
     heroTitle: "Good digital habits for everyday work",
     heroDesc:
-      "This guide helps you adopt simple but essential behaviors to protect your data, your devices and our entire organization.",
+      "Practical cybersecurity guide for employees of nonprofits, cooperatives and social economy organizations: passwords, MFA, phishing, remote work and Microsoft 365 best practices.",
     pills: ["Passwords", "Emails", "Remote work", "Incident"],
     sections: [
       {
@@ -378,11 +378,11 @@ const en: Translations = {
   },
 
   rmm: {
-    title: "Datto RMM, Datto EDR & Kaseya 365 – Consortium",
+    title: "Proactive IT Management and Cybersecurity for Nonprofits in Quebec | Datto RMM, EDR & Kaseya 365",
     headerSubtitle: "Monitoring & Cybersecurity",
     heroTitle: "Datto RMM, Datto EDR & Kaseya 365",
     heroDesc:
-      "A proactive approach: monitor, fix, detect and respond, to reduce downtime and block modern threats.",
+      "24/7 monitoring, automated patching and ransomware protection for cooperatives and nonprofits in Quebec. Reduce downtime and block modern threats with Datto RMM, EDR and Kaseya 365.",
     ctaPlans: "View plans",
     ctaQuote: "Request a quote",
     pills: [
@@ -493,12 +493,12 @@ const en: Translations = {
   },
 
   formation: {
-    title: "Training & Onboarding – Consortium",
+    title: "Microsoft 365 Training and Employee Onboarding for Nonprofits in Quebec | Cybersecurity",
     headerSubtitle: "Training & onboarding",
     heroLabel: "Training & onboarding",
     heroTitle: "Welcome, train and empower quickly",
     heroDesc:
-      "We help your new employees get off to a good start and your teams make better use of Microsoft 365, with short, clear training adapted to your reality.",
+      "New employee onboarding and Microsoft 365 and cybersecurity training for cooperatives and nonprofits in Quebec. Short, clear sessions adapted to the social economy sector.",
     heroPills: ["New employees", "Microsoft 365", "Cybersecurity"],
     offresTitle: "Offerings",
     offresDesc:
@@ -550,10 +550,10 @@ const en: Translations = {
   },
 
   conseil: {
-    title: "IT Advisory Service – Consortium",
+    title: "IT Advisory Service for Cooperatives and Nonprofits in Quebec | Microsoft 365 Audit & Recommendations",
     heroTitle: "An advisory service exclusively for members.",
     heroDesc:
-      "From quote verification to strategic guidance, everything is specifically designed to address the technological challenges of social economy organizations.",
+      "IT quote validation, security posture audit and strategic Microsoft 365 recommendations for cooperatives and nonprofits in Quebec. Advice tailored to the social economy sector.",
     heroTags: ["Informed decisions", "Risks & impacts", "Concrete recommendations"],
     ctaCall: "Request a call",
     ctaInclus: "See what's included",
@@ -622,11 +622,11 @@ const en: Translations = {
   },
 
   migration: {
-    title: "SharePoint Migration – Consortium",
+    title: "SharePoint and Teams Migration for Nonprofits and Cooperatives in Quebec | Document Management",
     headerSubtitle: "Collaboration & Documents",
     heroTitle: "SharePoint & Microsoft Teams Integration",
     heroDesc:
-      "Centralize your documents, simplify collaboration and automate your processes by integrating SharePoint with Microsoft Teams.",
+      "File server migration to SharePoint, document structure and Teams integration for cooperatives and nonprofits in Quebec. Governance, permissions and user training included.",
     pills: ["Documents", "Permissions", "Collaboration", "Automation", "Versioning"],
     benefitsTitle: "Why integrate SharePoint with Teams",
     benefitsDesc:
@@ -651,10 +651,10 @@ const en: Translations = {
   },
 
   support: {
-    title: "IT Support – Managed Helpdesk | Consortium",
+    title: "IT Support and Managed Helpdesk for Nonprofits and Cooperatives in Quebec | Flexible Hour Banks",
     headerSubtitle: "Support & Helpdesk",
     heroTitle: "A human, responsive and flexible helpdesk",
-    heroDesc: "Hour banks adapted to your reality, remote and on-site support, without complex subscriptions.",
+    heroDesc: "Remote and on-site IT support for cooperatives and nonprofits in Quebec. Flexible hour banks, responsive helpdesk, no complex subscription. Specialized in the social economy.",
     heroTags: ["Hour banks", "Remote support", "On-site", "Clear prioritization"],
     featuresTitle: "What we cover",
     featuresDesc: "Support designed for organizations that need help without managing an internal IT department.",
@@ -694,10 +694,10 @@ const en: Translations = {
   },
 
   dell: {
-    title: "Authorized Dell Reseller – Consortium",
+    title: "Authorized Dell Reseller for Nonprofits and Cooperatives in Quebec | Laptops, Workstations, Servers",
     headerSubtitle: "Hardware & Equipment",
     heroTitle: "Dell equipment, member pricing, IT expertise",
-    heroDesc: "As an authorized Dell reseller, we guide you through purchasing and configuring your IT equipment.",
+    heroDesc: "Authorized Dell reseller specialized for nonprofits and cooperatives in Quebec. Laptops, workstations and servers at member pricing, with expert advice and configuration included.",
     heroTags: ["Authorized reseller", "Member pricing", "Expert advice", "Configuration included"],
     badgeText: "Authorized Dell Reseller",
     advantagesTitle: "Why go through Consortium",
@@ -730,10 +730,10 @@ const en: Translations = {
   },
 
   automate: {
-    title: "Power Automate – Consortium",
+    title: "Power Automate for Nonprofits and Cooperatives in Quebec | Microsoft 365 Workflow Automation",
     headerSubtitle: "Automation & Workflows",
     heroTitle: "Automate your processes with Power Automate",
-    heroDesc: "Reduce repetitive tasks and accelerate your workflows, approvals, notifications and integrations without complex code.",
+    heroDesc: "Automate approvals, notifications and Microsoft 365 workflows for cooperatives and nonprofits in Quebec. Reduce repetitive tasks with Power Automate, no complex code required.",
     heroTags: ["Approvals", "Notifications", "Integrations", "Microsoft 365"],
     benefitsTitle: "Why automate",
     benefitsDesc: "Every hour saved on a repetitive task is an hour reinvested where you actually add value.",
@@ -766,10 +766,10 @@ const en: Translations = {
   },
 
   lexique: {
-    title: "IT Glossary – Consortium",
+    title: "IT Glossary for Nonprofits and Cooperatives | Microsoft 365 Terms Explained Simply",
     headerSubtitle: "Resources",
     heroTitle: "IT Glossary",
-    heroDesc: "Everyday technical terms explained simply, so your whole team speaks the same language.",
+    heroDesc: "IT and Microsoft 365 terms explained simply for non-technical teams in nonprofits, cooperatives and social economy organizations in Quebec.",
     searchPlaceholder: "Search a term…",
     noResults: "No results for this search.",
     terms: [
@@ -797,10 +797,10 @@ const en: Translations = {
   },
 
   survey: {
-    title: "IT Questionnaire – Consortium",
+    title: "IT Maturity Questionnaire for Nonprofits and Cooperatives in Quebec | Digital Assessment",
     heroTitle: "IT Maturity Questionnaire",
     heroDesc:
-      "Get a quick overview of your IT environment to better target recommendations.",
+      "Assess your organization's IT maturity in minutes. Quick overview of your Microsoft 365 environment to prioritize improvements — designed for nonprofits and cooperatives in Quebec.",
     submitBtn: "Submit questionnaire",
     resultTitle: "Your result",
     resultDesc: "Based on your answers",

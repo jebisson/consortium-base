@@ -13,9 +13,23 @@ const { lang } = Astro.params as { lang: string };
 const tr = t(lang);
 const s = tr.support;
 const currentPath = `/${lang}/support-ti`;
+
+const faqItems = lang === "fr" ? [
+  { question: "Comment fonctionnent les banques d'heures de support TI ?", answer: "Vous achetez une banque d'heures (10h, 20h ou 40h) utilisable à votre rythme pour des demandes de support à distance ou sur site. Chaque intervention est comptabilisée et vous recevez un suivi clair de l'utilisation de vos heures." },
+  { question: "Est-ce que vous intervenez partout au Québec ?", answer: "Oui. Le support à distance couvre l'ensemble du Québec. Les interventions sur site sont disponibles selon la localisation — contactez-nous pour confirmer la couverture pour votre région." },
+  { question: "Quels types de problèmes couvre le support TI ?", answer: "On couvre les incidents courants comme les problèmes de courriel, de connexion, de postes de travail, d'imprimantes, de Microsoft 365, ainsi que les demandes d'accès, les configurations et les dépannages divers." },
+  { question: "Quel est le délai de réponse habituel ?", answer: "On vise une réponse rapide pour les demandes urgentes, généralement dans les heures suivant la demande. Les incidents critiques sont priorisés. Un suivi est assuré jusqu'à la résolution complète." },
+  { question: "Est-ce que ce service convient à une petite organisation ?", answer: "Absolument. Les banques d'heures sont conçues pour les OBNL et coopératives qui n'ont pas besoin d'un département TI à temps plein. Vous payez seulement pour ce que vous utilisez, sans abonnement mensuel fixe complexe." },
+] : [
+  { question: "How do IT support hour banks work?", answer: "You purchase an hour bank (10h, 20h or 40h) usable at your own pace for remote or on-site support requests. Each intervention is tracked and you receive a clear summary of your hours usage." },
+  { question: "Do you provide support across Quebec?", answer: "Yes. Remote support covers all of Quebec. On-site interventions are available depending on location — contact us to confirm coverage for your region." },
+  { question: "What types of problems does IT support cover?", answer: "We handle common incidents like email issues, connectivity problems, workstations, printers, Microsoft 365, as well as access requests, configurations and general troubleshooting." },
+  { question: "What is the typical response time?", answer: "We aim for a fast response on urgent requests, generally within hours of the request. Critical incidents are prioritized. Follow-up is provided until full resolution." },
+  { question: "Is this service suitable for a small organization?", answer: "Absolutely. Hour banks are designed for nonprofits and cooperatives that don't need a full-time IT department. You only pay for what you use, with no complex fixed monthly subscription." },
+];
 ---
 
-<SiteLayout title={s.title} description={s.heroDesc} lang={lang} currentPath={currentPath}>
+<SiteLayout title={s.title} description={s.heroDesc} lang={lang} currentPath={currentPath} faqItems={faqItems}>
   <style>
     .card-dark {
       background: var(--card);
@@ -178,4 +192,6 @@ const currentPath = `/${lang}/support-ti`;
       </main>
     </div>
   </section>
+
+
 </SiteLayout>
