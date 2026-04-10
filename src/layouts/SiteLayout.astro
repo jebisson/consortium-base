@@ -12,7 +12,7 @@ interface Props {
 }
 
 const tenantLabel = tenant.id === "consortium" ? "Consortium" : tenant.id === "eesad" ? "EÉSAD" : tenant.id.toUpperCase();
-const gaId = tenant.id === "eesad" ? "G-M9DP09K26G" : "G-W4PK2QTRCF";
+const cfToken = tenant.id === "eesad" ? "6f2c4fbf21544f388aeddb909740d9de" : "52589f6b3f0a4e4795082660f4ee2bab";
 const {
   title: rawTitle = `Services TI – ${tenantLabel}`,
   description,
@@ -90,14 +90,8 @@ const serviceSchema = isServicePage && description ? {
     {serviceSchema && <script type="application/ld+json" is:inline set:html={JSON.stringify(serviceSchema)} />}
     {faqItems && faqItems.length > 0 && <script type="application/ld+json" is:inline set:html={JSON.stringify({ "@context": "https://schema.org", "@type": "FAQPage", mainEntity: faqItems.map(f => ({ "@type": "Question", name: f.question, acceptedAnswer: { "@type": "Answer", text: f.answer } })) })} />}
 
-    <!-- Google Analytics -->
-    <script async src={`https://www.googletagmanager.com/gtag/js?id=${gaId}`} is:inline></script>
-    <script define:vars={{ gaId }} is:inline>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-      gtag('config', gaId);
-    </script>
+    <!-- Cloudflare Web Analytics -->
+    <script defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon={`{"token": "${cfToken}"}`} is:inline></script>
 
 
     <style>
