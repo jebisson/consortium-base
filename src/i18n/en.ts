@@ -69,7 +69,7 @@ const en: Translations = {
     tagline: "Security • Modernization • Support",
     heroTitle: "A stable, secure and easy-to-manage IT ecosystem",
     heroDesc:
-      "Explore our services and resources to protect Microsoft 365, strengthen your security posture and structure proactive IT management.",
+      "Explore our services and resources to protect Microsoft 365, strengthen your security posture and structure proactive IT management. Right-sized IT services for cooperatives and nonprofits.",
     ctaExplore: "Explore services →",
     sectionTitle: "Services",
     sectionDesc:

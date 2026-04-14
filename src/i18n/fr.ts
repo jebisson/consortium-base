@@ -69,7 +69,7 @@ const fr: Translations = {
     tagline: "Sécurité • Modernisation • Support",
     heroTitle: "Un écosystème TI stable, sécurisé et simple à gérer",
     heroDesc:
-      "Découvrez nos services et ressources pour protéger Microsoft 365, renforcer la posture de sécurité et structurer une gestion TI proactive.",
+      "Découvrez nos services et ressources pour protéger Microsoft 365, renforcer la posture de sécurité et structurer une gestion TI proactive. Services TI au juste coût pour les coopératives et les OBNL.",
     ctaExplore: "Explorer les services →",
     sectionTitle: "Services offerts",
     sectionDesc:
