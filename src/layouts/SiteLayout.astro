@@ -138,17 +138,6 @@ const serviceSchema = isServicePage && description ? {
         border-color: color-mix(in srgb, var(--accent) 40%, transparent);
       }
 
-      /* ========= NOISE TEXTURE ========= */
-      body::before {
-        content: "";
-        position: fixed;
-        inset: 0;
-        background-image: url(/noise.png);
-        background-size: 200px;
-        opacity: 0.025;
-        pointer-events: none;
-        z-index: 0;
-      }
 
       /* ========= SCROLL REVEAL ========= */
       .reveal {
