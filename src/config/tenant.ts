@@ -45,13 +45,13 @@ const tenants: Record<string, TenantConfig> = {
   },
   eesad: {
     id: "eesad",
-    name: "le réseau des EESAD",
+    name: "le Réseau de coopération des EÉSAD",
     logoSrc: "/eesad-logo.png",
     faviconSrc: "/favicon-eesad.svg",
     siteUrl: "https://ti.eesad.org",
     consent: {
-      fr: "J'accepte, après avoir cliqué sur le bouton « Envoyer », que le réseau des EESAD utilise l'information fournie ci-dessus pour me contacter par message électronique ou par le téléphone au sujet de cette demande ainsi que ponctuellement au sujet des services du réseau des EESAD. Il est possible de se désinscrire des communications du réseau des EESAD à tout moment en écrivant à l'adresse communications@ressources.coop.",
-      en: "I agree, after clicking the \"Send\" button, that the Réseau des EESAD may use the information provided above to contact me by email or by phone regarding this request and occasionally regarding the Réseau des EESAD's services. You may unsubscribe from Réseau des EESAD communications at any time by writing to communications@ressources.coop.",
+      fr: "J'accepte, après avoir cliqué sur le bouton « Envoyer », que le Réseau de coopération des EÉSAD utilise l'information fournie ci-dessus pour me contacter par message électronique ou par le téléphone au sujet de cette demande ainsi que ponctuellement au sujet des services du Réseau de coopération des EÉSAD. Il est possible de se désinscrire des communications du Réseau de coopération des EÉSAD à tout moment en écrivant à l'adresse communications@ressources.coop.",
+      en: "I agree, after clicking the \"Send\" button, that the Réseau de coopération des EÉSAD may use the information provided above to contact me by email or by phone regarding this request and occasionally regarding the Réseau de coopération des EÉSAD's services. You may unsubscribe from Réseau de coopération des EÉSAD communications at any time by writing to communications@ressources.coop.",
     },
     colors: {
       background: "rgb(20, 38, 95)",

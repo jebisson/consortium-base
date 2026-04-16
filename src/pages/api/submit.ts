@@ -40,7 +40,7 @@ function normalize(val: string): string {
 // Tenant display names
 const tenantDisplayNames: Record<string, string> = {
   consortium: "Consortium",
-  eesad: "Réseau des EESAD",
+  eesad: "Réseau de coopération des EÉSAD",
   fqcs: "FQCS",
 };
 

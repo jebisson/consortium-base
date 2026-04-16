@@ -17,7 +17,7 @@ export const GET = async ({ request }: { request: Request }) => {
 
   const tenantLabels: Record<string, string> = {
     consortium: "Consortium",
-    eesad: "Réseau des EESAD",
+    eesad: "Réseau de coopération des EÉSAD",
     fqcs: "FQCS",
   };
   const tenantLabel = tenantLabels[tenant] ?? "Consortium";
