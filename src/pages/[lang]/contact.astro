@@ -36,7 +36,7 @@ const isFr = lang === "fr";
 
   <!-- HEADER -->
   <div slot="header" class="flex flex-col items-center">
-    <img src={tenant.logoSrc} alt={tenant.name} class="h-28 md:h-36 w-auto drop-shadow-lg" />
+    <img src={tenant.logoSrc} alt={tenant.name} class="h-28 md:h-36 w-auto drop-shadow-lg" fetchpriority="high" loading="eager" />
     <p class="mt-3 text-xs tracking-[0.35em] uppercase"
        style="color: color-mix(in srgb, var(--text) 55%, transparent);">
       {isFr ? "Nous joindre" : "Get in touch"}
