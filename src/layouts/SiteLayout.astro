@@ -9,6 +9,7 @@ interface Props {
   lang?: string;
   currentPath?: string;
   faqItems?: { question: string; answer: string }[];
+  preloadImage?: string;
 }
 
 const tenantLabel = tenant.id === "consortium" ? "Consortium" : tenant.id === "eesad" ? "EÉSAD" : tenant.id.toUpperCase();
@@ -19,6 +20,7 @@ const {
   lang = "fr",
   currentPath = "/",
   faqItems,
+  preloadImage,
 } = Astro.props;
 const title = rawTitle.replace(/Le Consortium|Consortium/g, tenantLabel);
 
@@ -62,6 +64,7 @@ const serviceSchema = isServicePage && description ? {
     <title>{title}</title>
     <link rel="icon" type="image/svg+xml" href={tenant.faviconSrc} />
     <link rel="preload" as="image" href={tenant.logoSrc} />
+    {preloadImage && <link rel="preload" as="image" href={preloadImage} />}
 
     <!-- SEO -->
     {description && <meta name="description" content={description} />}
