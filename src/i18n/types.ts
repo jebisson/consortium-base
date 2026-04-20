@@ -154,15 +154,30 @@ export interface GuideTranslations {
   headerSubtitle: string;
   heroTitle: string;
   heroDesc: string;
+  heroSub: string;
   pills: string[];
+  introTitle: string;
+  introCards: { title: string; desc: string }[];
+  sectionsTitle: string;
   sections: {
+    num: string;
     title: string;
     intro: string;
-    tips?: { title: string; text: string }[];
-    warning?: { label: string; text: string };
-    good?: { label: string; text: string };
-    items?: string[];
+    items: string[];
+    note: string;
   }[];
+  neverTitle: string;
+  neverItems: string[];
+  clickedTitle: string;
+  clickedDesc: string;
+  clickedSteps: { n: string; t: string; d: string }[];
+  reportTitle: string;
+  reportDesc: string;
+  reportItems: string[];
+  reportNote: string;
+  summaryTitle: string;
+  summaryItems: string[];
+  summaryNote: string;
 }
 
 export interface RmmTranslations {
