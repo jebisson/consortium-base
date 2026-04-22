@@ -83,6 +83,30 @@ export interface HomeTranslations {
   security: { title: string; desc: string };
   resourcesTitle: string;
   resourceItems: { title: string; desc: string; cta: string }[];
+  ctaLabel: string;
+  ctaTitle: string;
+  ctaTitleHighlight: string;
+  ctaDesc: string;
+  ctaBullets: string[];
+  ctaMemberLabel: string;
+  ctaMemberDesc: string;
+  ctaMemberBtn: string;
+  ctaFormTitle: string;
+  ctaFormOrg: string;
+  ctaFormOrgPlaceholder: string;
+  ctaFormEmailPlaceholder: string;
+  ctaFormService: string;
+  ctaFormServiceDefault: string;
+  ctaFormServices: string[];
+  ctaFormMessage: string;
+  ctaFormMessagePlaceholder: string;
+  ctaFormSubmit: string;
+  whyLabel: string;
+  whyTitle: string;
+  whyTitleHighlight: string;
+  whyDesc: string;
+  whyBtn: string;
+  whyFeatures: { title: string; desc: string }[];
 }
 
 export interface BackupTranslations {
@@ -98,6 +122,7 @@ export interface BackupTranslations {
   whySubtitle: string;
   marketingTitle: string;
   marketingDesc: string;
+  statBanner: string;
   marketingBadge: string;
   risks: { icon: string; title: string; desc: string }[];
   benefitsTitle: string;
@@ -132,6 +157,7 @@ export interface SecurityTranslations {
   headerSubtitle: string;
   heroTitle: string;
   heroDesc: string;
+  statBanner: string;
   heroSubtitle: string;
   hoverHint: string;
   auditLabel: string;
@@ -155,6 +181,7 @@ export interface GuideTranslations {
   heroTitle: string;
   heroDesc: string;
   heroSub: string;
+  statBanner: string;
   pills: string[];
   introTitle: string;
   introCards: { title: string; desc: string }[];
@@ -190,6 +217,7 @@ export interface RmmTranslations {
   pills: { href: string; label: string }[];
   introTitle: string;
   introDesc: string;
+  statBanner: string;
   introBullets: string[];
   introCards: { icon: string; title: string; desc: string }[];
   rmm: { title: string; subtitle: string; cards: { title: string; desc: string }[] };
