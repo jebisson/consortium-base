@@ -46,7 +46,7 @@ const tenants: Record<string, TenantConfig> = {
   eesad: {
     id: "eesad",
     name: "le Réseau de coopération des EÉSAD",
-    logoSrc: "/eesad-logo.png",
+    logoSrc: "/eesad-logo.webp",
     faviconSrc: "/favicon-eesad.svg",
     siteUrl: "https://ti.eesad.org",
     consent: {
