@@ -473,36 +473,40 @@ const serviceCards = [
   });
 </script>
 
-<div id="chat-label" style="
-  position: fixed;
-  bottom: 112px;
-  right: 0;
-  z-index: 9999;
-  background: var(--accent);
-  color: #111;
-  font-size: 0.75rem;
-  font-weight: 700;
-  padding: 8px 16px 8px 18px;
-  border-radius: 999px 0 0 999px;
-  box-shadow: -3px 3px 14px color-mix(in srgb, var(--accent) 45%, transparent);
-  white-space: nowrap;
-  pointer-events: none;
-  opacity: 0;
-  transition: opacity 0.4s ease;
-">
-  {lang === "fr" ? "Clavarder avec un représentant" : "Chat with a representative"}
-</div>
+{tenant.id === "consortium" && (
+  <>
+    <div id="chat-label" style="
+      position: fixed;
+      bottom: 112px;
+      right: 0;
+      z-index: 9999;
+      background: var(--accent);
+      color: #111;
+      font-size: 0.75rem;
+      font-weight: 700;
+      padding: 8px 16px 8px 18px;
+      border-radius: 999px 0 0 999px;
+      box-shadow: -3px 3px 14px color-mix(in srgb, var(--accent) 45%, transparent);
+      white-space: nowrap;
+      pointer-events: none;
+      opacity: 0;
+      transition: opacity 0.4s ease;
+    ">
+      {lang === "fr" ? "Clavarder avec un représentant" : "Chat with a representative"}
+    </div>
 
-<script is:inline>
-  setTimeout(() => {
-    const label = document.getElementById("chat-label");
-    if (label) label.style.opacity = "1";
-  }, 1800);
-</script>
+    <script is:inline>
+      setTimeout(() => {
+        const label = document.getElementById("chat-label");
+        if (label) label.style.opacity = "1";
+      }, 1800);
+    </script>
 
-<script is:inline type="text/javascript"
-  src="https://res.public.onecdn.static.microsoft/customerconnect/v1/7dttl/init.js"
-  id="chatbot"
-  environmentId="fac36e2c-be1f-ec1f-91cd-977b38da69f0"
-  crossorigin="anonymous">
-</script>
+    <script is:inline type="text/javascript"
+      src="https://res.public.onecdn.static.microsoft/customerconnect/v1/7dttl/init.js"
+      id="chatbot"
+      environmentId="fac36e2c-be1f-ec1f-91cd-977b38da69f0"
+      crossorigin="anonymous">
+    </script>
+  </>
+)}
