@@ -12,6 +12,23 @@ const { lang } = Astro.params as { lang: string };
 const tr = t(lang);
 const l = tr.lexique;
 const currentPath = `/${lang}/lexique-ti`;
+
+const termSetUrl = `${tenant.siteUrl}${currentPath}`;
+const definedTermSetSchema = {
+  "@context": "https://schema.org",
+  "@type": "DefinedTermSet",
+  name: l.heroTitle,
+  description: l.heroDesc,
+  url: termSetUrl,
+  inLanguage: lang === "fr" ? "fr-CA" : "en-CA",
+  dateModified: "2026-04-17",
+  hasDefinedTerm: l.terms.map((item) => ({
+    "@type": "DefinedTerm",
+    name: item.term,
+    description: item.def,
+    inDefinedTermSet: termSetUrl,
+  })),
+};
 ---
 
 <SiteLayout title={l.title} description={l.heroDesc} lang={lang} currentPath={currentPath}>
@@ -102,6 +119,8 @@ const currentPath = `/${lang}/lexique-ti`;
     </div>
   </section>
 </SiteLayout>
+
+<script type="application/ld+json" is:inline set:html={JSON.stringify(definedTermSetSchema)} />
 
 <script define:vars={{ noResultsLabel: l.noResults }}>
   const input = document.getElementById("lexSearch");
