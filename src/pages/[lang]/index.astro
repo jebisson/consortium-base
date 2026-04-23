@@ -473,6 +473,33 @@ const serviceCards = [
   });
 </script>
 
+<div id="chat-label" style="
+  position: fixed;
+  bottom: 88px;
+  right: 16px;
+  z-index: 9999;
+  background: white;
+  color: #111;
+  font-size: 0.78rem;
+  font-weight: 600;
+  padding: 6px 12px;
+  border-radius: 999px;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.18);
+  white-space: nowrap;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.4s ease;
+">
+  {lang === "fr" ? "Parler à un représentant" : "Talk to a representative"}
+</div>
+
+<script is:inline>
+  setTimeout(() => {
+    const label = document.getElementById("chat-label");
+    if (label) label.style.opacity = "1";
+  }, 1800);
+</script>
+
 <script is:inline type="text/javascript"
   src="https://res.public.onecdn.static.microsoft/customerconnect/v1/7dttl/init.js"
   id="chatbot"
