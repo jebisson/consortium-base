@@ -142,7 +142,7 @@ const en: Translations = {
     whyBtn: "Become a member →",
     whyFeatures: [
       { title: "Built for the social economy", desc: "Cooperatives, mutuelles, NPOs — our services address your specific budget and operational constraints." },
-      { title: "Transparent pricing", desc: "No surprises: listed prices, clear commitments, simple billing. Backup at $3/month, audit at $99." },
+      { title: "Transparent pricing", desc: "No surprises: listed prices, clear commitments, simple billing." },
       { title: "Human & local service", desc: "A Québec-based team, a dedicated contact, and a results-oriented approach — no IT jargon." },
       { title: "Law 25 compliance", desc: "All our services incorporate best practices in privacy and security to meet Law 25 obligations." },
     ],
@@ -267,11 +267,11 @@ const en: Translations = {
     contactLabel: "Contact",
     contactTitle: "Tell us about your environment",
     contactDesc:
-      "A question about your Microsoft 365 security, an audit ($99), or support? Send us a message.",
+      "A question about your Microsoft 365 security or support? Send us a message.",
     contactBtn: "Open form",
     formTitle: "Contact form",
     subjectOptions: [
-      { value: "Audit 365 - 99$", label: "Microsoft 365 Audit ($99)" },
+      { value: "Audit 365", label: "Microsoft 365 Audit" },
       { value: "Amelioration securite Microsoft 365", label: "Microsoft 365 security improvement" },
       { value: "Soumission services geres", label: "Managed services quote" },
       { value: "Autre", label: "Other" },

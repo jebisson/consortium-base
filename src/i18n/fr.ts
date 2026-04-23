@@ -142,7 +142,7 @@ const fr: Translations = {
     whyBtn: "Devenir membre →",
     whyFeatures: [
       { title: "Conçu pour l'économie sociale", desc: "Coopératives, mutuelles, OBNL — nos services répondent à vos contraintes budgétaires et opérationnelles spécifiques." },
-      { title: "Tarification transparente", desc: "Pas de surprise : prix affichés, engagement clair, facturation simple. Sauvegarde à 3$/mois, audit à 99$." },
+      { title: "Tarification transparente", desc: "Pas de surprise : prix affichés, engagement clair, facturation simple." },
       { title: "Service humain et local", desc: "Une équipe québécoise disponible, un interlocuteur dédié, et une approche orientée résultats, pas jargon TI." },
       { title: "Conformité Loi 25", desc: "Tous nos services intègrent les bonnes pratiques de confidentialité et de sécurité pour répondre aux obligations de la Loi 25." },
     ],
@@ -267,7 +267,7 @@ const fr: Translations = {
     contactLabel: "Contact",
     contactTitle: "Parlez-nous de votre environnement",
     contactDesc:
-      "Une question sur votre sécurité Microsoft 365, un audit (99$), ou un accompagnement? Envoyez-nous un message.",
+      "Une question sur votre sécurité Microsoft 365 ou un accompagnement? Envoyez-nous un message.",
     contactBtn: "Ouvrir le formulaire",
     formTitle: "Formulaire de contact",
     subjectOptions: [
