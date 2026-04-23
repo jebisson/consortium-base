@@ -33,12 +33,25 @@ const { background, text, accent, border, bandBackground, glowColor, cardBackgro
 const canonicalUrl = `${tenant.siteUrl}${currentPath}`;
 const isServicePage = currentPath !== `/${lang}` && !currentPath.includes("contact") && !currentPath.includes("survey") && !currentPath.includes("guide") && !currentPath.includes("lexique");
 
+const sameAsMap: Record<string, string[]> = {
+  consortium: ["https://leconsortium.coop"],
+  eesad: ["https://eesad.org"],
+  fqcs: [],
+};
+
 const organizationSchema = {
   "@context": "https://schema.org",
   "@type": "Organization",
   name: tenant.name,
   url: tenant.siteUrl,
   logo: `${tenant.siteUrl}${tenant.logoSrc}`,
+  description: tr.home.heroDesc,
+  areaServed: [
+    { "@type": "Country", name: "Canada" },
+    { "@type": "AdministrativeArea", name: "Québec" },
+  ],
+  inLanguage: ["fr-CA", "en-CA"],
+  ...(sameAsMap[tenant.id]?.length ? { sameAs: sameAsMap[tenant.id] } : {}),
 };
 
 const serviceSchema = isServicePage && description ? {
@@ -52,9 +65,30 @@ const serviceSchema = isServicePage && description ? {
     name: tenant.name,
     url: tenant.siteUrl,
   },
-  areaServed: { "@type": "Country", name: "Canada" },
+  areaServed: [
+    { "@type": "Country", name: "Canada" },
+    { "@type": "AdministrativeArea", name: "Québec" },
+  ],
   inLanguage: lang === "fr" ? "fr-CA" : "en-CA",
+  serviceType: lang === "fr" ? "Services TI" : "IT Services",
+  dateModified: "2026-04-23",
 } : null;
+
+const webPageSchema = {
+  "@context": "https://schema.org",
+  "@type": "WebPage",
+  name: title,
+  ...(description ? { description } : {}),
+  url: canonicalUrl,
+  inLanguage: lang === "fr" ? "fr-CA" : "en-CA",
+  dateModified: "2026-04-23",
+  isPartOf: {
+    "@type": "WebSite",
+    url: tenant.siteUrl,
+    name: tenant.name,
+    inLanguage: ["fr-CA", "en-CA"],
+  },
+};
 ---
 
 <html lang={lang}>
@@ -91,6 +125,7 @@ const serviceSchema = isServicePage && description ? {
 
     <!-- JSON-LD Structured Data -->
     <script type="application/ld+json" is:inline set:html={JSON.stringify(organizationSchema)} />
+    <script type="application/ld+json" is:inline set:html={JSON.stringify(webPageSchema)} />
     {serviceSchema && <script type="application/ld+json" is:inline set:html={JSON.stringify(serviceSchema)} />}
     {faqItems && faqItems.length > 0 && <script type="application/ld+json" is:inline set:html={JSON.stringify({ "@context": "https://schema.org", "@type": "FAQPage", mainEntity: faqItems.map(f => ({ "@type": "Question", name: f.question, acceptedAnswer: { "@type": "Answer", text: f.answer } })) })} />}
 

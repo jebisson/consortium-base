@@ -1,0 +1,29 @@
+# Consortium de coopération des entreprises collectives — Services TI
+
+> Services TI pour coopératives, mutuelles et OBNL au Québec. Microsoft 365, cybersécurité, sauvegarde, gestion proactive et formation — au juste coût pour l'économie sociale.
+
+Le Consortium de coopération des entreprises collectives offre des services technologiques exclusifs à ses membres : coopératives, mutuelles et organismes à but non lucratif (OBNL) au Québec. Tous les services sont tarifés à coût négocié et conçus pour les contraintes budgétaires du secteur de l'économie sociale.
+
+## Services
+
+- [Sécurité Microsoft 365](https://ti.leconsortium.coop/fr/securite365): Audit de sécurité, activation MFA, conformité Loi 25, protection de l'identité et des données pour coopératives et OBNL.
+- [Sauvegarde Microsoft 365](https://ti.leconsortium.coop/fr/sauvegarde365): Sauvegarde automatisée des courriels, Teams, SharePoint et OneDrive avec Datto SaaS Protection.
+- [Gestion TI proactive — RMM/EDR](https://ti.leconsortium.coop/fr/rmm-edr-kaseya365): Surveillance, maintenance et protection des postes de travail avec Datto RMM et Kaseya 365.
+- [Migration SharePoint et Teams](https://ti.leconsortium.coop/fr/migration-sharepoint): Migration de fichiers réseau vers SharePoint. Structuration documentaire adaptée aux équipes non-techniques.
+- [Formation et intégration employés](https://ti.leconsortium.coop/fr/formation-integration): Formations Microsoft 365 en français pour équipes d'OBNL et coopératives.
+- [Service conseil TI](https://ti.leconsortium.coop/fr/service-conseil): Audit TI, recommandations stratégiques et accompagnement pour l'évolution de l'environnement numérique.
+- [Support TI géré](https://ti.leconsortium.coop/fr/support-ti): Helpdesk et support technique en banques d'heures flexibles pour coopératives et OBNL.
+- [Matériel Dell](https://ti.leconsortium.coop/fr/dell): Revendeur Dell autorisé. Portables, postes de travail et serveurs à prix membres.
+- [Power Automate](https://ti.leconsortium.coop/fr/power-automate): Automatisation des workflows Microsoft 365 sans code complexe.
+
+## Ressources
+
+- [Guide pratique de cybersécurité pour employés](https://ti.leconsortium.coop/fr/guide-employe): Guide à distribuer aux employés. Couvre les mots de passe, le phishing, le Wi-Fi public et les informations sensibles.
+- [Lexique TI](https://ti.leconsortium.coop/fr/lexique-ti): 47 termes TI et Microsoft 365 expliqués simplement pour les équipes non-techniques. Mis à jour le 17 avril 2026.
+- [Questionnaire de maturité TI](https://ti.leconsortium.coop/fr/survey): Évaluation rapide de la maturité numérique d'une organisation.
+
+## À propos
+
+- Site principal du Consortium: https://leconsortium.coop
+- Devenir membre: https://leconsortium.coop/devenir-membre/
+- Contact: https://ti.leconsortium.coop/fr/contact
