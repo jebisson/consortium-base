@@ -1,0 +1,119 @@
+---
+import SiteLayout from "../../../layouts/SiteLayout.astro";
+import { tenant } from "../../../config/tenant";
+import { getCollection } from "astro:content";
+
+export const prerender = true;
+export function getStaticPaths() {
+  return [{ params: { lang: "fr" } }];
+}
+
+const { lang } = Astro.params as { lang: string };
+const currentPath = `/${lang}/blog`;
+
+const allPosts = await getCollection("blog");
+const posts = allPosts
+  .filter((p) => p.data.lang === lang)
+  .sort((a, b) => (b.data.date ?? "").localeCompare(a.data.date ?? ""));
+
+const title = lang === "fr"
+  ? `Blogue TI — ${tenant.name}`
+  : `IT Blog — ${tenant.name}`;
+const description = lang === "fr"
+  ? "Articles pratiques sur la cybersécurité, Microsoft 365, la conformité Loi 25 et la gestion TI pour coopératives et OBNL au Québec."
+  : "Practical articles on cybersecurity, Microsoft 365, and IT management for cooperatives and non-profits in Quebec.";
+
+const angleColors: Record<string, string> = {
+  "Loi 25 / Conformité": "#2563eb",
+  "Comment faire / Éducatif": "#0891b2",
+  "Scénarios de risque": "#dc2626",
+  "Coût / Budget": "#16a34a",
+  "Curiosité / Prise de position": "#7c3aed",
+  "Études de cas": "#d97706",
+};
+---
+
+<SiteLayout title={title} description={description} lang={lang} currentPath={currentPath}>
+  <style>
+    .band-title { color: rgba(17,17,17,0.92); }
+    .band-muted { color: rgba(17,17,17,0.62); }
+    .post-card {
+      background: #fff;
+      border: 1px solid rgba(0,0,0,0.08);
+      border-radius: 1rem;
+      padding: 1.5rem;
+      transition: box-shadow 0.2s, border-color 0.2s, transform 0.2s;
+      text-decoration: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+    }
+    .post-card:hover {
+      box-shadow: 0 6px 24px rgba(0,0,0,0.10);
+      border-color: color-mix(in srgb, var(--accent) 35%, transparent);
+      transform: translateY(-2px);
+    }
+    .angle-badge {
+      display: inline-block;
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      padding: 0.2rem 0.6rem;
+      border-radius: 999px;
+      color: #fff;
+    }
+    .animate-fade-up { animation: fadeUp 0.5s ease both; }
+    .animate-fade-up-delay-1 { animation-delay: 0.1s; }
+    @keyframes fadeUp { from { opacity:0; transform:translateY(14px); } to { opacity:1; transform:none; } }
+  </style>
+
+  <!-- HEADER -->
+  <div slot="header" class="flex flex-col items-center">
+    <img src={tenant.logoSrc} alt={tenant.name} class="h-28 md:h-36 w-auto drop-shadow-lg" fetchpriority="high" loading="eager" />
+    <p class="mt-3 text-xs tracking-[0.35em] uppercase animate-fade-up animate-fade-up-delay-1"
+       style="color: color-mix(in srgb, var(--text) 55%, transparent);">
+      {lang === "fr" ? "Ressources & Conseils" : "Resources & Insights"}
+    </p>
+  </div>
+
+  <!-- HERO -->
+  <div slot="hero" class="relative max-w-3xl mx-auto px-4 text-center z-20 pt-2 pb-10">
+    <div class="pointer-events-none absolute left-1/2 top-8 -translate-x-1/2 w-[60%] h-20 blur-[70px] opacity-50"
+         style="background: color-mix(in srgb, var(--accent) 20%, transparent);"></div>
+    <h1 class="mt-4 text-4xl md:text-5xl font-bold tracking-tight animate-fade-up" style="color: var(--text);">
+      {lang === "fr" ? "Blogue TI" : "IT Blog"}
+    </h1>
+    <p class="mt-4 text-lg animate-fade-up animate-fade-up-delay-1 max-w-2xl mx-auto"
+       style="color: color-mix(in srgb, var(--text) 78%, transparent);">{description}</p>
+  </div>
+
+  <!-- BAND -->
+  <section class="relative w-full overflow-hidden" style="background: var(--band);">
+    <div class="h-[2px] w-full" style="background: var(--accent);"></div>
+    <div class="h-12 w-full"
+         style="background: linear-gradient(to bottom, color-mix(in srgb, var(--accent) 16%, transparent), transparent);"></div>
+
+    <div class="relative z-10">
+      <main class="mx-auto max-w-6xl px-4 pb-20 pt-6">
+        <div class="rounded-3xl bg-white p-8 md:p-10 shadow-xl border border-black/10">
+          <div class="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+            {posts.map((post) => {
+              const badgeColor = angleColors[post.data.angle] ?? "#64748b";
+              return (
+                <a href={`/${lang}/blog/${post.data.url_slug}`} class="post-card">
+                  <span class="angle-badge" style={`background: ${badgeColor};`}>{post.data.angle}</span>
+                  <h2 class="text-base font-semibold band-title leading-snug">{post.data.title}</h2>
+                  <p class="text-sm band-muted leading-relaxed line-clamp-3">{post.data.meta_description}</p>
+                  <span class="mt-auto text-xs font-semibold" style="color: var(--accent);">
+                    {lang === "fr" ? "Lire l'article →" : "Read article →"}
+                  </span>
+                </a>
+              );
+            })}
+          </div>
+        </div>
+      </main>
+    </div>
+  </section>
+</SiteLayout>
