@@ -960,7 +960,7 @@ const en: Translations = {
     title: "IT Maturity Questionnaire for Nonprofits and Cooperatives in Quebec | Digital Assessment",
     heroTitle: "IT Maturity Questionnaire",
     heroDesc:
-      "Assess your organization's IT maturity in minutes. Quick overview of your Microsoft 365 environment to prioritize improvements — designed for nonprofits and cooperatives in Quebec.",
+      "Assess your organization's IT maturity in minutes. Quick overview of your digital environment to prioritize improvements — designed for nonprofits and cooperatives in Quebec.",
     submitBtn: "Submit questionnaire",
     resultTitle: "Your result",
     resultDesc: "Based on your answers",

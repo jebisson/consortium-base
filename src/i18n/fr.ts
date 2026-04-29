@@ -961,7 +961,7 @@ const fr: Translations = {
     title: "Questionnaire de maturité TI pour OBNL et coopératives au Québec | Portrait numérique",
     heroTitle: "Questionnaire de maturité TI",
     heroDesc:
-      "Évaluez la maturité TI de votre organisation en quelques minutes. Portrait rapide de votre environnement Microsoft 365 pour cibler les priorités — conçu pour les OBNL et coopératives du Québec.",
+      "Évaluez la maturité TI de votre organisation en quelques minutes. Portrait rapide de votre environnement numérique pour cibler les priorités — conçu pour les OBNL et coopératives du Québec.",
     submitBtn: "Soumettre le questionnaire",
     resultTitle: "Votre résultat",
     resultDesc: "Basé sur vos réponses",
