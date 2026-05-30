@@ -55,6 +55,8 @@ const organizationSchema = {
   ...(sameAsMap[tenant.id]?.length ? { sameAs: sameAsMap[tenant.id] } : {}),
 };
 
+const dateModified = "2026-05-30";
+
 const serviceSchema = isServicePage && description ? {
   "@context": "https://schema.org",
   "@type": "Service",
@@ -72,7 +74,7 @@ const serviceSchema = isServicePage && description ? {
   ],
   inLanguage: lang === "fr" ? "fr-CA" : "en-CA",
   serviceType: lang === "fr" ? "Services TI" : "IT Services",
-  dateModified: "2026-04-23",
+  dateModified,
 } : null;
 
 const webPageSchema = {
@@ -82,7 +84,7 @@ const webPageSchema = {
   ...(description ? { description } : {}),
   url: canonicalUrl,
   inLanguage: lang === "fr" ? "fr-CA" : "en-CA",
-  dateModified: "2026-04-23",
+  dateModified,
   isPartOf: {
     "@type": "WebSite",
     url: tenant.siteUrl,
@@ -90,6 +92,26 @@ const webPageSchema = {
     inLanguage: ["fr-CA", "en-CA"],
   },
 };
+
+const isHomePage = currentPath === `/${lang}`;
+const breadcrumbSchema = !isHomePage ? {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  itemListElement: [
+    {
+      "@type": "ListItem",
+      position: 1,
+      name: lang === "fr" ? "Accueil" : "Home",
+      item: `${tenant.siteUrl}/${lang}`,
+    },
+    {
+      "@type": "ListItem",
+      position: 2,
+      name: title,
+      item: canonicalUrl,
+    },
+  ],
+} : null;
 ---
 
 <html lang={lang}>
@@ -120,14 +142,16 @@ const webPageSchema = {
     <meta property="og:image:height" content="630" />
 
     <!-- Twitter Card -->
-    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content={title} />
     {description && <meta name="twitter:description" content={description} />}
+    <meta name="twitter:image" content={`${tenant.siteUrl}/og.png?title=${encodeURIComponent(title)}&tenant=${tenant.id}`} />
 
     <!-- JSON-LD Structured Data -->
     <script type="application/ld+json" is:inline set:html={JSON.stringify(organizationSchema)} />
     <script type="application/ld+json" is:inline set:html={JSON.stringify(webPageSchema)} />
     {serviceSchema && <script type="application/ld+json" is:inline set:html={JSON.stringify(serviceSchema)} />}
+    {breadcrumbSchema && <script type="application/ld+json" is:inline set:html={JSON.stringify(breadcrumbSchema)} />}
     {faqItems && faqItems.length > 0 && <script type="application/ld+json" is:inline set:html={JSON.stringify({ "@context": "https://schema.org", "@type": "FAQPage", mainEntity: faqItems.map(f => ({ "@type": "Question", name: f.question, acceptedAnswer: { "@type": "Answer", text: f.answer } })) })} />}
 
     <!-- Cloudflare Web Analytics -->
