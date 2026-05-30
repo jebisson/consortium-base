@@ -29,137 +29,485 @@ const kickerMap: Record<string, string> = {
   "cas-cooperative-habitation-incidents-ti-divises": "Habitation",
 };
 
+const typeMap: Record<string, string> = {
+  "loi-25-conformite-cooperative-obnl-quebec": "Conformité",
+  "7-reglages-microsoft-365-cooperative-obnl": "Comment faire",
+  "depart-employe-acces-mots-de-passe-cooperative": "Scénario de risque",
+  "antivirus-vs-edr-cooperative-obnl": "Prise de position",
+  "cout-reel-gestion-informatique-interne-cooperative": "Coût / Budget",
+  "cas-cooperative-habitation-incidents-ti-divises": "Étude de cas",
+};
+
 const featured = posts[0];
-const rest = posts.slice(1);
+const sec1 = posts.slice(1, 4);
+const sec2 = posts.slice(4);
 ---
 
 <SiteLayout title={title} description={description} lang={lang} currentPath={currentPath}>
   <style>
-    .glass-card {
-      border: 1px solid rgba(255,255,255,0.06);
-      box-shadow: 0 20px 40px rgba(0,0,0,0.45), 0 4px 12px rgba(0,0,0,0.25), 0 0 0 1px rgba(255,255,255,0.07);
+    /* ── Site-themed editorial layout ── */
+    .j-wrap {
+      --rule:      color-mix(in srgb, var(--text) 15%, transparent);
+      --rule-soft: color-mix(in srgb, var(--text) 9%, transparent);
+      --muted:     color-mix(in srgb, var(--text) 45%, transparent);
+      --serif:     "Source Serif 4", "Times New Roman", Georgia, serif;
+      --sans:      system-ui, sans-serif;
+    }
+
+    /* ─── SECTION RULE ─── */
+    .j-section-rule {
+      display: flex; align-items: center; gap: 14px;
+      margin: 56px 0 22px;
+      font-family: var(--sans);
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: .14em;
+      font-weight: 500;
+      color: var(--muted);
+    }
+    .j-section-rule .j-label { white-space: nowrap; color: var(--text); }
+    .j-section-rule .j-line  { flex: 1; height: 0; border-top: 1px solid var(--rule-soft); }
+    .j-section-rule .j-count { font-weight: 400; }
+
+    /* ─── FEATURED ─── */
+    .j-lead {
+      display: grid;
+      grid-template-columns: 0.9fr 1.4fr;
+      gap: 48px;
+      padding-bottom: 40px;
+      border-bottom: 1px solid var(--rule-soft);
+      align-items: start;
+    }
+    .j-lead-side {
+      border-top: 2px solid var(--accent);
+      padding-top: 18px;
+      position: sticky; top: 24px;
+      display: flex; flex-direction: column; gap: 24px;
+    }
+    .j-lead-head {
+      display: flex; align-items: baseline; justify-content: space-between; gap: 14px;
+    }
+    .j-lead-num {
+      font-family: var(--serif);
+      font-weight: 600;
+      font-size: 64px;
+      line-height: 1;
+      letter-spacing: -.03em;
+      color: var(--accent);
+      font-variant-numeric: tabular-nums;
+    }
+    .j-lead-issue {
+      font-family: var(--sans);
+      font-size: 10.5px;
+      text-transform: uppercase;
+      letter-spacing: .18em;
+      color: var(--muted);
+      text-align: right;
+      line-height: 1.5;
+    }
+    .j-meta-line {
+      font-family: var(--sans);
+      font-size: 12px;
+      color: var(--muted);
+      line-height: 1.7;
+      letter-spacing: .02em;
+    }
+    .j-meta-line strong { color: var(--text); font-weight: 500; }
+
+    /* ─── SEAL ─── */
+    .j-seal {
+      width: 100%; max-width: 240px;
+      aspect-ratio: 1/1;
+      margin-top: 4px;
+      color: color-mix(in srgb, var(--text) 30%, transparent);
+      align-self: center;
+    }
+    .j-seal svg { width: 100%; height: 100%; display: block; }
+    .j-seal-rotor {
+      transform-origin: 50% 50%;
+      animation: j-sealspin 60s linear infinite;
+    }
+    @keyframes j-sealspin { to { transform: rotate(360deg); } }
+    @media (prefers-reduced-motion: reduce) { .j-seal-rotor { animation: none; } }
+    .j-lead-foot {
+      font-family: var(--sans);
+      font-size: 11px;
+      color: var(--muted);
+      letter-spacing: .04em;
+      border-top: 1px dotted var(--rule-soft);
+      padding-top: 12px;
+      text-align: center;
+    }
+
+    /* ─── KICKER ─── */
+    .j-kicker {
+      font-family: var(--sans);
+      font-size: 11.5px;
+      text-transform: uppercase;
+      letter-spacing: .14em;
+      color: var(--accent);
+      font-weight: 600;
+      margin-bottom: 12px;
+    }
+    .j-kicker.j-muted { color: var(--muted); }
+
+    /* ─── LEAD TEXT ─── */
+    .j-lead h2 {
+      font-family: var(--serif);
+      font-weight: 600;
+      font-size: clamp(32px, 4vw, 52px);
+      line-height: 1.06;
+      letter-spacing: -.02em;
+      margin: 0 0 18px;
+      text-wrap: balance;
+      color: var(--text);
+    }
+    .j-lead h2 a, .j-col h3 a {
+      color: inherit; text-decoration: none;
+      background-image: linear-gradient(color-mix(in srgb, var(--accent) 60%, transparent), color-mix(in srgb, var(--accent) 60%, transparent));
+      background-size: 0 1px;
+      background-position: 0 100%;
+      background-repeat: no-repeat;
+      transition: background-size .3s ease;
+    }
+    .j-lead h2 a:hover, .j-col h3 a:hover { background-size: 100% 1px; }
+    .j-lead .j-deck {
+      font-family: var(--serif);
+      font-style: italic;
+      font-size: 18px;
+      line-height: 1.5;
+      color: var(--muted);
+      margin: 0 0 18px;
+      max-width: 50ch;
+    }
+    .j-read-link {
+      display: inline-flex; align-items: center; gap: 8px;
+      font-family: var(--sans);
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--accent);
+      text-decoration: none;
+      border-bottom: 1px solid color-mix(in srgb, var(--accent) 50%, transparent);
+      padding-bottom: 2px;
+      transition: gap .2s ease, border-color .2s ease;
+    }
+    .j-read-link:hover { gap: 14px; border-color: var(--accent); }
+
+    /* ─── GRID ─── */
+    .j-feed {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 0;
+      border-top: 1px solid var(--rule-soft);
+    }
+    .j-feed.j-feed-2 { grid-template-columns: 1fr 1fr; }
+    .j-col {
+      padding: 28px 28px 28px 0;
+      border-right: 1px solid var(--rule-soft);
+      display: flex; flex-direction: column;
+    }
+    .j-col:not(:first-child) { padding-left: 28px; }
+    .j-col:last-child { border-right: 0; padding-right: 0; }
+    .j-col article { display: flex; flex-direction: column; gap: 12px; height: 100%; }
+    .j-article-num {
+      font-family: var(--sans);
+      font-size: 11px;
+      color: var(--muted);
+      letter-spacing: .12em;
+      font-variant-numeric: tabular-nums;
+      margin-bottom: 4px;
+      display: flex; justify-content: space-between;
+    }
+    .j-col h3 {
+      font-family: var(--serif);
+      font-weight: 600;
+      font-size: 21px;
+      line-height: 1.2;
+      margin: 0;
+      letter-spacing: -.01em;
+      text-wrap: balance;
+      color: var(--text);
+    }
+    .j-col .j-deck {
+      font-family: var(--serif);
+      color: var(--muted);
+      font-size: 14.5px;
+      line-height: 1.5;
+      margin: 0;
+    }
+    .j-meta-foot {
+      margin-top: auto;
+      padding-top: 16px;
+      font-family: var(--sans);
+      font-size: 12px;
+      color: var(--muted);
+      display: flex; justify-content: space-between; align-items: center;
+      border-top: 1px dotted var(--rule-soft);
+    }
+    .j-meta-foot a {
+      color: var(--accent);
+      text-decoration: none;
+      font-weight: 600;
+    }
+    .j-meta-foot a:hover { text-decoration: underline; text-underline-offset: 3px; }
+
+    /* ─── PULL QUOTE ─── */
+    .j-pullquote {
+      margin: 56px 0 0;
+      padding: 32px 0;
+      border-top: 1px solid var(--rule-soft);
+      border-bottom: 1px solid var(--rule-soft);
+      display: grid;
+      grid-template-columns: 72px 1fr;
+      gap: 24px;
+      align-items: start;
+    }
+    .j-pullquote .j-mark {
+      font-family: var(--serif);
+      font-style: italic;
+      font-weight: 600;
+      font-size: 96px;
+      line-height: .7;
+      color: var(--accent);
+    }
+    .j-pullquote blockquote {
+      font-family: var(--serif);
+      font-style: italic;
+      font-weight: 400;
+      font-size: clamp(20px, 2.2vw, 28px);
+      line-height: 1.35;
+      margin: 0 0 12px;
+      letter-spacing: -.005em;
+      text-wrap: balance;
+      max-width: 56ch;
+      color: var(--text);
+    }
+    .j-pullquote cite {
+      font-family: var(--sans);
+      font-size: 12px;
+      letter-spacing: .04em;
+      color: var(--muted);
+      font-style: normal;
+    }
+
+    /* ─── FOLIO ─── */
+    .j-folio {
+      display: flex; justify-content: space-between; align-items: center;
+      font-family: var(--sans);
+      font-size: 12px;
+      color: var(--muted);
+      margin-top: 56px;
+      padding-top: 20px;
+      border-top: 1px solid var(--rule-soft);
+    }
+
+    /* ─── RESPONSIVE ─── */
+    @media (max-width: 980px) {
+      .j-lead { grid-template-columns: 1fr; gap: 24px; }
+      .j-lead-side { position: static; }
+      .j-lead-num { font-size: 44px; margin-bottom: 10px; }
+      .j-feed, .j-feed.j-feed-2 { grid-template-columns: 1fr; }
+      .j-col { border-right: 0; border-bottom: 1px solid var(--rule-soft); padding: 24px 0; }
+      .j-col:not(:first-child) { padding-left: 0; }
+      .j-col:last-child { border-bottom: 0; }
+      .j-pullquote { grid-template-columns: 1fr; gap: 8px; }
+      .j-pullquote .j-mark { font-size: 64px; }
     }
   </style>
 
   <!-- HEADER SLOT -->
   <div slot="header" class="flex flex-col items-center">
     <img src={tenant.logoSrc} alt={tenant.name} class="h-28 md:h-36 w-auto drop-shadow-lg" fetchpriority="high" loading="eager" />
-    <p class="mt-3 text-sm tracking-[0.35em] uppercase animate-fade-up animate-fade-up-delay-1"
+    <p class="mt-3 text-xs tracking-[0.35em] uppercase animate-fade-up animate-fade-up-delay-1"
        style="color: color-mix(in srgb, var(--text) 55%, transparent);">
       Ressources &amp; Conseils
     </p>
   </div>
 
-  <!-- HERO SLOT -->
-  <div slot="hero" class="relative max-w-5xl mx-auto text-center z-10 py-8 px-4">
+  <!-- HERO -->
+  <div slot="hero" class="relative max-w-3xl mx-auto px-4 text-center z-20 pt-2 pb-10">
     <p class="text-xs uppercase tracking-[0.35em] animate-fade-up"
        style="color: color-mix(in srgb, var(--accent) 85%, transparent);">
       Journal TI
     </p>
-    <h1 class="mt-4 text-4xl md:text-6xl font-bold tracking-tight leading-tight animate-fade-up animate-fade-up-delay-1"
+    <h1 class="mt-4 text-4xl md:text-5xl font-bold tracking-tight animate-fade-up animate-fade-up-delay-1"
         style="color: var(--text);">
       Blogue
     </h1>
-    <p class="mt-5 text-base md:text-lg leading-relaxed mx-auto max-w-3xl animate-fade-up animate-fade-up-delay-2"
-       style="color: color-mix(in srgb, var(--text) 78%, transparent);">
-      {description}
-    </p>
+    <p class="mt-4 text-lg animate-fade-up animate-fade-up-delay-2 max-w-2xl mx-auto"
+       style="color: color-mix(in srgb, var(--text) 78%, transparent);">{description}</p>
   </div>
 
-  <!-- MAIN CONTENT -->
-  <main>
-    <!-- Gold divider -->
-    <section class="relative w-full">
-      <div class="h-[2px] w-full" style="background: var(--accent);"></div>
-      <div class="h-10 w-full"
-           style="background: linear-gradient(to bottom, color-mix(in srgb, var(--accent) 14%, transparent), transparent);"></div>
-    </section>
+  <!-- EDITORIAL BODY -->
+  <div class="j-wrap">
+    <div class="h-[2px] w-full" style="background: var(--accent);"></div>
+    <div class="h-12 w-full"
+         style="background: linear-gradient(to bottom, color-mix(in srgb, var(--accent) 16%, transparent), transparent);"></div>
 
-    <section class="relative w-full" style="background: var(--band);">
-      <div class="mx-auto max-w-6xl px-4 py-16">
+    <section style="background: var(--band);">
+      <div class="mx-auto max-w-6xl px-4 sm:px-8 py-16">
 
-        <!-- Section header -->
-        <div class="text-center reveal mb-10">
-          <h2 class="text-md uppercase tracking-[0.35em]" style="color: rgba(17,17,17,0.55);">
-            {posts.length} articles publiés
-          </h2>
-        </div>
-
-        <!-- FEATURED ARTICLE -->
+        <!-- FEATURED -->
         {featured && (
-          <a
-            href={`/${lang}/blog/${featured.data.url_slug}`}
-            class="group relative overflow-hidden rounded-2xl md:col-span-3 glass-card p-8 md:p-10 flex flex-col gap-4 reveal block mb-6"
-            style="background: var(--card);"
-          >
-            <!-- Hover overlay -->
-            <div class="pointer-events-none absolute inset-0 opacity-0 group-hover:opacity-100 transition duration-300"
-                 style="background: radial-gradient(circle at 15% 50%, color-mix(in srgb, var(--accent) 12%, transparent), transparent 60%);"></div>
-            <!-- Ambient glow -->
-            <div class="pointer-events-none absolute -top-20 -right-20 h-72 w-72 rounded-full blur-3xl opacity-40"
-                 style="background: color-mix(in srgb, var(--accent) 22%, transparent);"></div>
-
-            <div class="relative z-10 max-w-3xl">
-              <div class="flex items-center gap-3 mb-3">
-                <span class="inline-flex items-center rounded-full px-3 py-1 text-xs font-semibold"
-                      style="background: color-mix(in srgb, var(--accent) 15%, transparent); border: 1px solid color-mix(in srgb, var(--accent) 30%, transparent); color: var(--accent);">
-                  {kickerMap[featured.data.url_slug] ?? featured.data.angle}
-                </span>
-                <span class="text-xs" style="color: color-mix(in srgb, var(--text) 45%, transparent);">
-                  À la une
-                </span>
+          <article class="j-lead">
+            <aside class="j-lead-side">
+              <div class="j-lead-head">
+                <div class="j-lead-num">N°&nbsp;01</div>
+                <div class="j-lead-issue">Édition<br />2026 · Mai</div>
               </div>
-              <h2 class="text-2xl md:text-3xl font-extrabold leading-snug" style="color: var(--text);">
-                {featured.data.title}
-              </h2>
-              <p class="mt-3 text-sm md:text-base leading-relaxed max-w-2xl"
-                 style="color: color-mix(in srgb, var(--text) 72%, transparent);">
-                {featured.data.meta_description}
-              </p>
-              <span class="mt-6 inline-flex items-center justify-center rounded-xl px-6 py-3 font-semibold transition group-hover:brightness-110"
-                    style={`background: linear-gradient(90deg, color-mix(in srgb, var(--accent) 92%, white 8%), color-mix(in srgb, var(--accent) 72%, black 28%)); color: #111;`}>
-                Lire l'article →
-              </span>
-            </div>
-          </a>
-        )}
+              <div class="j-meta-line">
+                <strong>À la une</strong><br />
+                {kickerMap[featured.data.url_slug] ?? featured.data.angle}<br />
+                Lecture longue<br />
+                Mis à jour ce mois-ci
+              </div>
 
-        <!-- ARTICLE GRID -->
-        {rest.length > 0 && (
-          <div class="grid gap-6 md:grid-cols-3">
-            {rest.map((post, i) => (
-              <a
-                href={`/${lang}/blog/${post.data.url_slug}`}
-                class="group relative overflow-hidden rounded-2xl glass-card p-6 flex flex-col reveal"
-                style={`animation-delay: ${i * 0.05}s; background: var(--card);`}
-              >
-                <!-- Hover tint -->
-                <div class="pointer-events-none absolute inset-0 opacity-0 group-hover:opacity-100 transition duration-300"
-                     style="background: radial-gradient(circle at 20% 20%, color-mix(in srgb, var(--accent) 16%, transparent), transparent 55%);"></div>
+              <div class="j-seal" aria-hidden="true">
+                <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+                  <defs>
+                    <path id="j-arc-top" d="M 100 100 m -78 0 a 78 78 0 0 1 156 0"/>
+                    <path id="j-arc-bot" d="M 100 100 m -78 0 a 78 78 0 0 0 156 0"/>
+                  </defs>
+                  <g class="j-seal-rotor">
+                    <circle cx="100" cy="100" r="92" fill="none" stroke="currentColor" stroke-width="0.6"/>
+                    <circle cx="100" cy="100" r="86" fill="none" stroke="currentColor" stroke-width="1.4"/>
+                    <circle cx="100" cy="100" r="78" fill="none" stroke="currentColor" stroke-width="0.6"/>
+                    <g stroke="currentColor" stroke-width="0.8">
+                      {Array.from({length: 24}, (_, i) => (
+                        <g transform={i === 0 ? undefined : `rotate(${i * 15} 100 100)`}>
+                          <line x1="100" y1="14" x2="100" y2="22"/>
+                        </g>
+                      ))}
+                    </g>
+                    <text font-family="Georgia, serif" font-size="9.5" letter-spacing="3.4" fill="currentColor" font-weight="500">
+                      <textPath href="#j-arc-top" startOffset="50%" text-anchor="middle">CONSORTIUM · BLOG · ÉDITION</textPath>
+                    </text>
+                    <text font-family="Georgia, serif" font-size="9.5" letter-spacing="3.4" fill="currentColor" font-weight="500">
+                      <textPath href="#j-arc-bot" startOffset="50%" text-anchor="middle">★  COOPÉRATIVES  ·  OBNL  ·  QUÉBEC  ★</textPath>
+                    </text>
+                  </g>
+                  <g>
+                    <circle cx="100" cy="100" r="56" fill="none" stroke="currentColor" stroke-width="0.8"/>
+                    <circle cx="100" cy="100" r="50" fill="none" stroke="currentColor" stroke-width="0.4"/>
+                    <line x1="72" y1="78" x2="128" y2="78" stroke="currentColor" stroke-width="0.8"/>
+                    <text x="100" y="108" text-anchor="middle"
+                          font-family="Georgia, serif" font-weight="600"
+                          font-size="34" letter-spacing="-1" fill="currentColor">L. 25</text>
+                    <line x1="72" y1="122" x2="128" y2="122" stroke="currentColor" stroke-width="0.8"/>
+                    <text x="100" y="136" text-anchor="middle"
+                          font-family="system-ui, sans-serif" font-size="7"
+                          letter-spacing="2" fill="currentColor">CONFORMITÉ · 2026</text>
+                    <g transform="translate(100 60)" fill="currentColor">
+                      <path d="M0 -6 L1.5 -1.8 L6 -1.8 L2.4 0.7 L3.7 5 L0 2.5 L-3.7 5 L-2.4 0.7 L-6 -1.8 L-1.5 -1.8 Z"/>
+                    </g>
+                    <circle cx="100" cy="148" r="1.2" fill="currentColor"/>
+                    <circle cx="92"  cy="148" r="1.2" fill="currentColor"/>
+                    <circle cx="108" cy="148" r="1.2" fill="currentColor"/>
+                  </g>
+                </svg>
+              </div>
 
-                <div class="relative flex flex-col gap-3 h-full">
-                  <span class="inline-flex self-start items-center rounded-full px-2.5 py-0.5 text-xs font-semibold"
-                        style="background: color-mix(in srgb, var(--accent) 12%, transparent); border: 1px solid color-mix(in srgb, var(--accent) 22%, transparent); color: var(--accent);">
-                    {kickerMap[post.data.url_slug] ?? post.data.angle}
-                  </span>
-                  <h3 class="text-lg font-semibold leading-snug" style="color: var(--text);">
-                    {post.data.title}
-                  </h3>
-                  <p class="text-sm leading-relaxed line-clamp-3 flex-1"
-                     style="color: color-mix(in srgb, var(--text) 70%, transparent);">
-                    {post.data.meta_description}
-                  </p>
-                  <span class="mt-2 inline-flex items-center text-sm font-semibold transition group-hover:translate-x-1 duration-200"
-                        style="color: var(--accent);">
-                    Lire l'article →
-                  </span>
-                </div>
+              <div class="j-lead-foot">Sceau éditorial · Vol. I</div>
+            </aside>
+
+            <div class="j-lead-text">
+              <div class="j-kicker">{kickerMap[featured.data.url_slug] ?? featured.data.angle}</div>
+              <h2><a href={`/${lang}/blog/${featured.data.url_slug}`}>{featured.data.title}</a></h2>
+              <p class="j-deck">{featured.data.meta_description}</p>
+              <a class="j-read-link" href={`/${lang}/blog/${featured.data.url_slug}`}>
+                Lire l'article <span aria-hidden="true">→</span>
               </a>
-            ))}
-          </div>
+            </div>
+          </article>
         )}
+
+        <!-- SECTION 1 -->
+        {sec1.length > 0 && (
+          <>
+            <section class="j-section-rule" aria-hidden="true">
+              <span class="j-label">Microsoft&nbsp;365 &amp; sécurité</span>
+              <span class="j-line"></span>
+              <span class="j-count">{sec1.length} articles</span>
+            </section>
+
+            <div class="j-feed">
+              {sec1.map((post, i) => (
+                <div class="j-col">
+                  <article>
+                    <div class="j-article-num">
+                      <span>0{i + 2}</span>
+                      <span>{typeMap[post.data.url_slug] ?? post.data.angle}</span>
+                    </div>
+                    <div class="j-kicker j-muted">{kickerMap[post.data.url_slug] ?? post.data.angle}</div>
+                    <h3><a href={`/${lang}/blog/${post.data.url_slug}`}>{post.data.title}</a></h3>
+                    <p class="j-deck">{post.data.meta_description}</p>
+                    <div class="j-meta-foot">
+                      <span>{typeMap[post.data.url_slug] ?? "Article"}</span>
+                      <a href={`/${lang}/blog/${post.data.url_slug}`}>Lire →</a>
+                    </div>
+                  </article>
+                </div>
+              ))}
+            </div>
+          </>
+        )}
+
+        <!-- PULL QUOTE -->
+        <aside class="j-pullquote">
+          <div class="j-mark" aria-hidden="true">«</div>
+          <div>
+            <blockquote>Le « zéro budget IT » coûte presque toujours plus cher qu'un service géré. Le coût est juste invisible parce qu'il est noyé dans les heures du personnel.</blockquote>
+            <cite>— Extrait de notre dossier sur le coût réel de la gestion TI interne</cite>
+          </div>
+        </aside>
+
+        <!-- SECTION 2 -->
+        {sec2.length > 0 && (
+          <>
+            <section class="j-section-rule" aria-hidden="true">
+              <span class="j-label">Gestion TI &amp; études de cas</span>
+              <span class="j-line"></span>
+              <span class="j-count">{sec2.length} articles</span>
+            </section>
+
+            <div class="j-feed j-feed-2">
+              {sec2.map((post, i) => (
+                <div class="j-col">
+                  <article>
+                    <div class="j-article-num">
+                      <span>0{i + sec1.length + 2}</span>
+                      <span>{typeMap[post.data.url_slug] ?? post.data.angle}</span>
+                    </div>
+                    <div class="j-kicker j-muted">{kickerMap[post.data.url_slug] ?? post.data.angle}</div>
+                    <h3><a href={`/${lang}/blog/${post.data.url_slug}`}>{post.data.title}</a></h3>
+                    <p class="j-deck">{post.data.meta_description}</p>
+                    <div class="j-meta-foot">
+                      <span>{typeMap[post.data.url_slug] ?? "Article"}</span>
+                      <a href={`/${lang}/blog/${post.data.url_slug}`}>Lire →</a>
+                    </div>
+                  </article>
+                </div>
+              ))}
+            </div>
+          </>
+        )}
+
+        <!-- FOLIO -->
+        <div class="j-folio">
+          <div>{posts.length} articles publiés</div>
+          <div>— Fin du sommaire —</div>
+        </div>
 
       </div>
     </section>
-  </main>
+  </div>
+
+  <script>
+    const el = document.getElementById("j-today-date");
+    if (el) {
+      const d = new Date();
+      const fr = d.toLocaleDateString("fr-CA", { weekday: "long", day: "numeric", month: "long", year: "numeric" });
+      el.textContent = fr.charAt(0).toUpperCase() + fr.slice(1);
+    }
+  </script>
 </SiteLayout>
