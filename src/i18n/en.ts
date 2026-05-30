@@ -101,6 +101,8 @@ const en: Translations = {
       desc: "Cybersecurity, best practices and M365 security posture.",
     },
     resourcesTitle: "Resources",
+    journalTitle: "Latest articles from the IT Journal",
+    journalReadMore: "View all articles →",
     resourceItems: [
       { title: "Employee Guide", desc: "Digital best practices: simple, clear, ready to share.", cta: "View guide →" },
       { title: "IT Questionnaire", desc: "Get a quick overview of your IT environment to better target recommendations.", cta: "Fill out questionnaire →" },

@@ -82,6 +82,8 @@ export interface HomeTranslations {
   cards: { title: string; desc: string }[];
   security: { title: string; desc: string };
   resourcesTitle: string;
+  journalTitle: string;
+  journalReadMore: string;
   resourceItems: { title: string; desc: string; cta: string }[];
   ctaLabel: string;
   ctaTitle: string;

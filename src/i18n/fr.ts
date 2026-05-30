@@ -101,6 +101,8 @@ const fr: Translations = {
       desc: "Cybersécurité, bonnes pratiques et posture de sécurité M365.",
     },
     resourcesTitle: "Ressources",
+    journalTitle: "Derniers articles du Journal TI",
+    journalReadMore: "Voir tous les articles →",
     resourceItems: [
       { title: "Guide pratique employé", desc: "Bonnes pratiques numériques : simple, clair, prêt à diffuser.", cta: "Consulter le guide →" },
       { title: "Questionnaire TI", desc: "Dressez un portrait rapide de votre environnement pour mieux cibler les recommandations.", cta: "Remplir le questionnaire →" },
