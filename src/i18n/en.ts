@@ -64,12 +64,12 @@ const en: Translations = {
   },
 
   home: {
-    title: "IT Services for Cooperatives and Nonprofits in Quebec | Microsoft 365, Cybersecurity & Support",
+    title: "Consortium IT Services for Cooperatives and Nonprofits in Quebec | Microsoft 365, Cybersecurity & Support",
     headerSubtitle: "IT Services",
     tagline: "Security • Modernization • Support",
     heroTitle: "A stable, secure and easy-to-manage IT ecosystem",
     heroDesc:
-      "Explore our services and resources to protect Microsoft 365, strengthen your security posture and structure proactive IT management. Right-sized IT services for cooperatives and nonprofits.",
+      "Explore Consortium's services to protect Microsoft 365, strengthen your security posture and structure proactive IT management. Right-sized IT services for cooperatives and nonprofits.",
     ctaExplore: "Explore services →",
     sectionTitle: "Services",
     sectionDesc:

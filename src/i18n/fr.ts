@@ -64,12 +64,12 @@ const fr: Translations = {
   },
 
   home: {
-    title: "Services TI pour coopératives et OBNL au Québec | Microsoft 365, cybersécurité et support",
+    title: "Services TI Consortium pour coopératives et OBNL au Québec | Microsoft 365, cybersécurité et support",
     headerSubtitle: "Services TI",
     tagline: "Sécurité • Modernisation • Support",
     heroTitle: "Un écosystème TI stable, sécurisé et simple à gérer",
     heroDesc:
-      "Découvrez nos services et ressources pour protéger Microsoft 365, renforcer la posture de sécurité et structurer une gestion TI proactive. Services TI au juste coût pour les coopératives et OBNL du Québec.",
+      "Découvrez les services Consortium pour protéger Microsoft 365, renforcer la posture de sécurité et structurer une gestion TI proactive. Services TI au juste coût pour les coopératives et OBNL du Québec.",
     ctaExplore: "Explorer les services →",
     sectionTitle: "Services offerts",
     sectionDesc:
