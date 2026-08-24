@@ -12,6 +12,11 @@ export interface TenantConfig {
   siteUrl: string;
   consent: { fr: string; en: string };
   /**
+   * Optional direct-email address for a "prefer email?" quick-contact link,
+   * shown alongside the contact form. Omit to show the form only.
+   */
+  contactEmail?: string;
+  /**
    * Optional per-page SEO overrides. When set, these take priority over the
    * shared i18n copy for that page/lang — used to give a tenant a more
    * keyword-forward title/description than the shared template provides,
@@ -38,6 +43,7 @@ const tenants: Record<string, TenantConfig> = {
     logoSrc: "/logo_consortium.png",
     faviconSrc: "/favicon-consortium.svg",
     siteUrl: "https://ti.leconsortium.coop",
+    contactEmail: "ti@leconsortium.coop",
     consent: {
       fr: "J'accepte, après avoir cliqué sur le bouton « Envoyer », que le Consortium utilise l'information fournie ci-dessus pour me contacter par message électronique ou par le téléphone au sujet de cette demande ainsi que ponctuellement au sujet des services du Consortium. Il est possible de se désinscrire des communications du Consortium à tout moment en écrivant à l'adresse communications@ressources.coop.",
       en: "I agree, after clicking the \"Send\" button, that the Consortium may use the information provided above to contact me by email or by phone regarding this request and occasionally regarding the Consortium's services. You may unsubscribe from Consortium communications at any time by writing to communications@ressources.coop.",

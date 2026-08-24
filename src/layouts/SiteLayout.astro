@@ -515,6 +515,9 @@ const breadcrumbSchema = !isHomePage ? {
               <ul class="space-y-1.5">
                 <li><a href={`/${lang}/`} class="text-xs hover:underline" style="color: color-mix(in srgb, var(--text) 65%, transparent);">{tr.common.nav.home}</a></li>
                 <li><a href={`/${lang}/contact`} class="text-xs hover:underline" style="color: color-mix(in srgb, var(--text) 65%, transparent);">{tr.common.nav.contact}</a></li>
+                {tenant.contactEmail && (
+                  <li><a href={`mailto:${tenant.contactEmail}`} class="text-xs hover:underline" style="color: color-mix(in srgb, var(--text) 65%, transparent);">{tenant.contactEmail}</a></li>
+                )}
               </ul>
             </div>
           </div>
