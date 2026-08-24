@@ -16,13 +16,14 @@ const tenantLabel = tenant.id === "consortium" ? "Consortium" : tenant.id === "e
 const cfToken = tenant.id === "eesad" ? "6f2c4fbf21544f388aeddb909740d9de" : "52589f6b3f0a4e4795082660f4ee2bab";
 const {
   title: rawTitle = `Services TI – ${tenantLabel}`,
-  description,
+  description: rawDescription,
   lang = "fr",
   currentPath = "/",
   faqItems,
   preloadImage,
 } = Astro.props;
 const title = rawTitle.replace(/Le Consortium|Consortium/g, tenantLabel);
+const description = rawDescription?.replace(/Le Consortium|Consortium/g, tenantLabel);
 
 const tr = t(lang);
 const otherLang = getOtherLang(lang);
@@ -54,6 +55,8 @@ const organizationSchema = {
   ...(sameAsMap[tenant.id]?.length ? { sameAs: sameAsMap[tenant.id] } : {}),
 };
 
+const dateModified = "2026-05-30";
+
 const serviceSchema = isServicePage && description ? {
   "@context": "https://schema.org",
   "@type": "Service",
@@ -71,7 +74,7 @@ const serviceSchema = isServicePage && description ? {
   ],
   inLanguage: lang === "fr" ? "fr-CA" : "en-CA",
   serviceType: lang === "fr" ? "Services TI" : "IT Services",
-  dateModified: "2026-04-23",
+  dateModified,
 } : null;
 
 const webPageSchema = {
@@ -81,7 +84,7 @@ const webPageSchema = {
   ...(description ? { description } : {}),
   url: canonicalUrl,
   inLanguage: lang === "fr" ? "fr-CA" : "en-CA",
-  dateModified: "2026-04-23",
+  dateModified,
   isPartOf: {
     "@type": "WebSite",
     url: tenant.siteUrl,
@@ -89,6 +92,26 @@ const webPageSchema = {
     inLanguage: ["fr-CA", "en-CA"],
   },
 };
+
+const isHomePage = currentPath === `/${lang}`;
+const breadcrumbSchema = !isHomePage ? {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  itemListElement: [
+    {
+      "@type": "ListItem",
+      position: 1,
+      name: lang === "fr" ? "Accueil" : "Home",
+      item: `${tenant.siteUrl}/${lang}`,
+    },
+    {
+      "@type": "ListItem",
+      position: 2,
+      name: title,
+      item: canonicalUrl,
+    },
+  ],
+} : null;
 ---
 
 <html lang={lang}>
@@ -119,14 +142,16 @@ const webPageSchema = {
     <meta property="og:image:height" content="630" />
 
     <!-- Twitter Card -->
-    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content={title} />
     {description && <meta name="twitter:description" content={description} />}
+    <meta name="twitter:image" content={`${tenant.siteUrl}/og.png?title=${encodeURIComponent(title)}&tenant=${tenant.id}`} />
 
     <!-- JSON-LD Structured Data -->
     <script type="application/ld+json" is:inline set:html={JSON.stringify(organizationSchema)} />
     <script type="application/ld+json" is:inline set:html={JSON.stringify(webPageSchema)} />
     {serviceSchema && <script type="application/ld+json" is:inline set:html={JSON.stringify(serviceSchema)} />}
+    {breadcrumbSchema && <script type="application/ld+json" is:inline set:html={JSON.stringify(breadcrumbSchema)} />}
     {faqItems && faqItems.length > 0 && <script type="application/ld+json" is:inline set:html={JSON.stringify({ "@context": "https://schema.org", "@type": "FAQPage", mainEntity: faqItems.map(f => ({ "@type": "Question", name: f.question, acceptedAnswer: { "@type": "Answer", text: f.answer } })) })} />}
 
     <!-- Cloudflare Web Analytics -->
@@ -492,6 +517,9 @@ const webPageSchema = {
               <ul class="space-y-1.5">
                 <li><a href={`/${lang}/`} class="text-xs hover:underline" style="color: color-mix(in srgb, var(--text) 65%, transparent);">{tr.common.nav.home}</a></li>
                 <li><a href={`/${lang}/contact`} class="text-xs hover:underline" style="color: color-mix(in srgb, var(--text) 65%, transparent);">{tr.common.nav.contact}</a></li>
+                {tenant.contactEmail && (
+                  <li><a href={`mailto:${tenant.contactEmail}`} class="text-xs hover:underline" style="color: color-mix(in srgb, var(--text) 65%, transparent);">{tenant.contactEmail}</a></li>
+                )}
               </ul>
             </div>
           </div>

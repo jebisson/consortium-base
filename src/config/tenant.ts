@@ -11,6 +11,20 @@ export interface TenantConfig {
   faviconSrc: string;
   siteUrl: string;
   consent: { fr: string; en: string };
+  /**
+   * Optional direct-email address for a "prefer email?" quick-contact link,
+   * shown alongside the contact form. Omit to show the form only.
+   */
+  contactEmail?: string;
+  /**
+   * Optional per-page SEO overrides. When set, these take priority over the
+   * shared i18n copy for that page/lang — used to give a tenant a more
+   * keyword-forward title/description than the shared template provides,
+   * without touching the copy the other tenants render.
+   */
+  seo?: {
+    home?: { fr?: { title: string; description: string }; en?: { title: string; description: string } };
+  };
   colors: {
     background: string;
     text: string;
@@ -29,9 +43,22 @@ const tenants: Record<string, TenantConfig> = {
     logoSrc: "/logo_consortium.png",
     faviconSrc: "/favicon-consortium.svg",
     siteUrl: "https://ti.leconsortium.coop",
+    contactEmail: "ti@leconsortium.coop",
     consent: {
       fr: "J'accepte, après avoir cliqué sur le bouton « Envoyer », que le Consortium utilise l'information fournie ci-dessus pour me contacter par message électronique ou par le téléphone au sujet de cette demande ainsi que ponctuellement au sujet des services du Consortium. Il est possible de se désinscrire des communications du Consortium à tout moment en écrivant à l'adresse communications@ressources.coop.",
       en: "I agree, after clicking the \"Send\" button, that the Consortium may use the information provided above to contact me by email or by phone regarding this request and occasionally regarding the Consortium's services. You may unsubscribe from Consortium communications at any time by writing to communications@ressources.coop.",
+    },
+    seo: {
+      home: {
+        fr: {
+          title: "Services TI pour OBNL et coopératives au Québec | Consortium – Microsoft 365, cybersécurité",
+          description: "Services TI pour OBNL, coopératives et mutuelles au Québec : sécurité Microsoft 365, sauvegarde, support géré et gestion TI proactive au juste coût, avec le Consortium.",
+        },
+        en: {
+          title: "IT Services for Nonprofits and Cooperatives in Quebec | Consortium – Microsoft 365, Cybersecurity",
+          description: "IT services for nonprofits, cooperatives and mutuals in Quebec: Microsoft 365 security, backup, managed support and proactive IT management at fair cost, with the Consortium.",
+        },
+      },
     },
     colors: {
       background: "rgb(18, 18, 18)",

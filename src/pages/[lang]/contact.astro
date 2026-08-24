@@ -56,6 +56,13 @@ const isFr = lang === "fr";
         ? "Notre équipe vous répond dans les meilleurs délais."
         : "Our team will get back to you as soon as possible."}
     </p>
+    {tenant.contactEmail && (
+      <p class="mt-3 text-sm animate-fade-up animate-fade-up-delay-2"
+         style="color: color-mix(in srgb, var(--text) 60%, transparent);">
+        {isFr ? "Vous préférez un courriel direct ? Écrivez à " : "Prefer a direct email? Write to "}
+        <a href={`mailto:${tenant.contactEmail}`} class="font-medium hover:underline" style="color: var(--accent);">{tenant.contactEmail}</a>
+      </p>
+    )}
   </div>
 
   <!-- MAIN -->
