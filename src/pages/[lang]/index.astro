@@ -80,9 +80,13 @@ const serviceCards = [
   { title: tr.home.security.title, desc: tr.home.security.desc, link: links.security, icon: securityIcon },
   ...tr.home.cards.map((c, i) => ({ title: c.title, desc: c.desc, link: cardLinks[i], icon: cardIcons[i] })),
 ];
+
+const seoOverride = tenant.seo?.home?.[lang as "fr" | "en"];
+const pageTitle = seoOverride?.title ?? tr.home.title;
+const pageDescription = seoOverride?.description ?? tr.home.heroDesc;
 ---
 
-<SiteLayout title={tr.home.title} description={tr.home.heroDesc} lang={lang} currentPath={`/${lang}`} preloadImage="/images/miguel.webp">
+<SiteLayout title={pageTitle} description={pageDescription} lang={lang} currentPath={`/${lang}`} preloadImage="/images/miguel.webp">
   <style>
     .glass-card {
       border: 1px solid rgba(255,255,255,0.06);
