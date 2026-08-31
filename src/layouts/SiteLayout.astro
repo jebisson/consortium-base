@@ -157,6 +157,9 @@ const breadcrumbSchema = !isHomePage ? {
     <!-- Cloudflare Web Analytics -->
     <script defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon={`{"token": "${cfToken}"}`} is:inline></script>
 
+    <!-- Cloudflare Turnstile (loaded once; forms render a .cf-turnstile widget) -->
+    <script defer src="https://challenges.cloudflare.com/turnstile/v0/api.js" is:inline></script>
+
 
     <style>
       /* ========= SCROLL ANIMATION ========= */
