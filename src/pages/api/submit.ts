@@ -60,14 +60,53 @@ const KNOWN_FIELDS = new Set([
   // Survey fields
   "client_nom", "client_email", "client_org", "client_phone",
   "score_total", "score_percent", "score_message",
+  "cf-turnstile-response",
 ]);
 
-export const POST: APIRoute = async ({ request }) => {
+// Verify a Cloudflare Turnstile token server-side. This is the actual
+// anti-bot boundary — the widget in the form is just UX, this call is
+// what a script can't fake.
+async function verifyTurnstile(token: string | undefined, remoteip: string | undefined): Promise<boolean> {
+  const secret = process.env.TURNSTILE_SECRET_KEY;
+  if (!secret) {
+    console.error("❌ TURNSTILE_SECRET_KEY missing — refusing to accept unverified submissions");
+    return false;
+  }
+  if (!token) return false;
+
+  try {
+    const params = new URLSearchParams({ secret, response: token });
+    if (remoteip) params.set("remoteip", remoteip);
+
+    const res = await fetch("https://challenges.cloudflare.com/turnstile/v0/siteverify", {
+      method: "POST",
+      headers: { "Content-Type": "application/x-www-form-urlencoded" },
+      body: params,
+    });
+    const data = await res.json() as { success: boolean };
+    return data.success === true;
+  } catch (err) {
+    console.error("❌ Turnstile verification request failed:", err);
+    return false;
+  }
+}
+
+export const POST: APIRoute = async (context) => {
   console.log("API /api/submit reached");
+  const { request } = context;
 
   try {
     const body = await request.json() as Record<string, string>;
     console.log("Body received:", body);
+
+    let clientAddress: string | undefined;
+    try { clientAddress = context.clientAddress; } catch { /* not available on this adapter/mode — fine, remoteip is optional */ }
+
+    const turnstileOk = await verifyTurnstile(body["cf-turnstile-response"], clientAddress);
+    if (!turnstileOk) {
+      console.warn("⚠️ Turnstile verification failed — rejecting submission");
+      return new Response("Captcha verification failed", { status: 400 });
+    }
 
     const isActivation = Object.keys(body).some((k) => k.startsWith("activation_"));
     const isContact = body["form_type"] === "contact";

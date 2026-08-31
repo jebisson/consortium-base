@@ -168,6 +168,8 @@ const isFr = lang === "fr";
             </span>
           </label>
 
+          <div class="cf-turnstile" data-sitekey={import.meta.env.PUBLIC_TURNSTILE_SITE_KEY} data-theme="auto"></div>
+
           <p id="contactStatus" class="text-sm text-center"
              style="color: color-mix(in srgb, var(--text) 60%, transparent);"></p>
         </form>
@@ -198,6 +200,8 @@ const isFr = lang === "fr";
       if (res.ok) form.reset();
     } catch {
       if (status) status.textContent = msgNetwork;
+    } finally {
+      window.turnstile?.reset(form.querySelector(".cf-turnstile"));
     }
   });
 </script>
