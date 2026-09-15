@@ -103,4 +103,4 @@ C'est aussi la principale différence entre faire l'IT « à l'interne » et un 
 
 ---
 
-**Votre situation ressemble à celle décrite ici ?** Nous proposons un diagnostic initial sans engagement pour les organisations membres du Consortium. [Demandez une soumission](/fr/contact) ou explorez notre [service de gestion TI proactive](/fr/rmm-edr-kaseya365).
+**Votre situation ressemble à celle décrite ici ?** Nous proposons un diagnostic initial sans engagement pour les organisations membres. [Demandez une soumission](/fr/contact) ou explorez notre [service de gestion TI proactive](/fr/rmm-edr-kaseya365).

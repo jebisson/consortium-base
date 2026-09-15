@@ -1,6 +1,6 @@
 ---
 import SiteLayout from "../../layouts/SiteLayout.astro";
-import { t } from "../../i18n/utils";
+import { t, brandify } from "../../i18n/utils";
 import { tenant } from "../../config/tenant";
 
 
@@ -113,7 +113,7 @@ const defaultIdx = 0;           // slider starts at position 1 (index 0 = "Oui/Y
     </h1>
     <p class="mt-3 text-base md:text-lg animate-fade-up animate-fade-up-delay-1"
        style="color: color-mix(in srgb, var(--text) 85%, transparent);">
-      {sv.heroDesc}
+      {brandify(sv.heroDesc, tenant.id)}
     </p>
   </section>
 

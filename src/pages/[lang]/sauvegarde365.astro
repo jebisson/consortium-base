@@ -1,6 +1,6 @@
 ---
 import SiteLayout from "../../layouts/SiteLayout.astro";
-import { t } from "../../i18n/utils";
+import { t, brandify } from "../../i18n/utils";
 import { tenant } from "../../config/tenant";
 import ServiceForm from "../../components/ServiceForm.astro";
 
@@ -67,7 +67,7 @@ const currentPath = lang === "fr" ? "/fr/sauvegarde365" : "/en/backup365";
       {b.heroTitle}
     </h1>
     <p class="mt-4 text-lg soft animate-fade-up animate-fade-up-delay-1">
-      {b.heroDesc}
+      {brandify(b.heroDesc, tenant.id)}
       <span class="block mt-1">{b.heroDescLine2}</span>
     </p>
 
@@ -271,7 +271,7 @@ const currentPath = lang === "fr" ? "/fr/sauvegarde365" : "/en/backup365";
         </div>
 
         <h4 class="text-2xl font-semibold band-title reveal">{b.whyDattoTitle}</h4>
-        <p class="leading-relaxed band-soft reveal">{b.whyDattoDesc}</p>
+        <p class="leading-relaxed band-soft reveal">{brandify(b.whyDattoDesc, tenant.id)}</p>
 
         <div class="mt-6 grid md:grid-cols-2 gap-4">
           {b.dattoPoints.map((dp) => (
