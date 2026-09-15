@@ -628,7 +628,7 @@ const fr: Translations = {
     heroLabel: "Formations & intégration",
     heroTitle: "Accueillir, former et rendre autonome rapidement",
     heroDesc:
-      "Consortium aide vos nouveaux employés à démarrer du bon pied et vos équipes à mieux utiliser Microsoft 365, avec des formations courtes, claires et adaptées à votre réalité.",
+      "Le Consortium aide vos nouveaux employés à démarrer du bon pied et vos équipes à mieux utiliser Microsoft 365, avec des formations courtes, claires et adaptées à votre réalité.",
     heroPills: ["Nouveaux employés", "Microsoft 365", "Cybersécurité"],
     offresTitle: "Offres",
     offresDesc:

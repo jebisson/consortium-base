@@ -1,6 +1,6 @@
 ---
 import SiteLayout from "../../layouts/SiteLayout.astro";
-import { t } from "../../i18n/utils";
+import { t, brandify } from "../../i18n/utils";
 import { tenant } from "../../config/tenant";
 
 export const prerender = true;
@@ -117,7 +117,7 @@ const pageDescription = seoOverride?.description ?? tr.home.heroDesc;
 
     <p class="mt-5 text-base md:text-lg leading-relaxed mx-auto max-w-3xl animate-fade-up animate-fade-up-delay-2"
        style="color: color-mix(in srgb, var(--text) 78%, transparent);">
-      {tr.home.heroDesc}
+      {brandify(tr.home.heroDesc, tenant.id)}
     </p>
 
     <div class="mt-8 flex flex-wrap justify-center gap-3 animate-fade-up animate-fade-up-delay-3">

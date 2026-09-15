@@ -1,6 +1,6 @@
 ---
 import SiteLayout from "../../layouts/SiteLayout.astro";
-import { t } from "../../i18n/utils";
+import { t, brandify } from "../../i18n/utils";
 import { tenant } from "../../config/tenant";
 import ServiceForm from "../../components/ServiceForm.astro";
 
@@ -64,7 +64,7 @@ const faqItems = lang === "fr" ? [
     <h1 class="mt-4 text-4xl md:text-5xl font-bold tracking-tight animate-fade-up" style="color: var(--text);">
       {s.heroTitle}
     </h1>
-    <p class="mt-4 text-lg soft animate-fade-up animate-fade-up-delay-1 max-w-2xl mx-auto">{s.heroDesc}</p>
+    <p class="mt-4 text-lg soft animate-fade-up animate-fade-up-delay-1 max-w-2xl mx-auto">{brandify(s.heroDesc, tenant.id)}</p>
     <div class="mt-6 flex flex-col sm:flex-row gap-3 justify-center animate-fade-up animate-fade-up-delay-2">
       <a href="#forfaits"
          class="inline-flex items-center justify-center px-6 py-3 rounded-xl font-semibold transition hover:brightness-110 active:scale-95"
