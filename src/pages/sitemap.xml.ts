@@ -19,6 +19,7 @@ const pages = [
   "/contact",
   "/lexique-ti",
   "/guide-employe",
+  ...(tenant.id === "consortium" ? ["/assistant"] : []),
 ];
 
 const urls = pages.flatMap((p) => [

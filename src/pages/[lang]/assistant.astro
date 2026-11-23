@@ -1,0 +1,397 @@
+---
+import SiteLayout from "../../layouts/SiteLayout.astro";
+import { tenant } from "../../config/tenant";
+
+export const prerender = true;
+export function getStaticPaths() {
+  return [{ params: { lang: "fr" } }, { params: { lang: "en" } }];
+}
+
+const { lang } = Astro.params as { lang: string };
+const isFr = lang === "fr";
+const currentPath = `/${lang}/assistant`;
+
+// V1: grounded only in Consortium's own IT content. Other tenants get a
+// short placeholder rather than a chatbot answering with the wrong brand.
+const available = tenant.id === "consortium";
+
+const needs = isFr
+  ? [
+      { label: "Sécuriser nos données", tags: ["Sécurité 365", "Sauvegarde 365"], prompt: "Comment sécuriser nos données et nos comptes Microsoft 365 ?" },
+      { label: "Réduire les pannes", tags: ["Gestion TI proactive"], prompt: "Comment réduire les pannes et pannes informatiques avec une gestion TI proactive ?" },
+      { label: "Migrer vers le nuage", tags: ["Migration SharePoint"], prompt: "Comment migrer notre serveur de fichiers vers SharePoint ?" },
+      { label: "Former mon équipe", tags: ["Formation"], prompt: "Quelles formations Microsoft 365 et cybersécurité offrez-vous ?" },
+    ]
+  : [
+      { label: "Secure our data", tags: ["Security 365", "Backup 365"], prompt: "How do we secure our data and Microsoft 365 accounts?" },
+      { label: "Reduce downtime", tags: ["Proactive IT Management"], prompt: "How does proactive IT management reduce downtime?" },
+      { label: "Move to the cloud", tags: ["SharePoint Migration"], prompt: "How do we migrate our file server to SharePoint?" },
+      { label: "Train our team", tags: ["Training"], prompt: "What Microsoft 365 and cybersecurity training do you offer?" },
+    ];
+
+const serviceTags = isFr
+  ? ["Sécurité 365", "Sauvegarde 365", "Gestion TI proactive", "Migration SharePoint", "Formation", "Service conseil", "Support TI", "Matériel Dell", "Power Automate"]
+  : ["Security 365", "Backup 365", "Proactive IT Management", "SharePoint Migration", "Training", "IT Advisory", "IT Support", "Dell Hardware", "Power Automate"];
+
+const starterQuestions = isFr
+  ? [
+      "Quel est le prix de la sauvegarde Microsoft 365 ?",
+      "C'est quoi le MFA et pourquoi c'est important ?",
+      "Quelles sont vos banques d'heures de support TI ?",
+      "Quelle est la différence entre RMM et EDR ?",
+    ]
+  : [
+      "What does Microsoft 365 backup cost?",
+      "What is MFA and why does it matter?",
+      "What are your IT support hour banks?",
+      "What's the difference between RMM and EDR?",
+    ];
+---
+
+<SiteLayout
+  title={isFr ? `Assistant TI – ${tenant.name}` : `IT Assistant – ${tenant.name}`}
+  description={isFr
+    ? "Posez vos questions sur nos services TI : sécurité, sauvegarde, support, migration et plus. Réponses instantanées, information générale seulement."
+    : "Ask questions about our IT services: security, backup, support, migration and more. Instant answers, general information only."}
+  lang={lang}
+  currentPath={currentPath}
+>
+  <style>
+    .chip {
+      background: color-mix(in srgb, var(--text) 6%, transparent);
+      border: 1px solid var(--border);
+      color: color-mix(in srgb, var(--text) 85%, transparent);
+      transition: border-color 0.15s, background 0.15s, color 0.15s;
+    }
+    .chip:hover {
+      border-color: color-mix(in srgb, var(--accent) 60%, transparent);
+    }
+    .chip.active {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: #111;
+      font-weight: 600;
+    }
+    .need-card {
+      background: color-mix(in srgb, var(--text) 4%, transparent);
+      border: 1px solid var(--border);
+      transition: border-color 0.15s, background 0.15s;
+    }
+    .need-card:hover {
+      border-color: color-mix(in srgb, var(--accent) 50%, transparent);
+      background: color-mix(in srgb, var(--accent) 6%, transparent);
+    }
+    .glass-panel {
+      background: color-mix(in srgb, var(--bg) 70%, transparent);
+      backdrop-filter: blur(12px) saturate(140%);
+      -webkit-backdrop-filter: blur(12px) saturate(140%);
+      border: 1px solid color-mix(in srgb, var(--accent) 18%, transparent);
+      border-radius: 1rem;
+    }
+    #chatLog {
+      scrollbar-width: thin;
+      scrollbar-color: color-mix(in srgb, var(--accent) 40%, transparent) transparent;
+    }
+    .msg-user {
+      background: var(--accent);
+      color: #111;
+    }
+    .msg-assistant {
+      background: color-mix(in srgb, var(--text) 7%, transparent);
+      border: 1px solid var(--border);
+      color: var(--text);
+    }
+    .typing-dot {
+      animation: typingPulse 1.1s infinite ease-in-out;
+    }
+    .typing-dot:nth-child(2) { animation-delay: 0.15s; }
+    .typing-dot:nth-child(3) { animation-delay: 0.3s; }
+    @keyframes typingPulse {
+      0%, 60%, 100% { opacity: 0.25; transform: translateY(0); }
+      30% { opacity: 1; transform: translateY(-2px); }
+    }
+    .composer-input:focus {
+      outline: none;
+      box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 30%, transparent);
+    }
+  </style>
+
+  <!-- HEADER -->
+  <div slot="header" class="flex flex-col items-center">
+    <img src={tenant.logoSrc} alt={tenant.name} class="h-20 md:h-24 w-auto drop-shadow-lg" fetchpriority="high" loading="eager" />
+    <p class="mt-3 text-xs tracking-[0.35em] uppercase" style="color: color-mix(in srgb, var(--text) 55%, transparent);">
+      {isFr ? "Assistant TI" : "IT Assistant"}
+    </p>
+  </div>
+
+  <!-- HERO -->
+  <div slot="hero" class="relative max-w-3xl mx-auto px-4 text-center z-20 pt-2 pb-8">
+    <h1 class="mt-4 text-3xl md:text-4xl font-bold tracking-tight animate-fade-up" style="color: var(--text);">
+      {isFr ? "Posez vos questions sur nos services TI." : "Ask about our IT services."}
+    </h1>
+    <p class="mt-3 text-base soft animate-fade-up animate-fade-up-delay-1 max-w-xl mx-auto">
+      {isFr
+        ? "Sécurité, sauvegarde, support, migration, formation — l'assistant répond à partir du contenu publié du Consortium."
+        : "Security, backup, support, migration, training — the assistant answers from the Consortium's published content."}
+    </p>
+  </div>
+
+  <main>
+    {!available ? (
+      <section class="mx-auto max-w-2xl px-4 py-24 text-center">
+        <div class="glass-panel p-10">
+          <p class="text-lg" style="color: var(--text);">
+            {isFr
+              ? "L'assistant TI n'est pas encore disponible pour cette organisation."
+              : "The IT assistant is not yet available for this organization."}
+          </p>
+          <a href={`/${lang}/contact`} class="mt-6 inline-flex items-center justify-center px-6 py-3 rounded-xl font-semibold transition hover:brightness-110"
+             style="background: var(--accent); color: #111;">
+            {isFr ? "Nous contacter" : "Contact us"}
+          </a>
+        </div>
+      </section>
+    ) : (
+      <section class="mx-auto max-w-6xl px-4 pb-20">
+        <div class="rounded-xl px-4 py-3 mb-6 text-xs max-w-3xl mx-auto text-center"
+             style="background: color-mix(in srgb, var(--text) 5%, transparent); border: 1px solid var(--border); color: color-mix(in srgb, var(--text) 68%, transparent);">
+          {isFr
+            ? "Information générale seulement. Les réponses de l'assistant ne constituent pas un avis professionnel et le Consortium se dégage de toute responsabilité quant à leur utilisation. Pour une situation précise, "
+            : "General information only. The assistant's answers are not professional advice, and the Consortium is not liable for their use. For a specific situation, "}
+          <a href={`/${lang}/contact`} class="underline" style="color: var(--accent);">{isFr ? "contactez-nous" : "contact us"}</a>.
+        </div>
+
+        <div class="grid lg:grid-cols-[280px_1fr] gap-6 items-start">
+          <!-- SIDEBAR -->
+          <aside class="glass-panel p-5 lg:sticky lg:top-24">
+            <h2 class="text-xs uppercase tracking-[0.25em] font-semibold mb-3" style="color: color-mix(in srgb, var(--text) 50%, transparent);">
+              {isFr ? "Votre besoin du moment" : "Your need right now"}
+            </h2>
+            <div class="space-y-2 mb-6" id="needList">
+              {needs.map((n) => (
+                <button type="button" class="need-card w-full text-left rounded-lg px-3 py-2.5" data-tags={n.tags.join("|")} data-prompt={n.prompt}>
+                  <span class="block text-sm font-semibold" style="color: var(--text);">{n.label}</span>
+                  <span class="block text-xs mt-0.5" style="color: color-mix(in srgb, var(--text) 55%, transparent);">{n.tags.join(" · ")}</span>
+                </button>
+              ))}
+            </div>
+
+            <h2 class="text-xs uppercase tracking-[0.25em] font-semibold mb-3" style="color: color-mix(in srgb, var(--text) 50%, transparent);">
+              {isFr ? "Explorer par service" : "Browse by service"}
+            </h2>
+            <div class="flex flex-wrap gap-2" id="serviceTags">
+              {serviceTags.map((tag) => (
+                <button type="button" class="chip px-3 py-1.5 rounded-full text-xs" data-tag={tag}>{tag}</button>
+              ))}
+            </div>
+          </aside>
+
+          <!-- CHAT -->
+          <div class="glass-panel p-5 flex flex-col" style="min-height: 560px;">
+            <div id="chatLog" class="flex-1 overflow-y-auto space-y-4 pr-1" style="max-height: 50vh; min-height: 320px;" aria-live="polite">
+              <div id="emptyState" class="h-full flex flex-col items-center justify-center text-center py-10">
+                <p class="text-sm mb-4" style="color: color-mix(in srgb, var(--text) 55%, transparent);">
+                  {isFr ? "Essayez une question pour commencer :" : "Try a question to get started:"}
+                </p>
+                <div class="flex flex-wrap gap-2 justify-center max-w-lg">
+                  {starterQuestions.map((q) => (
+                    <button type="button" class="chip starter-question px-3 py-1.5 rounded-full text-xs" data-prompt={q}>{q}</button>
+                  ))}
+                </div>
+              </div>
+            </div>
+
+            <div class="mt-4">
+              <div id="selectedTagsRow" class="hidden flex-wrap gap-2 mb-2"></div>
+              <form id="chatForm" class="flex items-end gap-2">
+                <textarea
+                  id="chatInput"
+                  rows="1"
+                  class="composer-input flex-1 rounded-xl px-4 py-3 text-sm resize-none"
+                  style={`background: color-mix(in srgb, var(--text) 6%, var(--bg)); border: 1px solid var(--border); color: var(--text);`}
+                  placeholder={isFr ? "Précisez votre besoin, puis Envoyer…" : "Describe your need, then Send…"}
+                ></textarea>
+                <button type="submit" id="sendBtn"
+                        class="shrink-0 px-5 py-3 rounded-xl font-semibold text-sm transition hover:brightness-110 active:scale-95 disabled:opacity-50"
+                        style="background: var(--accent); color: #111;">
+                  {isFr ? "Envoyer" : "Send"}
+                </button>
+              </form>
+              <p class="mt-2 text-xs text-center" style="color: color-mix(in srgb, var(--text) 45%, transparent);">
+                {isFr ? "Entrée pour envoyer, Maj+Entrée pour une nouvelle ligne." : "Enter to send, Shift+Enter for a new line."}
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+    )}
+  </main>
+</SiteLayout>
+
+{available && (
+  <script define:vars={{
+    isFr,
+    msgError: isFr ? "Une erreur est survenue. Réessayez dans un instant." : "Something went wrong. Please try again.",
+  }}>
+    const chatLog = document.getElementById("chatLog");
+    const emptyState = document.getElementById("emptyState");
+    const chatForm = document.getElementById("chatForm");
+    const chatInput = document.getElementById("chatInput");
+    const sendBtn = document.getElementById("sendBtn");
+    const selectedTagsRow = document.getElementById("selectedTagsRow");
+
+    /** @type {{role: "user" | "assistant", content: string}[]} */
+    let history = [];
+    let selectedTags = [];
+    let sending = false;
+
+    function renderSelectedTags() {
+      if (selectedTags.length === 0) {
+        selectedTagsRow.classList.add("hidden");
+        selectedTagsRow.classList.remove("flex");
+        selectedTagsRow.innerHTML = "";
+        return;
+      }
+      selectedTagsRow.classList.remove("hidden");
+      selectedTagsRow.classList.add("flex");
+      selectedTagsRow.innerHTML = selectedTags.map((t) =>
+        `<span class="chip active px-3 py-1 rounded-full text-xs inline-flex items-center gap-1.5" data-selected-tag="${t}">
+          ${t}
+          <button type="button" aria-label="${isFr ? "Retirer" : "Remove"} ${t}" data-remove-tag="${t}" class="leading-none">×</button>
+        </span>`
+      ).join("");
+      selectedTagsRow.querySelectorAll("[data-remove-tag]").forEach((btn) => {
+        btn.addEventListener("click", () => {
+          const tag = btn.getAttribute("data-remove-tag");
+          selectedTags = selectedTags.filter((t) => t !== tag);
+          document.querySelectorAll(`#serviceTags [data-tag="${tag}"]`).forEach((el) => el.classList.remove("active"));
+          renderSelectedTags();
+        });
+      });
+    }
+
+    function toggleTag(tag, btn) {
+      if (selectedTags.includes(tag)) {
+        selectedTags = selectedTags.filter((t) => t !== tag);
+        btn.classList.remove("active");
+      } else {
+        selectedTags = [...selectedTags, tag];
+        btn.classList.add("active");
+      }
+      renderSelectedTags();
+    }
+
+    document.querySelectorAll("#serviceTags [data-tag]").forEach((btn) => {
+      btn.addEventListener("click", () => toggleTag(btn.getAttribute("data-tag"), btn));
+    });
+
+    document.querySelectorAll("#needList [data-tags]").forEach((btn) => {
+      btn.addEventListener("click", () => {
+        const tags = btn.getAttribute("data-tags").split("|");
+        tags.forEach((tag) => {
+          if (!selectedTags.includes(tag)) {
+            selectedTags = [...selectedTags, tag];
+            document.querySelectorAll(`#serviceTags [data-tag="${tag}"]`).forEach((el) => el.classList.add("active"));
+          }
+        });
+        renderSelectedTags();
+        chatInput.value = btn.getAttribute("data-prompt") || "";
+        chatInput.focus();
+      });
+    });
+
+    document.querySelectorAll(".starter-question").forEach((btn) => {
+      btn.addEventListener("click", () => sendMessage(btn.getAttribute("data-prompt")));
+    });
+
+    function addBubble(role, text) {
+      if (emptyState) emptyState.remove();
+      const wrap = document.createElement("div");
+      wrap.className = role === "user" ? "flex justify-end" : "flex justify-start";
+      const bubble = document.createElement("div");
+      bubble.className = (role === "user" ? "msg-user" : "msg-assistant") + " rounded-2xl px-4 py-2.5 text-sm max-w-[85%] whitespace-pre-wrap";
+      bubble.textContent = text;
+      wrap.appendChild(bubble);
+      chatLog.appendChild(wrap);
+      chatLog.scrollTop = chatLog.scrollHeight;
+      return bubble;
+    }
+
+    function addTypingIndicator() {
+      const wrap = document.createElement("div");
+      wrap.className = "flex justify-start";
+      wrap.id = "typingIndicator";
+      wrap.innerHTML = `<div class="msg-assistant rounded-2xl px-4 py-3 text-sm inline-flex gap-1">
+        <span class="typing-dot" style="color: var(--accent);">●</span>
+        <span class="typing-dot" style="color: var(--accent);">●</span>
+        <span class="typing-dot" style="color: var(--accent);">●</span>
+      </div>`;
+      chatLog.appendChild(wrap);
+      chatLog.scrollTop = chatLog.scrollHeight;
+    }
+
+    function removeTypingIndicator() {
+      document.getElementById("typingIndicator")?.remove();
+    }
+
+    async function sendMessage(rawText) {
+      const text = (rawText ?? chatInput.value).trim();
+      if (!text || sending) return;
+
+      const tagPrefix = selectedTags.length
+        ? `[${isFr ? "Services concernés" : "Related services"}: ${selectedTags.join(", ")}] `
+        : "";
+      const fullText = tagPrefix + text;
+
+      addBubble("user", text);
+      history.push({ role: "user", content: fullText });
+      chatInput.value = "";
+      selectedTags = [];
+      document.querySelectorAll("#serviceTags .chip.active").forEach((el) => el.classList.remove("active"));
+      renderSelectedTags();
+
+      sending = true;
+      sendBtn.disabled = true;
+      addTypingIndicator();
+
+      try {
+        const res = await fetch("/api/chat", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ messages: history }),
+        });
+        const data = await res.json();
+        removeTypingIndicator();
+        if (!res.ok || !data.reply) {
+          addBubble("assistant", data.error || msgError);
+        } else {
+          addBubble("assistant", data.reply);
+          history.push({ role: "assistant", content: data.reply });
+        }
+      } catch {
+        removeTypingIndicator();
+        addBubble("assistant", msgError);
+      } finally {
+        sending = false;
+        sendBtn.disabled = false;
+      }
+    }
+
+    chatForm.addEventListener("submit", (e) => {
+      e.preventDefault();
+      sendMessage();
+    });
+
+    chatInput.addEventListener("keydown", (e) => {
+      if (e.key === "Enter" && !e.shiftKey) {
+        e.preventDefault();
+        sendMessage();
+      }
+    });
+
+    chatInput.addEventListener("input", () => {
+      chatInput.style.height = "auto";
+      chatInput.style.height = Math.min(chatInput.scrollHeight, 140) + "px";
+    });
+  </script>
+)}
